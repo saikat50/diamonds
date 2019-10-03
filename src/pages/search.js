@@ -1,3 +1,8 @@
+import React from 'react';
+import AddDiamond from '../components/AddNewDiamond'
+import DiamondList from '../components/DiamondsList'
+import MyNavbar from '../components/MyNavbar'
+import {Diamond,user,listPrice} from '../App'
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -75,9 +80,9 @@ export default class Search extends React.Component {
   
         <div className="container" >
   
-          <Navbar />
+          <MyNavbar />
           <AddDiamond saveDiamond={this.saveDiamond} cancelEdit={this.cancelEdit} addEdit={this.addEdit} prices={this.state.prices} edit={this.state.edit} filter={this.state.filter} diamonds={this.state.diamondArr} />
-          <Modal />
+          <MyModal />
           <DiamondList deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
         </div>
       );

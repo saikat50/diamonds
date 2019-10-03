@@ -1,0 +1,30 @@
+import React from 'react'
+import Dots from '../Component/Dots'
+
+
+
+//display a single card of home page
+export default class MyCard extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      var objStyle = {
+        width: "80%",
+        height: "170px",
+        margine: "50px"
+      }
+      return (
+        <div className="white-background">
+          {/* image */}
+          <img src={this.props.img} style={objStyle} />
+          {/* h5 */}
+          <h5>{this.props.label}</h5>
+          {/* p */}
+          <p className="margBottom30">{this.props.text}</p>
+          {/* Dots */}
+          <Dots num={this.props.num} total={this.props.total} />
+        </div>
+      );
+    }
+  }
