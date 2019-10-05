@@ -2,7 +2,7 @@ import React from 'react'
 
 
 // display small round dots
-export default class Dots extends React.Component {
+export class Dots extends React.Component {
     constructor(props) {
       super(props);
     }
@@ -22,3 +22,5 @@ export default class Dots extends React.Component {
       );
     }
   }
+
+  export default Dots;

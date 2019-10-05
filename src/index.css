@@ -11,3 +11,220 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+/* body{
+    margin:0;
+    font-family: Arial;
+} */
+/* .fixed{ */
+    /* position:fixed;
+    width:97.5%;
+    top:0;
+    z-index:1; */
+/* }    */
+/* .marginTop{
+    margin-top:60px;
+} */
+
+
+.cardHolder{
+  background-image: url("https://thumbs.dreamstime.com/z/diamonds-218077.jpg");
+  padding:30px 80px;
+  margin:0;
+
+}
+.white-background{
+  background-color:rgb(130, 131, 238,0.5);
+  padding:100px 50px 50px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5%;
+  margin-bottom: 10px;
+  max-width: 500px;;
+}
+h5 ,.margBottom30 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+ 
+}
+.white-background>img{
+  margin-bottom: 30px;
+  box-shadow: 10px 5px #4d4c4e;
+  border-radius: 50%;
+}
+.smallRoundLightBlue{
+  display:inline-block;
+  border-radius:50%;
+  background-color:rgb(150, 56, 64);
+  width:8px;
+  height:8px;
+  margin-right :3px;
+}
+.smallRoundBlue{
+  display:inline-block;
+  border-radius:50%;
+  background-color:blue;
+  width:8px;
+  height:8px;
+  margin-right :3px;
+}
+.inline{
+  display:inline;
+  margin-top: 50px;
+}
+.btnSucc{
+  margin-right: 5px;
+}
+.logo{
+  width:40px;
+}
+.notVisible{
+  display:none;
+}
+.lightBlueBorder{
+  border:5px solid rgb(135, 190, 223);
+  border-radius: 10%;
+}
+
+
+.border-bottom{
+  border-bottom: 1px solid black;
+}
+
+#invalid-passwords{
+  color:red;
+}
+/* .noMarginBottom{
+  margin-bottom: 1px;
+  font-size:12px;
+  color:white;
+  font-weight: bold
+  
+} */
+/* .diamondRow{
+  border:1px solid rgb(6, 5, 15);
+  background-color:rgb(149, 147, 152);
+} */
+.diamondContent>h5{
+  margin-bottom: 1px;
+  font-size: 10px;
+  color:rgb(230, 19, 19);
+  font-weight: bold
+}
+
+.diamondContent>a>p {
+  color:rgb(40, 14, 187);
+  font-weight:normal;
+  font-size: 11px;
+} 
+.smallPic{
+  width:200px;
+}
+/* .expand{
+  margin-left: auto;
+  margin-top:auto;
+} */
+/* .hideThis{
+  display:none;
+}*/
+.diamondContent>p{
+  margin-bottom: 1px;
+  text-align: center;
+  color:rgb(39, 11, 116);
+  font-weight:bold;
+  font-size: 11px;
+}/*
+.posRelativeArrow{
+  position: relative;
+  bottom:0px;
+  right:-98%;
+}
+.light-blue{
+  background-color: rgb(161, 211, 240);
+}
+.bgPink{
+  background-color: rgb(250, 248, 244);
+} */
+/* .disabled{
+  display: none
+} */
+/* body{
+  background-color:#007bff!important;
+} */
+.logo{
+  width:100px
+}
+.fixed{
+  border:1px solid white;
+ 
+  margin: 15px 0;
+
+}
+.h5Cert{
+  height: 30px;
+  margin-left: 20px
+}
+#AGS{
+  height: 100px
+}
+.innerCol{
+  width:33.3%;
+}
+.modal-content{
+  height:740px;
+}
+
+.login {
+  max-width: 500px;
+  margin: 50px auto;
+
+}
+
+
+
+
+
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}

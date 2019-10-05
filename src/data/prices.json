@@ -1,0 +1,48 @@
+{
+    "response": {
+        "header": {
+            "error_code": 0,
+            "error_message": ""
+        },
+        "body": {
+            "price": [
+                {
+                    "shape": "round",
+                    "low_size": 1.00,
+                    "high_size":1.49,
+                    "color": "D",
+                    "clarity": "IF",
+                    "caratprice": 8600,
+                    "date": "2010-12-31"
+                },
+                {
+                    "shape": "round",
+                    "low_size": 1.50,
+                    "high_size": 1.99,
+                    "color": "D",
+                    "clarity": "IF",
+                    "caratprice": 9000,
+                    "date": "2010-12-31"
+                },
+                {
+                    "shape": "round",
+                    "low_size": 2.00,
+                    "high_size": 2.99,
+                    "color": "D",
+                    "clarity": "IF",
+                    "caratprice": 10000,
+                    "date": "2010-12-31"
+                },
+                {
+                    "shape": "round",
+                    "low_size": 10.00,
+                    "high_size": 10.99,
+                    "color": "M",
+                    "clarity": "I3",
+                    "caratprice": 2000,
+                    "date": "2010-12-31"
+                }
+            ]
+        }
+    }
+}

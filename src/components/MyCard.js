@@ -1,13 +1,13 @@
 import React from 'react'
-import Dots from '../Component/Dots'
+import Dots from './Dots'
 
 
 
 //display a single card of home page
-export default class MyCard extends React.Component {
-    constructor(props) {
-      super(props);
-    }
+
+export class MyCard extends React.Component {
+
+    
     render() {
       var objStyle = {
         width: "80%",
@@ -17,7 +17,7 @@ export default class MyCard extends React.Component {
       return (
         <div className="white-background">
           {/* image */}
-          <img src={this.props.img} style={objStyle} />
+          <img alt="" src={this.props.img} style={objStyle} />
           {/* h5 */}
           <h5>{this.props.label}</h5>
           {/* p */}

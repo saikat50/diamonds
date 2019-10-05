@@ -6,9 +6,7 @@ import {Row,Col,Accordion,Card} from 'react-bootstrap'
 //This Stupid component receives two props : edit & description. edit is the index of the diamond and description is all the data of the diamond
 //it uses acordeon to show the details of single diamond
 export default class ShowDiamond extends React.Component {
-    constructor(props) {
-      super(props);
-    }
+
     render() {
   
       var bgColorClass = "";
@@ -24,7 +22,7 @@ export default class ShowDiamond extends React.Component {
       return (
         <div>
           {/* below are the details visible in accordeon */}
-          <Accordion defaultActiveKey="0" >
+          <Accordion defaultActiveKey="0" style={{backgroundColor:bgColorClass}}>
             <Card>
               <Accordion.Toggle as={Card.Header} eventKey={this.props.edit}>
                 <Row>
@@ -172,7 +170,7 @@ export default class ShowDiamond extends React.Component {
                     <Col xl="1" lg="2" md="3" sm="4" xs="6">
                       <div className="content diamondContent">
                         <h5 className="noMarginBottom">OWNER</h5>
-                        <p>{this.props.description.owner}</p>
+                        <p>{this.props.ownerName(this.props.description.owner)}</p>
                       </div>
                     </Col>
                     <Col xl="1" lg="2" md="3" sm="4" xs="6">

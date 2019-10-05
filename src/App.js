@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
-import {ReactRouterDOM} from 'react-router-dom'
+import { Switch, Route} from 'react-router-dom'
 import {Home} from './pages/home'
-import {Search} from './pages/search'
+import {Search} from './pages/search.js'
+import jsonUsers from './data/users'
+import LoginPage from './pages/LoginPage';
+
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
+  console.log(shape, color, clarity, weight, priceList[0])
   if (shape != "BR" && shape != "round") { shape = "pear" } else { shape = "round" };
   for (var i = 0; i < priceList.length; i++) { //searches the right price on the pricelist
     if (shape === priceList[i].shape && color === priceList[i].color &&
@@ -15,20 +19,60 @@ export function listPrice(shape, color, clarity, weight, priceList) {
   }
   return 0;
 }
-//user name loged in. NEED TO ATTACH TO THE LOGIN AND BUILD LIST OF USER DATA
-export var user = "moshe";
+
 
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // activeUser: 
+      // null,
+      activeUser:   {
+        "id": 3,
+        "fname": "Jonathan",
+        "lname": "Alon",
+        "email": "Joni@Alon.com",
+        "pwd": "123"
+    },
+      allUsers: jsonUsers,
+
+    }
+
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+
+
+    console.log(this.state.allRecipes);
+  }
+
+  handleLogout() {
+    this.setState({activeUser: null});
+  }
+
+  handleLogin(activeUser) {
+
+    this.setState({activeUser});
+  }
+  ownerName=(userId)=>{
+    for (var i=0;i<this.state.allUsers.length;i++){
+      if (this.state.allUsers[i].id==userId) return this.state.allUsers[i].fname+" "+this.state.allUsers[i].lname
+    }
+
+  }
   render() {
+    const { activeUser, allUsers } = this.state;
     return (
-      <div>
+     
+
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/home" exact component={Home} />
-          <Route path="/search" exact component={Search} />
+          <Route  exact path="/" ><Home  activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
+          <Route  exact path="/home" ><Home  activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
+          <Route  exact path="/search"><Search ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
+          <Route  exact path="/login"> <LoginPage  handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         </Switch>
-      </div>
+      
+      // </div>
     );
   }
 }
