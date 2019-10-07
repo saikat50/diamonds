@@ -16,6 +16,7 @@ export default class AddDiamond extends React.Component {
                 disableSave: true,
                 page: 0,
                 diamond: {
+                    id:"",
                     lotID: "fdgdsf",
                     shape: "BR",
                     weight: "1",
@@ -58,6 +59,7 @@ export default class AddDiamond extends React.Component {
                 page: 0,
                 disableSave: true,
                 diamond: {
+                    id:this.props.diamonds[this.props.edit].id,
                     lotID: this.props.diamonds[this.props.edit].lotID,
                     shape: this.props.diamonds[this.props.edit].shape,
                     weight: this.props.diamonds[this.props.edit].weight,
@@ -113,6 +115,7 @@ export default class AddDiamond extends React.Component {
                 disableSave: true,
                 page: 0,
                 diamond: {
+                    id:"",
                     lotID: "fdgdsf",
                     shape: "BR",
                     weight: "1",
@@ -155,6 +158,7 @@ export default class AddDiamond extends React.Component {
                 page: 0,
                 disableSave: true,
                 diamond: {
+                    id:nextProps.props.diamonds[nextProps.props.edit].id,
                     lotID: nextProps.diamonds[nextProps.edit].lotID,
                     shape: nextProps.diamonds[nextProps.edit].shape,
                     weight: nextProps.diamonds[nextProps.edit].weight,

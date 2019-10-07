@@ -27,7 +27,7 @@ import priceList  from '../data/prices.json';
       this.lowerHalf = diamond.get("lowerHalf");
       this.girdle = diamond.get("girdle");
       this.culet = diamond.get("culet");
-      this.list = listPrice(this.shape,this.color,this.clarity,this.weight,priceList)
+      this.list = listPrice(this.shape,this.color,this.clarity,this.weight,priceList.response.body.price)
       this.discount = diamond.get("discount");
       this.pricePerCarat = diamond.get("pricePerCarat");
       this.links = diamond.get("links");
