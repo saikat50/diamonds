@@ -10,9 +10,9 @@ export class MyCard extends React.Component {
     
     render() {
       var objStyle = {
-        width: "80%",
-        height: "170px",
-        margine: "50px"
+        width: "100%",
+        height: "200px",
+        margine: "20px"
       }
       return (
         <div className="white-background">

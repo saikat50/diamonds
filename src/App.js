@@ -5,7 +5,7 @@ import {Home} from './pages/home'
 import {Search} from './pages/search.js'
 import jsonUsers from './data/users'
 import LoginPage from './pages/LoginPage';
-
+import SignupPage from './pages/Signup'
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
@@ -26,15 +26,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // activeUser: 
-      // null,
-      activeUser:   {
-        "id": 3,
-        "fname": "Jonathan",
-        "lname": "Alon",
-        "email": "Joni@Alon.com",
-        "pwd": "123"
-    },
+      activeUser: 
+      null,
+    //   activeUser:   {
+    //     "id": 3,
+    //     "fname": "Jonathan",
+    //     "lname": "Alon",
+    //     "email": "Joni@Alon.com",
+    //     "pwd": "123"
+    // },
       allUsers: jsonUsers,
 
     }
@@ -70,6 +70,7 @@ class App extends React.Component {
           <Route  exact path="/home" ><Home  activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
           <Route  exact path="/search"><Search ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
           <Route  exact path="/login"> <LoginPage  handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
+          <Route  exact path="/signup"> <SignupPage  handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
         </Switch>
       
       // </div>

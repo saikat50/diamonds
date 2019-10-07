@@ -2,6 +2,8 @@ import React from 'react'
 import { Container,Form, Button, Alert } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom';
 import DiamondNavbar from '../components/DiamondNavbar';
+import User from '../Classes/User'
+import Parse from 'parse';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -18,23 +20,35 @@ class LoginPage extends React.Component {
     }
 
     login() {
+        // Pass the username and password to logIn function
+        Parse.User.logIn(this.emailInput.current.value,this.pwdInput.current.value).then((user) => {
+        // Do stuff after successful login
+ 
+         console.log('Logged in user', user);
+         this.props.handleLogin(new User(user));
+         this.setState({successLogin: true});
 
-        const { users } = this.props;
-        let newActiveUser = null;
-        for (let i = 0; i < users.length && !newActiveUser; i++) {
-            if (users[i].email === this.emailInput.current.value &&
-                users[i].pwd === this.pwdInput.current.value) {
-                    newActiveUser = users[i];
-                }
-        }
+  }).catch(error => {
+  
+    console.error('Error while logging in user', error);
+    this.setState({invalidLogin: true});
+  })
+        // const { users } = this.props;
+        // let newActiveUser = null;
+        // for (let i = 0; i < users.length && !newActiveUser; i++) {
+        //     if (users[i].email === this.emailInput.current.value &&
+        //         users[i].pwd === this.pwdInput.current.value) {
+        //             newActiveUser = users[i];
+        //         }
+        // }
 
-        if (newActiveUser) {
-            this.props.handleLogin(newActiveUser);
-            this.setState({successLogin: true});
+        // if (newActiveUser) {
+        //     this.props.handleLogin(newActiveUser);
+        //     this.setState({successLogin: true});
 
-        } else {
-            this.setState({invalidLogin: true});
-        }
+        // } else {
+        //     this.setState({invalidLogin: true});
+        // }
 
 
     }

@@ -5,6 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Parse from 'parse';
+
+
+Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+Parse.initialize(
+  'qQ2AMgDUa2kxuxt0HEsorOw7uB5vXOhipV8Zm6CF', // This is your Application ID
+  'LUBw95iUPTq6eBVPdBhmC4WKPKJgIRPniD2ditwl' // This is your Javascript key
+);
 
 
 ReactDOM.render(<HashRouter><App /></HashRouter>, document.getElementById('root'));

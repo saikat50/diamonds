@@ -12,5 +12,11 @@
         "lname": "Pinto",
         "email": "pintob@gmail.com",
         "pwd": "123"
+    }, {
+        "id": 3,
+        "fname": "Jonathan",
+        "lname": "Alon",
+        "email": "Joni@Alon.com",
+        "pwd": "123"
     }
 ]

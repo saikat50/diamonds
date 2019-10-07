@@ -1,39 +1,42 @@
+import { listPrice } from '../App'
+import priceList  from '../data/prices.json';
 
   //DIAMOND CLASS
-  export class Diamond {
+  export class Diamond1 {
     constructor(diamond) {
-      this.lotID = diamond.lotID;
-      this.shape = diamond.shape;
-      this.weight = diamond.weight;
-      this.color = diamond.color;
-      this.clarity = diamond.clarity;
-      this.cut = diamond.cut;
-      this.polish = diamond.polish;
-      this.symmetry = diamond.symmetry;
-      this.fluorescence = diamond.fluorescence;
-      this.fluorescenceColor = diamond.fluorescenceColor;
-      this.lab = diamond.lab;
-      this.certificateNumber = diamond.certificateNumber;
-      this.depth = diamond.depth;
-      this.table = diamond.table;
-      this.crownAngle = diamond.crownAngle;
-      this.crownHeight = diamond.crownHeight;
-      this.pavillionAngle = diamond.pavillionAnglecut;
-      this.pavillionDepth = diamond.pavillionDepth;
-      this.starLength = diamond.starLength;
-      this.lowerHalf = diamond.lowerHalf;
-      this.girdle = diamond.girdle;
-      this.culet = diamond.culet;
-      this.list = diamond.list;
-      this.discount = diamond.discount;
-      this.pricePerCarat = diamond.pricePerCarat;
-      this.links = diamond.links;
-      this.inclusions = diamond.inclusions;
-      this.owner = diamond.owner;
-      this.keepDiscount = diamond.keepDiscount;
-      this.diamMin = diamond.diamMin;
-      this.diamMax = diamond.diamMax;
-      this.deptAvg = diamond.deptAvg
+      this.id=diamond.id; 
+      this.lotID = diamond.get("lotID");
+      this.shape = diamond.get("shape");
+      this.weight = diamond.get("weight");
+      this.color = diamond.get("color");
+      this.clarity = diamond.get("clarity");
+      this.cut = diamond.get("cut");
+      this.polish = diamond.get("polish");
+      this.symmetry = diamond.get("symmetry");
+      this.fluorescence = diamond.get("fluorescence");
+      this.fluorescenceColor = diamond.get("fluorescenceColor");
+      this.lab = diamond.get("lab");
+      this.certificateNumber = diamond.get("certificateNumber");
+      this.depth = diamond.get("depth");
+      this.table = diamond.get("table");
+      this.crownAngle = diamond.get("crownAngle");
+      this.crownHeight = diamond.get("crownHeight");
+      this.pavillionAngle = diamond.get("pavillionAnglecut");
+      this.pavillionDepth = diamond.get("pavillionDepth");
+      this.starLength = diamond.get("starLength");
+      this.lowerHalf = diamond.get("lowerHalf");
+      this.girdle = diamond.get("girdle");
+      this.culet = diamond.get("culet");
+      this.list = listPrice(this.shape,this.color,this.clarity,this.weight,priceList)
+      this.discount = diamond.get("discount");
+      this.pricePerCarat = diamond.get("pricePerCarat");
+      this.links = diamond.get("links");
+      this.inclusions = diamond.get("inclusions");
+      this.owner = diamond.get("owner");
+      this.keepDiscount = diamond.get("keepDiscount");
+      this.diamMin = diamond.get("diamMin");
+      this.diamMax = diamond.get("diamMax");
+      this.deptAvg = diamond.get("deptAvg");
       if (this.list) {
         if (!this.keepDiscount)
           this.discount = 100 - 100 * (this.pricePerCarat / (this.list))
