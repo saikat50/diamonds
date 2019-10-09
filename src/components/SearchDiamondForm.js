@@ -11,6 +11,9 @@ const data = [ { value:'BR' ,selected:true}, { value: 'OV',selected:true }, { va
 export default class SearchDiamondForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      tglAll:"Select"
+    }
   }
   handleChange=()=>{
     
@@ -29,6 +32,17 @@ export default class SearchDiamondForm extends React.Component {
         }
      }
     }
+    setFilter(filter);
+  }
+  toggleAll=(e)=>{
+    let allShapes=["BR","OV","PS","MQ","HS","PRI","RAD","EM","CU","BG","TRI"]
+    let {filter,setFilter}=this.props;
+    let {tglAll}=this.state;
+    if (tglAll==="Select") {filter.shape=allShapes; tglAll="Clear"}
+    else {
+      filter.shape=[]; tglAll="Select"
+    }
+    this.setState({tglAll});
     setFilter(filter);
   }
   render() {
@@ -53,6 +67,9 @@ export default class SearchDiamondForm extends React.Component {
       <Form>
           <h3>Filter</h3>
         <Row>
+             <Col lg="1" md="2" sm="3" xs="4">
+              <button onClick={this.toggleAll}  type="button" className={`btn btn-primary`}>{this.state.tglAll}</button>
+            </Col>
             <Col lg="1" md="2" sm="3" xs="4">
               <button onClick={this.toggleChoice}  type="button" className={`btn btn-${br}`}>BR</button>
             </Col>
