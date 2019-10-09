@@ -73,7 +73,7 @@ export default class DiamondList extends React.Component {
 
     return (
       <div>
-        <SearchDiamondForm />
+        <SearchDiamondForm filter={this.props.filter} setFilter={this.props.setFilter}/>
         {result}
       </div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './multiselect.css'
 import { Switch, Route} from 'react-router-dom'
 import {Home} from './pages/home'
 import {Search} from './pages/search.js'
