@@ -62,7 +62,48 @@ function num2color(value) {
       return false;
   }
 }
-
+function num2clarity(value) {
+  switch (value) {
+    case 0:
+      return "FL";
+      break;
+    case 1:
+      return "IF";
+      break;
+    case 2:
+      return "VVS1";
+      break;
+    case 3:
+      return "VVS2";
+      break;
+    case 4:
+      return "VS1";
+      break;
+    case 5:
+      return "VS2";
+      break;
+    case 6:
+      return "SI1";
+      break;
+    case 7:
+      return "SI2";
+      break;
+    case 8:
+      return "SI3";
+      break;
+    case 9:
+      return "I1";
+      break;
+    case 10:
+      return "I2";
+      break;
+    case 11:
+      return "I3";
+      break;
+    default:
+      return false;
+  }
+}
 const data = [{ value: 'BR', selected: true }, { value: 'OV', selected: true }, { value: 'PS' }, { value: 'MQ' }, { value: 'HS' }, { value: 'PRI' }, { value: 'RAD' }, { value: 'CU' }, { value: 'EM' }, { value: 'BG' }, { value: 'TRI' }]
 //IN BUILT
 export default class SearchDiamondForm extends React.Component {
@@ -120,7 +161,12 @@ export default class SearchDiamondForm extends React.Component {
     filter.colorMax = num2color(value[1]);
     setFilter(filter);
   }
-
+  setClarityFilter = (value) => {
+    let { filter, setFilter } = this.props;
+    filter.clarityMin = num2clarity(value[0]);
+    filter.clarityMax = num2clarity(value[1]);
+    setFilter(filter);
+  }
   render() {
     console.log("filter");
     console.log(this.props.filter);
@@ -194,7 +240,7 @@ export default class SearchDiamondForm extends React.Component {
           </Form.Group>
           <Form.Group as={Col} xl="9" lg="9" sm="12" controlId="validationCustom05">
             <HorizontalColorSlider name="Color" change={(value) => { this.setColorFilter(value) }} />
-            <HorizontalColorSlider name="Clarity" change={(value) => { alert(value[0]) }} />
+            <HorizontalColorSlider name="Clarity" change={(value) => { this.setClarityFilter(value)}} />
           </Form.Group>
         </Row>
       </Form>
