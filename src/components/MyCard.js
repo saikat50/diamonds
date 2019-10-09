@@ -23,7 +23,7 @@ export class MyCard extends React.Component {
           {/* p */}
           <p className="margBottom30">{this.props.text}</p>
           {/* Dots */}
-          <Dots num={this.props.num} total={this.props.total} />
+          {/* <Dots num={this.props.num} total={this.props.total} /> */}
         </div>
       );
     }

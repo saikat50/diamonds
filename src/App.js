@@ -10,7 +10,7 @@ import SignupPage from './pages/Signup'
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
   console.log(shape, color, clarity, weight, priceList[0])
-  if (shape != "BR" && shape != "round") { shape = "pear" } else { shape = "round" };
+  if (shape !== "BR" && shape !== "round") { shape = "pear" } else { shape = "round" };
   for (var i = 0; i < priceList.length; i++) { //searches the right price on the pricelist
     if (shape === priceList[i].shape && color === priceList[i].color &&
       clarity === priceList[i].clarity && weight >= priceList[i].low_size &&
@@ -26,15 +26,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeUser: 
-      null,
-    //   activeUser:   {
-    //     "id": 3,
-    //     "fname": "Jonathan",
-    //     "lname": "Alon",
-    //     "email": "Joni@Alon.com",
-    //     "pwd": "123"
-    // },
+      // activeUser: 
+      // null,
+      activeUser:  {
+        "id": "duXjSsEtGt",
+        "fname": "Boaz",
+        "lname": "Pinto",
+        "email": "pintob@gmail.com",
+        "pwd": "123"
+    },
       allUsers: jsonUsers,
 
     }

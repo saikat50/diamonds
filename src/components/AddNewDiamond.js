@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl } from 'react-bootstrap'
 import { listPrice } from '../App'
-import { Diamond1} from '../Classes/Diamond'
+import { Diamond1 } from '../Classes/Diamond'
 import diamondsShape from '../data/Shapes.png'
 import ListOfLinks from './ListOfLinks'
 
@@ -16,7 +16,7 @@ export default class AddDiamond extends React.Component {
                 disableSave: true,
                 page: 0,
                 diamond: {
-                    id:"",
+                    id: "",
                     lotID: "fdgdsf",
                     shape: "BR",
                     weight: "1",
@@ -39,7 +39,7 @@ export default class AddDiamond extends React.Component {
                     lowerHalf: "15",
                     girdle: "MED-STK",
                     culet: "None",
-                    list: listPrice("BR", "D", "IF", "1", this.props.prices) ,
+                    list: listPrice("BR", "D", "IF", "1", this.props.prices),
                     discount: "40",
                     pricePerCarat: "5000",
                     links: [],
@@ -48,6 +48,8 @@ export default class AddDiamond extends React.Component {
                     diamMin: "3.58",
                     diamMax: "3.65",
                     deptAvg: "2.58",
+                    pic1: {},
+                    pic2: {},
                     owner: this.props.activeUser.id
 
                 }
@@ -59,7 +61,7 @@ export default class AddDiamond extends React.Component {
                 page: 0,
                 disableSave: true,
                 diamond: {
-                    id:this.props.diamonds[this.props.edit].id,
+                    id: this.props.diamonds[this.props.edit].id,
                     lotID: this.props.diamonds[this.props.edit].lotID,
                     shape: this.props.diamonds[this.props.edit].shape,
                     weight: this.props.diamonds[this.props.edit].weight,
@@ -92,6 +94,8 @@ export default class AddDiamond extends React.Component {
                     diamMax: this.props.diamonds[this.props.edit].diamMax,
                     deptAvg: this.props.diamonds[this.props.edit].deptAvg,
                     owner: this.props.diamonds[this.props.edit].owner,
+                    pic1: this.props.diamonds[this.props.edit].pic1,
+                    pic2: this.props.diamonds[this.props.edit].pic2,
 
                 }
             }
@@ -115,7 +119,7 @@ export default class AddDiamond extends React.Component {
                 disableSave: true,
                 page: 0,
                 diamond: {
-                    id:"",
+                    id: "",
                     lotID: "fdgdsf",
                     shape: "BR",
                     weight: "1",
@@ -138,7 +142,7 @@ export default class AddDiamond extends React.Component {
                     lowerHalf: "15",
                     girdle: "MED-STK",
                     culet: "None",
-                    list: listPrice("BR", "D", "IF", "1", this.props.prices) ,
+                    list: listPrice("BR", "D", "IF", "1", this.props.prices),
                     discount: "40",
                     pricePerCarat: "5000",
                     links: [],
@@ -147,57 +151,26 @@ export default class AddDiamond extends React.Component {
                     diamMin: "3.58",
                     diamMax: "3.65",
                     deptAvg: "2.58",
-                    owner: nextProps.activeUser.id
+                    owner: nextProps.activeUser.id,
+                    pic1: {},
+                    pic2: {}
 
                 }
             }
         }
         else if (nextProps.activeUser) {
+            console.log(nextProps.diamonds[nextProps.edit].pic2)
             newState = {
                 modal: true,
                 page: 0,
                 disableSave: true,
-                diamond: {
-                    id:nextProps.props.diamonds[nextProps.props.edit].id,
-                    lotID: nextProps.diamonds[nextProps.edit].lotID,
-                    shape: nextProps.diamonds[nextProps.edit].shape,
-                    weight: nextProps.diamonds[nextProps.edit].weight,
-                    color: nextProps.diamonds[nextProps.edit].color,
-                    clarity: nextProps.diamonds[nextProps.edit].clarity,
-                    cut: nextProps.diamonds[nextProps.edit].cut,
-                    polish: nextProps.diamonds[nextProps.edit].polish,
-                    symmetry: nextProps.diamonds[nextProps.edit].symmetry,
-                    fluorescence: nextProps.diamonds[nextProps.edit].fluorescence,
-                    fluorescenceColor: nextProps.diamonds[nextProps.edit].fluorescenceColor,
-                    lab: nextProps.diamonds[nextProps.edit].lab,
-                    certificateNumber: nextProps.diamonds[nextProps.edit].certificateNumber,
-                    depth: nextProps.diamonds[nextProps.edit].depth,
-                    table: nextProps.diamonds[nextProps.edit].table,
-                    crownAngle: nextProps.diamonds[nextProps.edit].crownAngle,
-                    crownHeight: nextProps.diamonds[nextProps.edit].crownHeight,
-                    pavillionAngle: nextProps.diamonds[nextProps.edit].pavillionAngle,
-                    pavillionDepth: nextProps.diamonds[nextProps.edit].pavillionDepth,
-                    starLength: nextProps.diamonds[nextProps.edit].starLength,
-                    lowerHalf: nextProps.diamonds[nextProps.edit].lowerHalf,
-                    girdle: nextProps.diamonds[nextProps.edit].girdle,
-                    culet: nextProps.diamonds[nextProps.edit].culet,
-                    list: nextProps.diamonds[nextProps.edit].list,
-                    discount: nextProps.diamonds[nextProps.edit].discount,
-                    pricePerCarat: nextProps.diamonds[nextProps.edit].pricePerCarat,
-                    links: nextProps.diamonds[nextProps.edit].links,
-                    inclusions: nextProps.diamonds[nextProps.edit].inclusions,
-                    keepDiscount: nextProps.diamonds[nextProps.edit].keepDiscount,
-                    diamMin: nextProps.diamonds[nextProps.edit].diamMin,
-                    diamMax: nextProps.diamonds[nextProps.edit].diamMax,
-                    deptAvg: nextProps.diamonds[nextProps.edit].deptAvg,
-                    owner: nextProps.diamonds[nextProps.edit].owner,
+                diamond: nextProps.diamonds[nextProps.edit]
 
-                }
             }
 
         }
         else {
-            this.state = {
+            newState = {
                 modal: true,
                 page: 0,
                 disableSave: true,
@@ -370,7 +343,8 @@ export default class AddDiamond extends React.Component {
         this.setState({ disableSave, diamond })
     }
     saveDiamond = () => {
-        const { diamond, edit } = this.state;
+        const { diamond } = this.state;
+        const { edit } = this.props;
         this.props.saveDiamond(diamond, edit)
 
     }
@@ -390,29 +364,79 @@ export default class AddDiamond extends React.Component {
         let linktoAdd = this.linkToAddInput.value;
         this.setState({ linktoAdd })
     }
-    addLink = () => {     
-        let {linktoAdd,diamond} = this.state;
-        diamond.links.push(linktoAdd);
-        let newState = {
-            linktoAdd:"",
-            disableSave: false,
-            diamond:diamond
+    addLink = () => {
+        let { linktoAdd, diamond } = this.state;
+        if (linktoAdd) {
+            diamond.links.push(linktoAdd);
+            let newState = {
+                linktoAdd: "",
+                disableSave: false,
+                diamond: diamond
+            }
+
+            this.setState(newState)
         }
-
-        this.setState(newState)
-
     }
     deleteLink = (index) => {
- 
+
         let { diamond } = this.state;
         var newArr = diamond.links.splice(index, 1);
-        diamond.links=newArr
+        diamond.links = newArr
         this.setState({
             disableSave: false,
-            diamond:diamond
+            diamond: diamond
         });
     }
+    imgChange = (ev) => {
+        let { diamond, disableSave } = this.state;
+        disableSave = false;
+        let diamondImg = {};
+        diamondImg.file = ev.target.files[0];
+        console.log("file");
+        console.log(diamondImg.file)
+        if (diamondImg.file) {
+            diamondImg.url = URL.createObjectURL(diamondImg.file);
+            diamondImg.name = diamondImg.file.name
+        } else {
+            diamondImg = {};
+        }
+        console.log(ev.target.id)
+        if (ev.target.id === "formFile1") { diamond.pic1 = diamondImg } else { diamond.pic2 = diamondImg }
+        this.setState({ diamond, disableSave });
+    }
+    deleteImg = (ev) => {
+        let { diamond, disableSave } = this.state;
+        disableSave = false;
+        console.log(ev.target.id==="deleteBtn1")
+        if (ev.target.id === "deleteBtn1") { diamond.pic1 = {} } else { diamond.pic2 = {} }
+        
+        this.setState({ diamond, disableSave });
+    }
+    myListings = ()=>{
+        let {filter}=this.props;
+        filter.owner=true;
+        this.props.setFilter(filter);
+    }
+    clearFilter = ()=>{
+        let filter={        
+            shape: [],
+        colorMin: "D",
+        colorMax: "YZ",
+        clarityMin: "FL",
+        clarityMax: "I3",
+        weightMin: 0.01,
+        weightMax: 10000,
+        owner:false
+
+        }
+        this.props.setFilter(filter);  
+    }
     render() {
+        let pic1, pic2;
+        console.log("render");
+        console.log(this.state.diamond.pic1);
+        if (this.state.diamond.pic1 !== {}) { pic1 = { name: this.state.diamond.pic1.name, url: this.state.diamond.pic1.url, hidden: false } } else pic1 = { name: null, url: null, hidden: true }
+        if (this.state.diamond.pic2 !== {}) { pic2 = { name: this.state.diamond.pic2.name, url: this.state.diamond.pic2.url, hidden: false } } else pic2 = { name: null, url: null, hidden: true }
 
         if (!this.props.activeUser) return false;
         let parse = [];
@@ -431,7 +455,7 @@ export default class AddDiamond extends React.Component {
                             placeholder="Enter Lot ID"
                         />
                     </InputGroup>Choose shape
-                <Image onClick={this.detectMouse} style={{ width: "100%" }} src={diamondsShape} rounded />
+                         <Image onClick={this.detectMouse} style={{ width: "100%" }} src={diamondsShape} rounded />
                     <h3>Shape selected: {this.state.diamond.shape}</h3>
                     Weight
                                  <InputGroup className="mb-3">
@@ -780,27 +804,67 @@ export default class AddDiamond extends React.Component {
                     }
                     else
                         if (this.state.page === 4) {
-                            console.log(this.state.diamond.links)
+
                             parse.push(
                                 <Modal.Body className="modalAddBody">
                                     <Form.Label>Add Images Links</Form.Label>
                                     <InputGroup className="mb-3">
-                                    {/* <InputGroup.Text id="basic-addon2">@example.com</InputGroup.Text> */}
+                                        {/* <InputGroup.Text id="basic-addon2">@example.com</InputGroup.Text> */}
                                         <FormControl onChange={this.prepareLink} defaultValue={this.state.linktoAdd} ref={(element) => { this.linkToAddInput = element }}
-                                            placeholder="Place link here" value={this.state.linktoAdd}  style={{width:"300px",marginRight:"10px"}}/>
-                                             <Button onClick={this.addLink} variant="primary">Add</Button>
+                                            placeholder="Place link here" value={this.state.linktoAdd} style={{ width: "300px", marginRight: "10px" }} />
+                                        <Button onClick={this.addLink} variant="primary">Add</Button>
                                     </InputGroup>
                                     <ListOfLinks deleteLink={this.deleteLink} links={this.state.diamond.links} />
-                                   
+
                                 </Modal.Body>
 
                             )
                         }
+                        else
+                            if (this.state.page === 5) {
+
+                                parse.push(
+                                    <Modal.Body className="modalAddBody">
+                                        <Form>
+                                            <Form.Group controlId="formFile1">
+                                                <Form.Label >
+                                                    Choose an Image file
+                                                </Form.Label>
+                                                Image # 1
+                                                    <Form.Control data-id="1" type="file" placeholder="Diamond image URL" accept="image/*" onChange={this.imgChange} />
+
+                                                <Image src={pic1.url} style={{ width: "20%" }} fluid />
+                                                <p>{pic1.name}<Button onClick={this.deleteImg} id="deleteBtn1" hidden={pic1.hidden} variant="danger">Delete</Button></p>
+                                            </Form.Group>
+                                            <Form.Group controlId="formFile2">
+                                                <Form.Label >
+                                                    Choose an Image file
+                                                </Form.Label>
+                                                Image # 2
+                                                    <Form.Control data-id="2" type="file" placeholder="Diamond image URL" accept="image/*" onChange={this.imgChange} />
+
+                                                <Image src={pic2.url} style={{ width: "20%" }} fluid />
+                                                <p>{pic2.name}<Button onClick={this.deleteImg}  id="deleteBtn2"  hidden={pic2.hidden} variant="danger">Delete</Button></p>
+
+                                            </Form.Group>
+
+                                        </Form>
+
+                                    </Modal.Body>
+
+                                )
+                            }
 
         return (
             <div>
-                <Button variant="success" onClick={this.toggle}>
+                <Button variant="success" onClick={this.toggle} className="fullWin">
                     List New Diamond
+            </Button>
+            <Button variant="info" onClick={this.myListings} className="fullWin">
+                    Only My Listings
+            </Button>
+            <Button variant="warning" onClick={this.clearFilter} className="fullWin">
+                    Clear all filters
             </Button>
                 <Modal id="modalAdd" size="xl" show={this.state.modal} onHide={this.handleClose} animation={false}>
                     <Modal.Header closeButton>

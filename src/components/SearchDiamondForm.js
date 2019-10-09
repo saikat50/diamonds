@@ -1,4 +1,5 @@
 import React from 'react'
+import VerticalSlider from './Slider'
 
 
 
@@ -12,8 +13,8 @@ export default class SearchDiamondForm extends React.Component {
       var width60 = { width: "60px" };
       return (
   
-        <div className="diamondRow bgPink">
-  
+        <div className="diamondRow bgPink baseSlider">
+       
           <div className="row" >
             <div className="col-lg-2 col-md-4 col-sm-6">
               <div className="row">
@@ -46,7 +47,8 @@ export default class SearchDiamondForm extends React.Component {
                 </div>
                 <div className="col-4">
                   <div className="content diamondContent">
-                    <h5 className="noMarginBottom">COLOR:</h5>
+                  <VerticalSlider type="Color"/>
+                    {/* <h5 className="noMarginBottom">COLOR:</h5>
                     <p>From:</p>
                     <select id="colorFrom">
                       <option value=""></option>
@@ -97,7 +99,7 @@ export default class SearchDiamondForm extends React.Component {
                       <option value="18">F1-FANCY</option>
                       <option value="19">F2-FANCY VIVID</option>
                       <option value="20">F3-FANCY INTENCE</option>
-                    </select>
+                    </select> */}
                   </div>
                 </div>
               </div>

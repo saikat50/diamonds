@@ -16,7 +16,7 @@ export class Home extends React.Component {
         <Container>
           {/* <MyNavbar /> */}
           <DiamondNavbar activeUser={activeUser} handleLogout={handleLogout}/>
-          <div class="slidecontainer">  
+          <div className="slidecontainer">  
           </div>
           {/* <MyModal /> */}
           <HomePageBody />

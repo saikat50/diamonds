@@ -13,16 +13,30 @@ export default class ShowDiamond extends React.Component {
       if (this.props.edit % 2 === 0) { bgColorClass = "light-blue" };
       var pics = [];
       for (var i = 0; i < this.props.description.links.length; i++) {
-        pics.push(<div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
-          <div className="content diamondContent">
+        pics.push(<div style={{margin:"5px"}} className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+          <div  className="content diamondContent">
             <a href="#"><img className="smallPic" src={this.props.description.links[i]} /></a>
           </div>
         </div>);
       }
+        if (this.props.description.pic1!=={}){
+        pics.push(<div style={{margin:"5px"}} className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+          <div className="content diamondContent">
+            <a href="#"><img className="smallPic" src={this.props.description.pic1.url} /></a>
+          </div>
+        </div>);
+        }
+        if (this.props.description.pic2!=={}){
+          pics.push(<div style={{margin:"5px"}} className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+            <div className="content diamondContent">
+              <a href="#"><img className="smallPic" src={this.props.description.pic2.url} /></a>
+            </div>
+          </div>);
+          }
       return (
         <div>
           {/* below are the details visible in accordeon */}
-          <Accordion defaultActiveKey="0" style={{backgroundColor:bgColorClass}}>
+          <Accordion key={this.props.description.id} defaultActiveKey="0" style={{backgroundColor:bgColorClass}}>
             <Card>
               <Accordion.Toggle as={Card.Header} eventKey={this.props.edit}>
                 <Row>
@@ -170,7 +184,7 @@ export default class ShowDiamond extends React.Component {
                     <Col xl="1" lg="2" md="3" sm="4" xs="6">
                       <div className="content diamondContent">
                         <h5 className="noMarginBottom">OWNER</h5>
-                        <p>{this.props.ownerName(this.props.description.owner)}</p>
+                        <p>{this.props.description.owner.id}</p>
                       </div>
                     </Col>
                     <Col xl="1" lg="2" md="3" sm="4" xs="6">
