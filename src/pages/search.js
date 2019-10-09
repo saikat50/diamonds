@@ -22,12 +22,12 @@ export class Search extends React.Component {
       prices: [],
       isLoading: true,
       filter: {
-        shape: ["BR"],
+        shape: [],
         colorMin: "D",
-        colorMax: "D",
+        colorMax: "YZ",
         clarityMin: "FL",
-        clarityMax: "IF",
-        weightMin: 1.05,
+        clarityMax: "I3",
+        weightMin: 0,
         weightMax: 10000,
         owner:false
 

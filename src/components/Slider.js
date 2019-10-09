@@ -60,8 +60,36 @@ export default function HorizontalColorSlider(props) {
       value: 9,
       label: 'M',
     },
+    {
+      value: 10,
+      label: 'N',
+    },
+    {
+      value: 11,
+      label: 'OP',
+    },
+    {
+      value: 12,
+      label: 'QR',
+    },
+    {
+      value: 13,
+      label: 'ST',
+    },
+    {
+      value: 14,
+      label: 'UV',
+    },
+    {
+      value: 15,
+      label: 'WX',
+    },
+    {
+      value: 16,
+      label: 'YZ',
+    },
   ];
-  max=9;
+  max=16;
 }
 else if (props.name==="Clarity"){
     marks = [
