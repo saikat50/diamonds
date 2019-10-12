@@ -22,34 +22,38 @@ class LoginPage extends React.Component {
     login() {
         // Pass the username and password to logIn function
         Parse.User.logIn(this.emailInput.current.value,this.pwdInput.current.value).then((user) => {
-        // Do stuff after successful login
- 
-         console.log('Logged in user', user);
-         this.props.handleLogin(new User(user));
-         this.setState({successLogin: true});
+            // Do stuff after successful login
+             console.log('Logged in user', user);
 
-  }).catch(error => {
+            const User1 = new Parse.User();
+            const query = new Parse.Query(User1);
+
+            // Finds the user by its ID
+            query.get(user.id).then((user) => {
+                // Updates the data we want
+                user.set('isLogin', true);
+                user.save().then((response) => {
+                console.log('Updated user', response);
+                Parse.User.logIn(this.emailInput.current.value,this.pwdInput.current.value).then((user) => {
+                    console.log('Logged in user', user);
+                    this.props.handleLogin(new User(user));
+                    this.setState({successLogin: true});
+                }).catch(error => {
   
-    console.error('Error while logging in user', error);
-    this.setState({invalidLogin: true});
-  })
-        // const { users } = this.props;
-        // let newActiveUser = null;
-        // for (let i = 0; i < users.length && !newActiveUser; i++) {
-        //     if (users[i].email === this.emailInput.current.value &&
-        //         users[i].pwd === this.pwdInput.current.value) {
-        //             newActiveUser = users[i];
-        //         }
-        // }
+                    console.error('Error while logging in user', error);
+                    this.setState({invalidLogin: true});
+                })
 
-        // if (newActiveUser) {
-        //     this.props.handleLogin(newActiveUser);
-        //     this.setState({successLogin: true});
+            }).catch((error) => {
+            console.error('Error while updating user', error);
+            });
+            });
 
-        // } else {
-        //     this.setState({invalidLogin: true});
-        // }
-
+        }).catch(error => {
+  
+            console.error('Error while logging in user', error);
+            this.setState({invalidLogin: true});
+        })
 
     }
 
@@ -61,7 +65,7 @@ class LoginPage extends React.Component {
 
         return (
             <Container>
-            <DiamondNavbar activeUser={activeUser} handleLogout={handleLogout}/>
+            <DiamondNavbar  allMessages={this.state.allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
             <div className="login">
                 <h1>Login to Diamonds</h1>
                 <p>or <a href="#/signup">create an account</a></p>
@@ -71,14 +75,14 @@ class LoginPage extends React.Component {
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control ref={this.emailInput} type="email" placeholder="Enter email"/>
+                        <Form.Control value="pintob" ref={this.emailInput} type="email" placeholder="Enter email"/>
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                         </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control ref={this.pwdInput}  type="password" placeholder="Password"/>
+                        <Form.Control value="1397" ref={this.pwdInput}  type="password" placeholder="Password"/>
                     </Form.Group>
                     <Button variant="success" type="button" block onClick={this.login}>
                         Login

@@ -28,6 +28,7 @@ class SignupPage extends React.Component {
         user.set('lname', this.lnameInput.current.value);
         user.set('fname', this.fnameInput.current.value);
         user.set('password', this.pwdInput.current.value);
+        user.set('isLogin', true);
         
         user.signUp().then((user) => {
 
@@ -51,7 +52,7 @@ class SignupPage extends React.Component {
 
         return (
             <Container>
-            <DiamondNavbar activeUser={activeUser} handleLogout={handleLogout}/>
+            <DiamondNavbar  allMessages={this.state.allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
             <div className="login">
                 <h1>SignUp to Diamonds</h1>
                 <p>or <a href="#/login">Allready have an accout? Login here</a></p>

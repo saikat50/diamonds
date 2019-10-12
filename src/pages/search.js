@@ -29,8 +29,9 @@ export class Search extends React.Component {
         clarityMax: "I3",
         weightMin: 0,
         weightMax: 10000,
-        owner:false
-
+        owner:false,
+        clearColorFilter:false,
+        clearClarityFilter:false
       },
       edit: -1
     }
@@ -100,11 +101,9 @@ export class Search extends React.Component {
       myNewObject.set('diamMax', Number(diamond.diamMax));
       myNewObject.set('deptAvg', Number(diamond.deptAvg));
       myNewObject.set('owner', Parse.User.current());
-      // myNewObject.set('pic1', new Parse.File("resume.txt", { base64: btoa("My file content") }));
-      // myNewObject.set('pic2', new Parse.File("resume.txt", { base64: btoa("My file content") }));
-      // if (!diamond.pic1.file) myNewObject.set('pic1', new Parse.File(diamond.pic1.name, diamond.pic1.file));
-      // if (!diamond.pic2.file) myNewObject.set('pic2', new Parse.File(diamond.pic2.name, diamond.pic2.file));
-console.log(myNewObject)
+      if (diamond.pic1!=={}) myNewObject.set('pic1', new Parse.File(diamond.pic1.name,diamond.pic1.file ));
+      if (diamond.pic2!=={}) myNewObject.set('pic2', new Parse.File(diamond.pic2.name,diamond.pic2.file ));
+      console.log(myNewObject)
       myNewObject.save().then(
         (result) => {
           console.log('Diamond created', result);
@@ -154,8 +153,8 @@ console.log(myNewObject)
         object.set('diamMax', Number(diamond.diamMax));
         object.set('deptAvg', Number(diamond.deptAvg));
         object.set('owner', Parse.User.current());
-        // if (diamond.pic1!=={}) object.set('pic1', new Parse.File(diamond.pic1.name, diamond.pic1.file));
-        // if (diamond.pic2!=={}) object.set('pic2', new Parse.File(diamond.pic2.name, diamond.pic2.file));
+        if (diamond.pic1!=={}) object.set('pic1', new Parse.File(diamond.pic1.name,diamond.pic1.file ));
+        if (diamond.pic2!=={}) object.set('pic2', new Parse.File(diamond.pic2.name,diamond.pic2.file ));
         object.save().then((response) => {
           // You can use the "get" method to get the value of an attribute
           // Ex: response.get("<ATTRIBUTE_NAME>")
@@ -211,14 +210,14 @@ this.setState({filter})
     this.setState(newState)
   }
   render() {
-    const { activeUser, handleLogout } = this.props;
+    const { activeUser, handleLogout,allMessages } = this.props;
     if (this.state.isLoading) return false;
     console.log(this.state.diamondArr[0].pic1)
     return (
 
       <Container >
         {/* <MyNavbar user={this.state.user}/> */}
-        <DiamondNavbar activeUser={activeUser} handleLogout={handleLogout} />
+        <DiamondNavbar allMessages={allMessages}  activeUser={activeUser} handleLogout={handleLogout} />
         <AddDiamond  filter={this.state.filter} setFilter={this.setFilter}  activeUser={activeUser} saveDiamond={this.saveDiamond} cancelEdit={this.cancelEdit} addEdit={this.addEdit} prices={this.state.prices} edit={this.state.edit} diamonds={this.state.diamondArr} />
         {/* <MyModal  user={this.state.user}  activeUser={activeUser} /> */}
         <DiamondList filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />

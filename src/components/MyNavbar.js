@@ -48,9 +48,9 @@ export default class MyNavbar extends React.Component {
     render() {
   
       return (
-        <div className="fixed">
+        <div >
   
-          <Navbar bg="primary" variant="dark">
+          <Navbar bg="primary" variant="dark" className="fixed">
             <Navbar.Brand href="#home">
               <img className="logo" src="../src/Data/1c7be669e68d05366ad16b7d2b40333b-diamond-gemstone-black-icon-by-vexels.png"></img>
             </Navbar.Brand>

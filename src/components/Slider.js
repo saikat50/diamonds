@@ -9,7 +9,7 @@ export default function HorizontalColorSlider(props) {
     
     const useStyles = makeStyles({
         root: {
-          width: 500,
+          width: 450,
         },
       });
       
@@ -144,6 +144,18 @@ else if (props.name==="Clarity"){
       ];  
       max=11; 
 }
+if (props.name==="Color"&&props.filter.clearColorFilter){
+  let filter=props.filter;
+  filter.clearColorFilter=false;
+  props.setFilter(filter);
+  return false;
+
+} else if (props.name==="Clarity"&&props.filter.clearClarityFilter){
+  let filter=props.filter;
+  filter.clearClarityFilter=false;
+  props.setFilter(filter);
+  return false;
+} else
   return (
     <React.Fragment>
       <Typography id="horizontal-slider" gutterBottom>

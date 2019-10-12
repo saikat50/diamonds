@@ -1,7 +1,8 @@
 import React from 'react'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav,Badge } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import diamondLogo from '../data/1c7be669e68d05366ad16b7d2b40333b-diamond-gemstone-black-icon-by-vexels.png'
+import {usersMessages} from '../Classes/Message'
 
 class DiamondNavbar extends React.Component {
     constructor(props) {
@@ -31,9 +32,10 @@ class DiamondNavbar extends React.Component {
     
 
     render() {
-        const { activeUser } = this.props;
+        const { activeUser,allMessages } = this.props;
         const { redirectToHome } = this.state;
-
+        console.log("navbar");
+        console.log(allMessages);
         // if (redirectToHome) {
         //     return <Redirect to="/"/>
         // }
@@ -41,16 +43,20 @@ class DiamondNavbar extends React.Component {
         const signupLink = !activeUser ? <Nav.Link href="#/signup">Signup</Nav.Link> : null;
         const loginLink = !activeUser ? <Nav.Link href="#/login">Login</Nav.Link> : null;
         const logoutLink = activeUser ? <Nav.Link onClick={this.logout}>{this.props.activeUser.fname+" Logout"}</Nav.Link> : null;
-
+        const newMessages=usersMessages( activeUser,allMessages).new;
+        let myBadge="";
+        if (newMessages){myBadge=(<Badge pill variant="success">{newMessages}</Badge>)}
+        
 
         return (
+            
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#/"><img className="logo" src={diamondLogo}></img>Diamonds</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="#/search">Search</Nav.Link>
-                        <Nav.Link href="#/messages">Messages</Nav.Link>
+                        <Nav.Link href="#/messages">Messages{myBadge}</Nav.Link>
                         <Nav.Link href="#/about">About</Nav.Link>
                     </Nav>
 

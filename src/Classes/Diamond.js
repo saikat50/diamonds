@@ -38,11 +38,11 @@ export class Diamond1 {
     this.diamMax = diamond.get("diamMax");
     this.deptAvg = diamond.get("deptAvg");
     let pic1 = diamond.get("pic1");
-    if (pic1) { this.pic1 = { name: pic1["_name"], url: pic1["_url"] } } else this.pic1 = {};
+    if (pic1) { this.pic1 = { file:pic1,name: pic1["_name"], url: pic1["_url"] } } else this.pic1 = {};
     // if (!this.pic1) {this.pic1={}};
 
     let pic2 = diamond.get("pic2");
-    if (!pic2) { this.pic2 = {} } else { this.pic2 = { name: pic2["_name"], url: pic2["_url"] } }
+    if (!pic2) { this.pic2 = {} } else { this.pic2 = {file:pic2, name: pic2["_name"], url: pic2["_url"] } }
     console.log("constructor");
     console.log(this.pic1 + " " + this.pic2);
     // if (!this.pic2) {this.pic2={}};
@@ -76,44 +76,101 @@ export class Diamond1 {
   }
 }
 
-function clarityValue(clarity) {
+export function clarityValue(clarity) {
   switch (clarity) {
     case "FL":
-      return 1
+      return 0
       break;
     case "IF":
-      return 2
+      return 1
       break;
     case "VVS1":
-      return 3
+      return 2
       break;
     case "VVS2":
-      return 4
+      return 3
       break;
     case "VS1":
-      return 5
+      return 4
       break;
     case "VS2":
-      return 6
+      return 5
       break;
     case "SI1":
-      return 7
+      return 6
       break;
     case "SI2":
-      return 8
+      return 7
       break;
     case "SI3":
-      return 9
+      return 8
       break;
     case "I1":
-      return 10
+      return 9
       break;
     case "I2":
-      return 11
+      return 10
       break;
     case "I3":
+      return 11
+      break;
+    default:
+      return false;
+  }
+}
+export function colorValue(color) {
+  switch (color) {
+    case "D":
+      return 0
+      break;
+    case "E":
+      return 1
+      break;
+    case "F":
+      return 2
+      break;
+    case "G":
+      return 3
+      break;
+    case "H":
+      return 4
+      break;
+    case "I":
+      return 5
+      break;
+    case "J":
+      return 6
+      break;
+    case "K":
+      return 7
+      break;
+    case "L":
+      return 8
+      break;
+    case "M":
+      return 9
+      break;
+    case "N":
+      return 10
+      break;
+    case "OP":
+      return 11
+      break;
+    case "QR":
       return 12
       break;
+      case "ST":
+        return 13
+        break;
+        case "UV":
+          return 14
+          break;
+          case "WX":
+            return 15
+            break;
+            case "YZ":
+              return 16
+              break;
     default:
       return false;
   }

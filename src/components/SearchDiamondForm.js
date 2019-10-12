@@ -2,6 +2,7 @@ import React from 'react'
 import HorizontalColorSlider from './Slider'
 import { Form, Row, Col, FormControl } from 'react-bootstrap'
 import { Button } from '@material-ui/core';
+import {colorValue,clarityValue} from '../Classes/Diamond'
 // import Multiselect from 'react-bootstrap-multiselect'
 // import '../multiselect.css'
 
@@ -239,8 +240,8 @@ export default class SearchDiamondForm extends React.Component {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} xl="9" lg="9" sm="12" controlId="validationCustom05">
-            <HorizontalColorSlider name="Color" change={(value) => { this.setColorFilter(value) }} />
-            <HorizontalColorSlider name="Clarity" change={(value) => { this.setClarityFilter(value)}} />
+            <HorizontalColorSlider setFilter={this.props.setFilter} filter={this.props.filter} name="Color" change={(value) => { this.setColorFilter(value) }} />
+            <HorizontalColorSlider setFilter={this.props.setFilter} filter={this.props.filter} name="Clarity" change={(value) => { this.setClarityFilter(value)}} />
           </Form.Group>
         </Row>
       </Form>

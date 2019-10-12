@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl } from 'react-bootstrap'
+import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl, Container } from 'react-bootstrap'
 import { listPrice } from '../App'
 import { Diamond1 } from '../Classes/Diamond'
 import diamondsShape from '../data/Shapes.png'
@@ -407,38 +407,41 @@ export default class AddDiamond extends React.Component {
     deleteImg = (ev) => {
         let { diamond, disableSave } = this.state;
         disableSave = false;
-        console.log(ev.target.id==="deleteBtn1")
+        console.log(ev.target.id === "deleteBtn1")
         if (ev.target.id === "deleteBtn1") { diamond.pic1 = {} } else { diamond.pic2 = {} }
-        
+
         this.setState({ diamond, disableSave });
     }
-    myListings = ()=>{
-        let {filter}=this.props;
-        filter.owner=true;
+    myListings = () => {
+        let { filter } = this.props;
+        filter.owner = true;
         this.props.setFilter(filter);
     }
-    clearFilter = ()=>{
-        let filter={        
+    clearFilter = () => {
+        let filter = {
             shape: [],
-        colorMin: "D",
-        colorMax: "YZ",
-        clarityMin: "FL",
-        clarityMax: "I3",
-        weightMin: 0.01,
-        weightMax: 10000,
-        owner:false
-
+            colorMin: "D",
+            colorMax: "YZ",
+            clarityMin: "FL",
+            clarityMax: "I3",
+            weightMin: 0.01,
+            weightMax: 10000,
+            owner: false,
+            clearClarityFilter: true,
+            clearColorFilter: true
         }
-        this.props.setFilter(filter);  
+        this.props.setFilter(filter);
     }
     render() {
         let pic1, pic2;
-        console.log("render");
-        console.log(this.state.diamond.pic1);
+        // console.log("render");
+        // console.log(this.state.diamond.pic1);
+
+        if (!this.props.activeUser) return false;
+
         if (this.state.diamond.pic1 !== {}) { pic1 = { name: this.state.diamond.pic1.name, url: this.state.diamond.pic1.url, hidden: false } } else pic1 = { name: null, url: null, hidden: true }
         if (this.state.diamond.pic2 !== {}) { pic2 = { name: this.state.diamond.pic2.name, url: this.state.diamond.pic2.url, hidden: false } } else pic2 = { name: null, url: null, hidden: true }
 
-        if (!this.props.activeUser) return false;
         let parse = [];
         //if modal is closed and we are still in edit mode, cancel edit mode
         if (!this.state.modal && this.props.edit !== -1) this.props.cancelEdit();
@@ -522,48 +525,71 @@ export default class AddDiamond extends React.Component {
 
                     <Modal.Body><h2>Lab</h2>
                         <Row>
-                            <a href="javascript:;">
-                                <Col className="certChoose" lg="3" md="4" sm="6">
-                                    <h5 className="h5Cert">GIA</h5>
-                                    <Image id="GIA" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src="https://miro.medium.com/max/1552/1*QAU1nlE_xhhKtZqxk13qkg.png" rounded />
-                                </Col>
-                            </a >
-                            <a href="javascript:;" >
-                                <Col className="certChoose" lg="3" md="4" sm="6">
-                                    <h5 className="h5Cert">EGL USA</h5>
-                                    <Image id="EGL USA" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src="https://pbs.twimg.com/profile_images/2642768167/40f68a476a1518fc8069369fa65772c5_400x400.png" rounded />
-                                </Col>
-                            </a>
-                            <a href="javascript:;" >
-                                <Col className="certChoose" lg="3" md="4" sm="6">
-                                    <h5 className="h5Cert">EGL Europe</h5>
-                                    <Image id="EGL EUROPE" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src=" https://blog.brilliance.com/wp-content/uploads/2009/11/EGL.jpg" rounded />
-                                </Col>
-                            </a>
-                            <a href="javascript:;" >
-                                <Col className="certChoose" lg="3" md="4" sm="6">
-                                    <h5 className="h5Cert">HRD</h5>
-                                    <Image id="HRD" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/3b/79/e0/3b79e06e-78b0-2e30-61eb-41b074cb9744/source/512x512bb.jpg" rounded />
-                                </Col>
-                            </a>
-                            <a href="javascript:;">
-                                <Col className="certChoose" lg="3" md="4" sm="6">
+
+                        <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;">
+                                        <h5 className="h5Cert">GIA</h5>
+                                        <Image id="GIA" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://miro.medium.com/max/1552/1*QAU1nlE_xhhKtZqxk13qkg.png" rounded />
+                                    </a >
+                                </Container>
+                            </Col>
+
+
+                            <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
+                                        <h5 className="h5Cert">EGL US</h5>
+                                        <Image id="EGL USA" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://pbs.twimg.com/profile_images/2642768167/40f68a476a1518fc8069369fa65772c5_400x400.png" rounded />
+                                    </a>
+                                </Container>
+                            </Col>
+                            <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
+
+                                        <h5 className="h5Cert">EGL EU</h5>
+                                        <Image id="EGL EUROPE" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src=" https://blog.brilliance.com/wp-content/uploads/2009/11/EGL.jpg" rounded />
+                                    </a>
+                                </Container>
+                            </Col>
+
+                            <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
+                                        <h5 className="h5Cert">HRD</h5>
+                                        <Image id="HRD" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/3b/79/e0/3b79e06e-78b0-2e30-61eb-41b074cb9744/source/512x512bb.jpg" rounded />
+                                    </a>
+                                </Container>
+                            </Col>
+
+                            <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
                                     <h5 className="h5Cert">IGI</h5>
-                                    <Image id="IGI" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src="  https://qph.fs.quoracdn.net/main-qimg-54bbfbbb192682043358f75f481f63b5" rounded />
+                                    <Image id="IGI" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="  https://qph.fs.quoracdn.net/main-qimg-54bbfbbb192682043358f75f481f63b5" rounded />
+                                    </a>
+                                    </Container>
                                 </Col>
-                            </a>
-                            <a href="javascript:;">
-                                <Col className="certChoose" lg="3" md="4" sm="6">
+                          
+                                <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
                                     <h5 className="h5Cert">AGS</h5>
-                                    <Image id="AGS" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src="https://www.vividventure.com/upload/544.jpg" rounded />
+                                    <Image id="AGS" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://www.vividventure.com/upload/544.jpg" rounded />
+                                    </a>
+                                    </Container>
                                 </Col>
-                            </a>
-                            <a href="javascript:;">
-                                <Col className="certChoose" lg="3" md="4" sm="6">
-                                    <h5 className="h5Cert">NO CERT</h5>
-                                    <Image id="None" onClick={this.getLab} style={{ width: "100px", border: "1px solid blue" }} src="https://www.clipart1001.com/wp-content/uploads/2018/12/Roblox-Clipart-Black-And-Outline.jpg" rounded />
+                           
+                                <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
+                                    <h5 className="h5Cert">NONE</h5>
+                                    <Image id="None" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://www.clipart1001.com/wp-content/uploads/2018/12/Roblox-Clipart-Black-And-Outline.jpg" rounded />
+                                    </a>
+                                </Container>
                                 </Col>
-                            </a>
+                            
                         </Row>
                         <h3>Certificate Lab selected: {this.state.diamond.lab}</h3>
                         <h2>Certificate Number</h2>
@@ -833,7 +859,7 @@ export default class AddDiamond extends React.Component {
                                                 Image # 1
                                                     <Form.Control data-id="1" type="file" placeholder="Diamond image URL" accept="image/*" onChange={this.imgChange} />
 
-                                                <Image src={pic1.url} style={{ width: "20%" }} fluid />
+                                                <Image src={pic1.url} style={{ width: "15%" }} fluid />
                                                 <p>{pic1.name}<Button onClick={this.deleteImg} id="deleteBtn1" hidden={pic1.hidden} variant="danger">Delete</Button></p>
                                             </Form.Group>
                                             <Form.Group controlId="formFile2">
@@ -843,8 +869,8 @@ export default class AddDiamond extends React.Component {
                                                 Image # 2
                                                     <Form.Control data-id="2" type="file" placeholder="Diamond image URL" accept="image/*" onChange={this.imgChange} />
 
-                                                <Image src={pic2.url} style={{ width: "20%" }} fluid />
-                                                <p>{pic2.name}<Button onClick={this.deleteImg}  id="deleteBtn2"  hidden={pic2.hidden} variant="danger">Delete</Button></p>
+                                                <Image src={pic2.url} style={{ width: "15%" }} fluid />
+                                                <p>{pic2.name}<Button onClick={this.deleteImg} id="deleteBtn2" hidden={pic2.hidden} variant="danger">Delete</Button></p>
 
                                             </Form.Group>
 
@@ -860,10 +886,10 @@ export default class AddDiamond extends React.Component {
                 <Button variant="success" onClick={this.toggle} className="fullWin">
                     List New Diamond
             </Button>
-            <Button variant="info" onClick={this.myListings} className="fullWin">
+                <Button variant="info" onClick={this.myListings} className="fullWin">
                     Only My Listings
             </Button>
-            <Button variant="warning" onClick={this.clearFilter} className="fullWin">
+                <Button variant="warning" onClick={this.clearFilter} className="fullWin">
                     Clear all filters
             </Button>
                 <Modal id="modalAdd" size="xl" show={this.state.modal} onHide={this.handleClose} animation={false}>

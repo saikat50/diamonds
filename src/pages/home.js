@@ -11,14 +11,12 @@ export class Home extends React.Component {
     this.state = {}
 }
     render() {
-      const { activeUser, handleLogout } = this.props;
+      const { activeUser, handleLogout,allMessages } = this.props;
+      console.log("home");
+      console.log(allMessages);
       return (
         <Container>
-          {/* <MyNavbar /> */}
-          <DiamondNavbar activeUser={activeUser} handleLogout={handleLogout}/>
-          <div className="slidecontainer">  
-          </div>
-          {/* <MyModal /> */}
+          <DiamondNavbar  allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
           <HomePageBody />
         </Container>
       );
