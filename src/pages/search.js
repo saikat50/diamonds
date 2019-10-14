@@ -2,8 +2,6 @@ import React from 'react';
 import { Container } from 'react-bootstrap'
 import AddDiamond from '../components/AddNewDiamond'
 import DiamondList from '../components/DiamondsList'
-import MyNavbar from '../components/MyNavbar'
-import MyModal from '../components/MyModal'
 import { user, listPrice } from '../App'
 import { Diamond1 } from '../Classes/Diamond'
 import DiamondNavbar from '../components/DiamondNavbar';
@@ -216,11 +214,9 @@ this.setState({filter})
     return (
 
       <Container >
-        {/* <MyNavbar user={this.state.user}/> */}
         <DiamondNavbar allMessages={allMessages}  activeUser={activeUser} handleLogout={handleLogout} />
         <AddDiamond  filter={this.state.filter} setFilter={this.setFilter}  activeUser={activeUser} saveDiamond={this.saveDiamond} cancelEdit={this.cancelEdit} addEdit={this.addEdit} prices={this.state.prices} edit={this.state.edit} diamonds={this.state.diamondArr} />
-        {/* <MyModal  user={this.state.user}  activeUser={activeUser} /> */}
-        <DiamondList filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
+        <DiamondList  addMessage={this.props.addMessage}  filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
       </Container>
     );
   }

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, ButtonToolbar } from 'react-bootstrap'
+import { Button, ButtonToolbar,Alert } from 'react-bootstrap'
 import ShowDiamond from '../components/ShowDiamond'
 import SearchDiamondForm from '../components/SearchDiamondForm'
-// import {user,listPrice} from '../App'
+
 
 //RECIVES 3 PROPS 
 //deleteDiamond=FUNCTION TO DELETE A DIAMOND(INDEX OF THE DELETED DIAMOND) 
@@ -13,9 +13,21 @@ export default class DiamondList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      modal:false,
       list: this.props.list
     }
   }
+  toggle = () => {
+    this.setState({
+        modal: !this.state.modal
+    });
+}
+handleClose = () => {
+    this.setState({
+        modal: false
+    });
+
+}
   // CALLS THE FATHER COMPONENT'S FUNCTION DELETEDIAMOND WITH THE INDEX OF THE DIAMOND
   deleteDiamond = (element) => {
     this.props.deleteDiamond(element.target.value)
@@ -24,7 +36,16 @@ export default class DiamondList extends React.Component {
   editDiamond = (element) => {
     this.props.editDiamond(element.target.value)
   }
+  contactSeller=(e)=>{
+    const {addMessage,activeUser,ownerName} = this.props;
+    const {list}=this.state;
+    const i=e.target.value;
+    console.log("owner");
+    console.log(list[i].owner);
+    addMessage(`Hi ${ownerName(list[i].owner.id)}, I am contacting you regarding your diamond: ${list[i].lotID} ${list[i].shape} ${list[i].color} ${list[i].clarity}`,activeUser.id,list[i].owner.id)
+  }
   render() {
+    const [modalShow, setModalShow] = React.useState(false);
     var result = [];
     for (var i = 0; i < this.state.list.length; i++) {
       if (this.state.list[i].inFilter(this.props.filter)
@@ -63,7 +84,7 @@ export default class DiamondList extends React.Component {
                 {/* DISPLAY THE USER'S ACTION BUTTONS */}
                 <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
                 <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button>
-                <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="secondary" >Contact seller</Button>
+                <Button onClick={this.toggle} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="secondary" >Contact seller</Button>
                 <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="info" >Bid</Button>
               </ButtonToolbar>
             </ShowDiamond>);
@@ -75,6 +96,7 @@ export default class DiamondList extends React.Component {
       <div>
         <SearchDiamondForm filter={this.props.filter} setFilter={this.props.setFilter}/>
         {result}
+
       </div>
     );
   }

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Container, InputGroup, FormControl, ListGroup, Image, Badge, Row, Col } from 'react-bootstrap'
-import MyModal from '../components/MyModal'
-import MyNavbar from '../components/MyNavbar'
 import HomePageBody from '../components/HomePageBody'
 import DiamondNavbar from '../components/DiamondNavbar';
 import { usersMessages } from '../Classes/Message'
@@ -15,6 +13,9 @@ export default class UserMessages extends React.Component {
             id: "Q1AKkgMzMS"
             // this.props.match.params.id
         }
+    }
+    componentDidMount(){
+        this.conv.scrollTop = this.conv.scrollHeight;
     }
     render() {
         let pic;
@@ -30,25 +31,25 @@ export default class UserMessages extends React.Component {
             console.log(activeUser.id)
             if (message.from.id === activeUser.id) {
                 showConversation.push(<Row>
-                    <Col xl="5" lg="5" md="5" sm="5" xs="5" ></Col>
-                    <Col xl="7" lg="7" md="7" sm="7" xs="7" >
-                        <div className="from">
+                    <Col xl="6" lg="6" md="6" sm="6" xs="6" ></Col>
+                    <Col xl="6" lg="6" md="6" sm="6" xs="6" >
+                        <spam className="from">
                             <p>You:</p>
                             <p>{message.text}</p>
-                        </div>
+                        </spam>
                     </Col>
                 </Row>)
             }
             else {
                 showConversation.push(<Row>
 
-                    <Col xl="7" lg="7" md="7" sm="7" xs="7" >
-                        <div className="to">
+                    <Col xl="6" lg="6" md="6" sm="6" xs="6" >
+                        <spam className="to">
                             <p>{theSender.fname}:</p>
                             <p>{message.text}</p>
-                        </div>
+                        </spam>
                     </Col>
-                    <Col xl="5" lg="5" md="5" sm="5" xs="5" ></Col>
+                    <Col xl="6" lg="6" md="6" sm="6" xs="6" ></Col>
                 </Row>)
             }
         })
@@ -57,7 +58,7 @@ export default class UserMessages extends React.Component {
                 <DiamondNavbar allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
 
                 <div className="userHeader"><Image style={{ width: "40px" }} src={pic}></Image>{`  ${theSender.fname} ${theSender.lname}`}</div>
-                <Container className="body">
+                <Container ref={(element)=>{this.conv=element}} className="body">
                     {showConversation}
                 </Container>
                 <div id="footer">

@@ -1,5 +1,4 @@
 import React from 'react'
-import { MyCard } from '../components/MyCard'
 
 import { Container, Carousel } from 'react-bootstrap'
 

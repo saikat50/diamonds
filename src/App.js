@@ -118,32 +118,58 @@ class App extends React.Component {
     }
 
   }
-  addMessage= (text,from,to)=>{
-    const Messages = Parse.Object.extend('Messages');
-    const myNewObject = new Messages();
-  
-    myNewObject.set('from', from.id);
-    myNewObject.set('to', to.id);
-    myNewObject.set('text', text);
-    myNewObject.set('read', false);
-    myNewObject.set('deleted', false);
-    
-    myNewObject.save().then(
-      (result) => {
-        console.log('Messages created', result);
-        let {allMessages}=this.state;
-        allMessages.push(new Message(result));
-        this.setState({allMessages});
-      },
-      (error) => {
-        console.error('Error while creating Messages: ', error);
-      }
-    );
+  addMessage= (text,fromID,toID)=>{
+    console.log(text);
+    console.log(fromID);
+    console.log(toID);
+    let {allMessages}=this.state;
+    const User2 = new Parse.User();
+    const User1 = new Parse.User();
+    const query2 = new Parse.Query(User2);
+    const query1 = new Parse.Query(User1);
+    let from,to;
+
+    query1.get(fromID).then((from1) => {
+        from=from1;
+        console.log('User found', from1);
+        query2.get(toID).then((to1) => {
+                to=to1;
+                console.log('User found', to1);
+
+                const Messages = Parse.Object.extend('Messages');
+                const myNewObject = new Messages();      
+                myNewObject.set('from', from);
+                myNewObject.set('to', to);
+                myNewObject.set('text', text);
+                myNewObject.set('read', false);
+                myNewObject.set('deleted', false);
+        
+                myNewObject.save().then(
+                    (result) => {
+                        console.log('Messages created', result);
+                        allMessages.push(new Message(result));
+                        this.setState({allMessages});
+                        alert("The Message: '"+text+"' has been sent");
+
+                    },
+                    (error) => {
+                            console.error('Error while creating Messages: ', error);
+                    });
+        }, (error) => {
+     
+                console.error('Error while fetching user', error);
+        });
+
+    }, (error) => {
+   
+          console.error('Error while fetching user', error);
+    });
 
   }
+
   render() {
   
-    const { activeUser, allUsers,isLoading,allMessages } = this.state;
+    const { activeUser, allUsers,isLoading,allMessages} = this.state;
     if (isLoading) return false;
     console.log("finishloading");
     console.log(allMessages);
@@ -155,7 +181,7 @@ class App extends React.Component {
         <Route exact path="/home" ><Home   allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
         <Route exact path="/messages" ><Messages  allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></Messages></Route>
         <Route exact path="/messages/:id" ><UserMessages addMessage={this.addMessage} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></UserMessages></Route>
-        <Route exact path="/search"><Search   allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
+        <Route exact path="/search"><Search  addMessage={this.addMessage}   allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
         <Route exact path="/login"> <LoginPage   allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         <Route exact path="/signup"> <SignupPage   allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
       </Switch>

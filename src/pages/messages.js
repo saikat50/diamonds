@@ -1,7 +1,5 @@
 import React from 'react';
 import { Container, InputGroup, FormControl, ListGroup,Image,Badge } from 'react-bootstrap'
-import MyModal from '../components/MyModal'
-import MyNavbar from '../components/MyNavbar'
 import HomePageBody from '../components/HomePageBody'
 import DiamondNavbar from '../components/DiamondNavbar';
 import {usersMessages} from '../Classes/Message'
