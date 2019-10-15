@@ -47,7 +47,7 @@ export default class UserMessages extends React.Component {
             if (message.from.id === activeUser.id) {
                 showConversation.push(<Row>
                     <Col xl="6" lg="6" md="6" sm="6" xs="6" ></Col>
-                    <Col xl="6" lg="6" md="6" sm="6" xs="6" >
+                    <Col style={{display:"flex"}} xl="6" lg="6" md="6" sm="6" xs="6" >
                         <spam className="from">
                             <p>You:</p>
                             <p>{message.text}</p>

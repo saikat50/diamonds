@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Nav,Badge } from 'react-bootstrap'
+import { Navbar, Nav,Badge,Image } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import diamondLogo from '../data/1c7be669e68d05366ad16b7d2b40333b-diamond-gemstone-black-icon-by-vexels.png'
 import {usersMessages} from '../Classes/Message'
@@ -34,19 +34,18 @@ class DiamondNavbar extends React.Component {
     render() {
         const { activeUser,allMessages } = this.props;
         const { redirectToHome } = this.state;
-        console.log("navbar");
-        console.log(allMessages);
-        // if (redirectToHome) {
-        //     return <Redirect to="/"/>
-        // }
+        // console.log("navbar");
+        // console.log(allMessages);
+        let pic;
+        // if (activeUser) console.log(activeUser.pic);
+        if (activeUser&&activeUser.pic) { pic = activeUser.pic["_url"] } else { pic = "https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png" }
 
         const signupLink = !activeUser ? <Nav.Link href="#/signup">Signup</Nav.Link> : null;
         const loginLink = !activeUser ? <Nav.Link href="#/login">Login</Nav.Link> : null;
-        const logoutLink = activeUser ? <Nav.Link onClick={this.logout}>{this.props.activeUser.fname+" Logout"}</Nav.Link> : null;
+        const logoutLink = activeUser ? <Nav.Link onClick={this.logout}><Image style={{width:"50px"}} src={pic} roundedCircle />{" "+this.props.activeUser.fname+" Logout"}</Nav.Link> : null;
         const newMessages=usersMessages( activeUser,allMessages).new;
         let myBadge="";
         if (newMessages){myBadge=(<Badge pill variant="success">{newMessages}</Badge>)}
-        
 
         return (
             

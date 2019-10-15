@@ -51,13 +51,10 @@ class App extends React.Component {
 
 
   }
-  componentDidMount() {
-    let allUsers=[];
+  getMessages=()=>{
     let allMessages=[];
-
     const parseMessages = Parse.Object.extend('Messages');
     const query1 = new Parse.Query(parseMessages);
-
     query1.find().then((results) => {
       // You can use the "get" method to get the value of an attribute
       // Ex: response.get("<ATTRIBUTE_NAME>")
@@ -65,13 +62,19 @@ class App extends React.Component {
       results.forEach(message=>{
         allMessages.push(new Message(message))
       });
-      console.log('allmessages');
-      console.log(allMessages);
-      this.setState({allMessages:allMessages,isLoading:false});
+      // console.log('allmessages');
+      // console.log(allMessages);
+        this.setState({allMessages:allMessages,isLoading:false});
     }, (error) => {
       console.error('Error while fetching Messages', error);
     });
+  }
 
+  componentDidMount() {
+    this.getMessages();
+    setInterval(this.getMessages, 60000);
+    
+    let allUsers=[];
     const parseUser = new Parse.User();
     const query = new Parse.Query(parseUser);
 
