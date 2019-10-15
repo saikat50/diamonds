@@ -16,37 +16,37 @@ export default class AddDiamond extends React.Component {
                 page: 0,
                 diamond: {
                     id: "",
-                    lotID: "fdgdsf",
-                    shape: "BR",
-                    weight: "1",
-                    color: "D",
-                    clarity: "IF",
-                    cut: "EX",
-                    polish: "VG",
-                    symmetry: "G",
-                    fluorescence: "None",
-                    fluorescenceColor: "Yellow",
-                    lab: "GIA",
-                    certificateNumber: "523453245",
-                    depth: "60.2",
-                    table: "58",
-                    crownAngle: "56",
-                    crownHeight: "35",
-                    pavillionAngle: "32",
-                    pavillionDepth: "50",
-                    starLength: "15",
-                    lowerHalf: "15",
-                    girdle: "MED-STK",
-                    culet: "None",
-                    list: listPrice("BR", "D", "IF", "1", this.props.prices),
-                    discount: "40",
-                    pricePerCarat: "5000",
+                    lotID: "",
+                    shape: "",
+                    weight: "",
+                    color: "",
+                    clarity: "",
+                    cut: "",
+                    polish: "",
+                    symmetry: "",
+                    fluorescence: "",
+                    fluorescenceColor: "",
+                    lab: "",
+                    certificateNumber: "",
+                    depth: "",
+                    table: "",
+                    crownAngle: "",
+                    crownHeight: "",
+                    pavillionAngle: "",
+                    pavillionDepth: "",
+                    starLength: "",
+                    lowerHalf: "",
+                    girdle: "",
+                    culet: "",
+                    list: 0,
+                    discount: "",
+                    pricePerCarat: "",
                     links: [],
                     inclusions: "",
                     keepDiscount: true,
-                    diamMin: "3.58",
-                    diamMax: "3.65",
-                    deptAvg: "2.58",
+                    diamMin: "",
+                    diamMax: "",
+                    deptAvg: "",
                     pic1: {},
                     pic2: {},
                     owner: this.props.activeUser.id
@@ -111,6 +111,9 @@ export default class AddDiamond extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("componentwillrecprops");
+        console.log(nextProps.edit);
+        console.log(nextProps.diamonds[nextProps.edit]);
         let newState;
         if (nextProps.edit === -1 && nextProps.activeUser) {
             newState = {
@@ -119,37 +122,37 @@ export default class AddDiamond extends React.Component {
                 page: 0,
                 diamond: {
                     id: "",
-                    lotID: "fdgdsf",
-                    shape: "BR",
-                    weight: "1",
-                    color: "D",
-                    clarity: "IF",
-                    cut: "EX",
-                    polish: "VG",
-                    symmetry: "G",
-                    fluorescence: "None",
-                    fluorescenceColor: "Yellow",
-                    lab: "GIA",
-                    certificateNumber: "523453245",
-                    depth: "60.2",
-                    table: "58",
-                    crownAngle: "56",
-                    crownHeight: "35",
-                    pavillionAngle: "32",
-                    pavillionDepth: "50",
-                    starLength: "15",
-                    lowerHalf: "15",
-                    girdle: "MED-STK",
-                    culet: "None",
-                    list: listPrice("BR", "D", "IF", "1", this.props.prices),
-                    discount: "40",
-                    pricePerCarat: "5000",
+                    lotID: "",
+                    shape: "",
+                    weight: "",
+                    color: "",
+                    clarity: "",
+                    cut: "",
+                    polish: "",
+                    symmetry: "",
+                    fluorescence: "",
+                    fluorescenceColor: "",
+                    lab: "",
+                    certificateNumber: "",
+                    depth: "",
+                    table: "",
+                    crownAngle: "",
+                    crownHeight: "",
+                    pavillionAngle: "",
+                    pavillionDepth: "",
+                    starLength: "",
+                    lowerHalf: "",
+                    girdle: "",
+                    culet: "",
+                    list: 0,
+                    discount: "",
+                    pricePerCarat: "",
                     links: [],
                     inclusions: "",
                     keepDiscount: true,
-                    diamMin: "3.58",
-                    diamMax: "3.65",
-                    deptAvg: "2.58",
+                    diamMin: "",
+                    diamMax: "",
+                    deptAvg: "",
                     owner: nextProps.activeUser.id,
                     pic1: {},
                     pic2: {}
@@ -158,15 +161,13 @@ export default class AddDiamond extends React.Component {
             }
         }
         else if (nextProps.activeUser) {
-            console.log(nextProps.diamonds[nextProps.edit].pic2)
             newState = {
                 modal: true,
                 page: 0,
                 disableSave: true,
                 diamond: nextProps.diamonds[nextProps.edit]
 
-            }
-
+            }     
         }
         else {
             newState = {
@@ -419,10 +420,10 @@ export default class AddDiamond extends React.Component {
   
     render() {
         let pic1, pic2;
-        // console.log("render");
-        // console.log(this.state.diamond.pic1);
+        console.log("render");
+        console.log(this.state.diamond);
 
-        if (!this.props.activeUser) return false;
+        if (!this.props.activeUser|| !this.state.diamond) return false;
 
         if (this.state.diamond.pic1 !== {}) { pic1 = { name: this.state.diamond.pic1.name, url: this.state.diamond.pic1.url, hidden: false } } else pic1 = { name: null, url: null, hidden: true }
         if (this.state.diamond.pic2 !== {}) { pic2 = { name: this.state.diamond.pic2.name, url: this.state.diamond.pic2.url, hidden: false } } else pic2 = { name: null, url: null, hidden: true }

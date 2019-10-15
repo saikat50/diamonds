@@ -11,14 +11,24 @@ export default class UserMessages extends React.Component {
         this.state = {
             message:"",
             filter: "",
-            // id:window.location.pathname.substring(26)
-            id: "Q1AKkgMzMS"
+             id:window.location.hash.substring(11)
+            // id: "Q1AKkgMzMS"
             // id:this.props.match.params.id
         }
     
     }
     componentDidMount(){
         this.conv.scrollTop = this.conv.scrollHeight;
+        const { activeUser, allMessages,messageRead,allUsers } = this.props;
+        let theSender = userDetails(this.state.id, allUsers);
+        let conversation = usersMessages(activeUser, allMessages, theSender);
+        conversation.messages.forEach(message => {
+            console.log("from "+message.from.id+theSender.id+" is read? "+message.read)
+            if (message.from.id===theSender.id && !message.read){
+                console.log('now should be read message '+message.id)
+                messageRead(message);
+            }
+        })
     }
     
     render() {

@@ -166,7 +166,29 @@ class App extends React.Component {
     });
 
   }
-
+messageRead=(message)=>{
+  const Messages = Parse.Object.extend('Messages');
+  const query = new Parse.Query(Messages);
+  // here you put the objectId that you want to update
+ let {allMessages}=this.state;
+ for (var i=0;i<allMessages.length;i++){
+   if (allMessages[i].id===message.id){
+     allMessages[i].read=true;
+     break;
+   }
+ }
+  query.get(message.id).then((object) => {
+  object.set('read', true);
+  object.save().then((response) => {
+    // You can use the "get" method to get the value of an attribute
+    // Ex: response.get("<ATTRIBUTE_NAME>")
+    console.log('Updated Messages', response);
+  }, (error) => {
+    console.error('Error while updating Messages', error);
+  });
+});
+this.setState({allMessages});
+}
   render() {
   
     const { activeUser, allUsers,isLoading,allMessages} = this.state;
@@ -180,7 +202,7 @@ class App extends React.Component {
         <Route exact path="/" ><Home   allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
         <Route exact path="/home" ><Home   allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
         <Route exact path="/messages" ><Messages  allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></Messages></Route>
-        <Route exact path="/messages/:id" ><UserMessages  addMessage={this.addMessage} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></UserMessages></Route>
+        <Route exact path="/messages/:id" ><UserMessages messageRead={this.messageRead} addMessage={this.addMessage} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></UserMessages></Route>
         <Route exact path="/search"><Search  addMessage={this.addMessage}   allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
         <Route exact path="/login"> <LoginPage   allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         <Route exact path="/signup"> <SignupPage   allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>

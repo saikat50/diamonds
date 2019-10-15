@@ -21,6 +21,11 @@ export default class DiamondList extends React.Component {
       list: this.props.list
     }
   }
+  componentWillReceiveProps(nextProps) {
+    let list=nextProps.list;
+    this.setState({list})
+  }
+
   toggle = (e) => {
     this.setState({
         modal: !this.state.modal,
@@ -46,6 +51,8 @@ handleClose = () => {
   }
   // CALLS THE FATHER COMPONENT'S FUNCTION EDITDIAMOND WITH THE INDEX OF THE DIAMOND
   editDiamond = (element) => {
+    console.log("EDIT");
+    console.log(element.target.value);
     this.props.editDiamond(element.target.value)
   }
 
@@ -64,7 +71,7 @@ handleClose = () => {
           result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
             <ButtonToolbar>
               {/* DISPLAY THE USER'S ACTION BUTTONS */}
-              <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button>
+              {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button> */}
             </ButtonToolbar>
           </ShowDiamond>);
         }
@@ -78,7 +85,7 @@ handleClose = () => {
                 {/* DISPLAY THE OWNER'S ACTION BUTTONS */}
                 <Button onClick={this.editDiamond} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="warning">Edit</Button>
                 <Button onClick={this.deleteDiamond} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="danger">Delete</Button>
-                <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="dark" >Add to Auction</Button>
+                {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="dark" >Add to Auction</Button> */}
               </ButtonToolbar>
             </ShowDiamond>);
           }
@@ -90,9 +97,9 @@ handleClose = () => {
                 {/* DISPLAY THE USER'S ACTION BUTTONS */}
           
                 <Button onClick={this.toggleOffer}  value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
-                <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button>
+                {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button> */}
                 <Button onClick={this.toggle} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="secondary" >Contact seller</Button>
-                <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="info" >Bid</Button>
+                {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="info" >Bid</Button> */}
               </ButtonToolbar>
             </ShowDiamond>);
           }
