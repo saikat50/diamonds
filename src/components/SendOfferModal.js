@@ -1,17 +1,19 @@
 import React from 'react'
-import { Modal, Button,InputGroup,FormControl } from 'react-bootstrap'
+import { Modal, Button,InputGroup,FormControl,Alert } from 'react-bootstrap'
 
 export default class SendOfferModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            show: false,
             modal: this.props.show,
             diamond: this.props.diamond,
         }
     }
     handleClose = () => {
         this.setState({
-            modal: false
+            modal: false,
+            show: false
         });
         this.props.close();
 
@@ -19,9 +21,11 @@ export default class SendOfferModal extends React.Component {
     contactSeller = () => {
         const { addMessage, activeUser,ownerName } = this.props;
         const { diamond } = this.state;
-
-        addMessage(this.textInput.value, activeUser.id, diamond.owner.id)
-        this.handleClose();
+        let { show } = this.state;
+        addMessage(this.textInput.value, activeUser.id, diamond.owner.id);
+        show = true;
+        this.setState({ show })
+        // this.handleClose();
     }
     componentWillReceiveProps(nextProps) {
         let newState = {
@@ -33,7 +37,6 @@ export default class SendOfferModal extends React.Component {
     render() {
         const { addMessage, activeUser,ownerName } = this.props;
         const { modal, diamond } = this.state;
-        console.log("offerfdgsdfgsdfgsdfg:"+modal);
         let showLotId;
         let showOwnerId;
         let showPrice;
@@ -61,6 +64,9 @@ export default class SendOfferModal extends React.Component {
                             aria-describedby="basic-addon1"
                         />
                     </InputGroup>
+                    <Alert style={{ width: "100%" }} variant="primary" show={this.state.show}>
+                        Offer Sent to {ownerName(showOwnerId)}
+                    </Alert>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => { this.contactSeller() }}>Send</Button>

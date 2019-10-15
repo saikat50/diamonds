@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, InputGroup, FormControl, ListGroup, Image, Badge, Row, Col } from 'react-bootstrap'
+import { Container, InputGroup, FormControl, ListGroup, Image, Badge, Row, Col,Button } from 'react-bootstrap'
 import HomePageBody from '../components/HomePageBody'
 import DiamondNavbar from '../components/DiamondNavbar';
 import { usersMessages } from '../Classes/Message'
@@ -9,18 +9,23 @@ export default class UserMessages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            message:"",
             filter: "",
-            // id: "Q1AKkgMzMS"
-            id:this.props.match.params.id
+            // id:window.location.pathname.substring(26)
+            id: "Q1AKkgMzMS"
+            // id:this.props.match.params.id
         }
+    
     }
     componentDidMount(){
         this.conv.scrollTop = this.conv.scrollHeight;
     }
+    
     render() {
         let pic;
         const { activeUser, handleLogout, allUsers, allMessages, addMessage } = this.props;
         let theSender = userDetails(this.state.id, allUsers);
+        console.log(this.state.id);
         console.log("the sender");
         console.log(theSender);
         if (theSender.pic) { pic = theSender.pic["_url"] } else { pic = "https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png" }
@@ -64,16 +69,25 @@ export default class UserMessages extends React.Component {
                 <div id="footer">
                     <InputGroup className="mb-0">
                         <FormControl
-                            onChange={(event)=>{event.target.addEventListener("keyup", function(event) {
-                                // Number 13 is the "Enter" key on the keyboard
-                                if (event.keyCode === 13) {
-                                    addMessage(event.target.value,activeUser,theSender);
-                                }
-                              });}}
+                            value={this.state.message}
+                            onChange={(event)=>{
+                                let {message}=this.state;
+                                message=event.target.value;
+                                this.setState({message});
+                            }}
                             placeholder="Write Something"
                             aria-label="User"
                             aria-describedby="basic-addon1"
                         />
+                         <InputGroup.Append>
+                             <Button onClick={()=>{
+                                     let {message}=this.state;
+                                    addMessage(message,activeUser.id,theSender.id);
+                                    message="";
+                                    this.setState({message});
+                             }} 
+                             variant="primary">Send</Button>
+                         </InputGroup.Append>
                     </InputGroup>
                 </div>
 

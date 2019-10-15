@@ -149,7 +149,7 @@ class App extends React.Component {
                         console.log('Messages created', result);
                         allMessages.push(new Message(result));
                         this.setState({allMessages});
-                        alert("The Message: '"+text+"' has been sent");
+                        // alert("The Message: '"+text+"' has been sent");
 
                     },
                     (error) => {

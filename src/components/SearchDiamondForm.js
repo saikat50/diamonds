@@ -192,9 +192,9 @@ export default class SearchDiamondForm extends React.Component {
 
   }
   render() {
-    console.log("filter");
-    console.log(this.props.filter);
-    console.log((this.props.filter.shape.includes("OV")));
+    // console.log("filter");
+    // console.log(this.props.filter);
+    // console.log((this.props.filter.shape.includes("OV")));
     let br, ov, ps, mq, hs, pri, rad, em, cu, bg, tri;
     if (this.props.filter.shape.includes("BR")) { br = "success" } else { br = "light" };
     if (this.props.filter.shape.includes("OV")) { ov = "success" } else { ov = "light" };
@@ -214,7 +214,7 @@ export default class SearchDiamondForm extends React.Component {
         <Button style={{backgroundColor:"pink",border:"none",borderRadius:"5px",marginTop:"5px",height:"40px"}} onClick={this.clearTheFilter} className="fullWin">
                     Clear all filters
         </Button> 
-        <h3>Filter</h3>
+        <h3 style={{marginTop:"10px"}}> Filter</h3>
         <Row>
           <Col lg="1" md="2" sm="3" xs="4">
             <button onClick={this.toggleAll} type="button" className={`btn btn-primary`}>{this.state.tglAll}</button>
