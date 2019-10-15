@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap'
+import { Container,Button } from 'react-bootstrap'
 import AddDiamond from '../components/AddNewDiamond'
 import DiamondList from '../components/DiamondsList'
 import { user, listPrice } from '../App'
@@ -207,6 +207,21 @@ this.setState({filter})
     }
     this.setState(newState)
   }
+  clearFilter = () => {
+    let filter = {
+        shape: [],
+        colorMin: "D",
+        colorMax: "YZ",
+        clarityMin: "FL",
+        clarityMax: "I3",
+        weightMin: "",
+        weightMax: "",
+        owner: false,
+        clearClarityFilter: true,
+        clearColorFilter: true
+    }
+    this.setFilter(filter);
+}
   render() {
     const { activeUser, handleLogout,allMessages } = this.props;
     if (this.state.isLoading) return false;
@@ -216,7 +231,10 @@ this.setState({filter})
       <Container >
         <DiamondNavbar allMessages={allMessages}  activeUser={activeUser} handleLogout={handleLogout} />
         <AddDiamond  filter={this.state.filter} setFilter={this.setFilter}  activeUser={activeUser} saveDiamond={this.saveDiamond} cancelEdit={this.cancelEdit} addEdit={this.addEdit} prices={this.state.prices} edit={this.state.edit} diamonds={this.state.diamondArr} />
-        <DiamondList  addMessage={this.props.addMessage}  filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
+            {/* <Button variant="warning" onClick={this.clearFilter} className="fullWin">
+                    Clear all filters
+            </Button>  */}
+        <DiamondList  addMessage={this.props.addMessage} clearFilter={this.clearFilter}  filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
       </Container>
     );
   }

@@ -25,11 +25,11 @@ export class Messages extends React.Component {
         else return 1;
     }
   redirectToUserMessage(id){
-      let redirectTo="/messages/"+id;
+      let redirectTo=id;
       this.setState({redirectTo});
   }
     render() {
-        if (this.state.redirectTo) {return <Redirect to={this.state.redirectTo}/>}
+        if (this.state.redirectTo) {return <Redirect to={"/messages/"+this.state.redirectTo}/>}
         const { activeUser, handleLogout, allUsers,allMessages } = this.props;
         const {filter}=this.state;
         let listUsers = [];

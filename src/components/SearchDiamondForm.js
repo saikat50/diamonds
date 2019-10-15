@@ -111,7 +111,11 @@ export default class SearchDiamondForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tglAll: "Select"
+      tglAll: "Select",
+      filter:{
+        weightMin:"",
+        weightMax:"",
+      }
     }
   }
   handleChange = () => {
@@ -146,15 +150,25 @@ export default class SearchDiamondForm extends React.Component {
   }
   setMinWeight = (e) => {
 
-    let { filter, setFilter } = this.props;
-    filter.weightMin = e.target.value;
-    setFilter(filter);
+    let { setFilter } = this.props;
+    let filter1=this.props.filter;
+    let filter=this.state.filter;
+    filter1.weightMin = e.target.value;
+    filter.weightMin=e.target.value;
+    if (filter1.weightMin==="") filter1.weightMin=0;
+    this.setState({filter});
+    setFilter(filter1);
   }
   setMaxWeight = (e) => {
 
-    let { filter, setFilter } = this.props;
-    filter.weightMax = e.target.value;
-    setFilter(filter);
+    let { setFilter } = this.props;
+    let filter1=this.props.filter;
+    let filter=this.state.filter;
+    filter1.weightMax = e.target.value;
+    filter.weightMax=e.target.value;
+    if (filter1.weightMax==="") filter1.weightMax=10000;
+    this.setState({filter});
+    setFilter(filter1);
   }
   setColorFilter = (value) => {
     let { filter, setFilter } = this.props;
@@ -167,6 +181,15 @@ export default class SearchDiamondForm extends React.Component {
     filter.clarityMin = num2clarity(value[0]);
     filter.clarityMax = num2clarity(value[1]);
     setFilter(filter);
+  }
+  clearTheFilter= ()=>{
+    const {clearFilter } = this.props;
+    let {filter } = this.state;
+    filter.weightMax="";
+    filter.weightMin="";
+    clearFilter();
+    this.setState({filter});
+
   }
   render() {
     console.log("filter");
@@ -188,6 +211,9 @@ export default class SearchDiamondForm extends React.Component {
     var width60 = { width: "60px" };
     return (
       <Form>
+        <Button style={{backgroundColor:"pink",border:"none",borderRadius:"5px",marginTop:"5px",height:"40px"}} onClick={this.clearTheFilter} className="fullWin">
+                    Clear all filters
+        </Button> 
         <h3>Filter</h3>
         <Row>
           <Col lg="1" md="2" sm="3" xs="4">
@@ -231,11 +257,11 @@ export default class SearchDiamondForm extends React.Component {
 
           <Form.Group as={Col} xl="3" lg="3" sm="12" controlId="validationCustom05">
             <Form.Label>Weight From</Form.Label>
-            <Form.Control onChange={this.setMinWeight} type="number" placeholder="From" />
+            <Form.Control onChange={this.setMinWeight} type="number" placeholder="From" value={this.state.filter.weightMin}/>
             <Form.Control.Feedback type="invalid">
             </Form.Control.Feedback>
             <Form.Label>Weight To</Form.Label>
-            <Form.Control onChange={this.setMaxWeight} type="number" placeholder="To" />
+            <Form.Control onChange={this.setMaxWeight} type="number" placeholder="To" value={this.state.filter.weightMax} />
             <Form.Control.Feedback type="invalid">
             </Form.Control.Feedback>
           </Form.Group>

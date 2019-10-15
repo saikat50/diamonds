@@ -10,8 +10,8 @@ export default class UserMessages extends React.Component {
         super(props);
         this.state = {
             filter: "",
-            id: "Q1AKkgMzMS"
-            // this.props.match.params.id
+            // id: "Q1AKkgMzMS"
+            id:this.props.match.params.id
         }
     }
     componentDidMount(){
@@ -19,7 +19,7 @@ export default class UserMessages extends React.Component {
     }
     render() {
         let pic;
-        const { activeUser, handleLogout, allUsers, allMessages } = this.props;
+        const { activeUser, handleLogout, allUsers, allMessages, addMessage } = this.props;
         let theSender = userDetails(this.state.id, allUsers);
         console.log("the sender");
         console.log(theSender);
@@ -67,7 +67,7 @@ export default class UserMessages extends React.Component {
                             onChange={(event)=>{event.target.addEventListener("keyup", function(event) {
                                 // Number 13 is the "Enter" key on the keyboard
                                 if (event.keyCode === 13) {
-                                    this.props.addMessage(event.target.value,activeUser,theSender);
+                                    addMessage(event.target.value,activeUser,theSender);
                                 }
                               });}}
                             placeholder="Write Something"

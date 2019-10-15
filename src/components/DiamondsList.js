@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, ButtonToolbar,Alert } from 'react-bootstrap'
 import ShowDiamond from '../components/ShowDiamond'
 import SearchDiamondForm from '../components/SearchDiamondForm'
+import SendMessageModal from '../components/SendMessageModal'
+import SendOfferModal from '../components/SendOfferModal'
 
 
 //RECIVES 3 PROPS 
@@ -14,17 +16,27 @@ export default class DiamondList extends React.Component {
     super(props);
     this.state = {
       modal:false,
+      modalOffer:false,
+      index:"",
       list: this.props.list
     }
   }
-  toggle = () => {
+  toggle = (e) => {
     this.setState({
-        modal: !this.state.modal
+        modal: !this.state.modal,
+        index:e.target.value
     });
+}
+toggleOffer = (e) => {
+  this.setState({
+      modalOffer: !this.state.modalOffer,
+        index:e.target.value
+  });
 }
 handleClose = () => {
     this.setState({
-        modal: false
+        modal: false,
+        modalOffer:false,
     });
 
 }
@@ -36,16 +48,10 @@ handleClose = () => {
   editDiamond = (element) => {
     this.props.editDiamond(element.target.value)
   }
-  contactSeller=(e)=>{
-    const {addMessage,activeUser,ownerName} = this.props;
-    const {list}=this.state;
-    const i=e.target.value;
-    console.log("owner");
-    console.log(list[i].owner);
-    addMessage(`Hi ${ownerName(list[i].owner.id)}, I am contacting you regarding your diamond: ${list[i].lotID} ${list[i].shape} ${list[i].color} ${list[i].clarity}`,activeUser.id,list[i].owner.id)
-  }
+
   render() {
-    const [modalShow, setModalShow] = React.useState(false);
+    // console.log("stateModalOffer");
+    // console.log(this.state.modalOffer);
     var result = [];
     for (var i = 0; i < this.state.list.length; i++) {
       if (this.state.list[i].inFilter(this.props.filter)
@@ -82,7 +88,8 @@ handleClose = () => {
             result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
               <ButtonToolbar>
                 {/* DISPLAY THE USER'S ACTION BUTTONS */}
-                <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
+          
+                <Button onClick={this.toggleOffer}  value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
                 <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button>
                 <Button onClick={this.toggle} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="secondary" >Contact seller</Button>
                 <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="info" >Bid</Button>
@@ -94,9 +101,10 @@ handleClose = () => {
 
     return (
       <div>
-        <SearchDiamondForm filter={this.props.filter} setFilter={this.props.setFilter}/>
+        <SearchDiamondForm clearFilter={this.props.clearFilter} filter={this.props.filter} setFilter={this.props.setFilter}/>
         {result}
-
+        <SendMessageModal show={this.state.modal} diamond={this.state.list[this.state.index]} activeUser={this.props.activeUser} addMessage={this.props.addMessage} close={this.handleClose} ownerName={this.props.ownerName}/>
+        <SendOfferModal show={this.state.modalOffer} diamond={this.state.list[this.state.index]} activeUser={this.props.activeUser} addMessage={this.props.addMessage} close={this.handleClose} ownerName={this.props.ownerName}/>
       </div>
     );
   }

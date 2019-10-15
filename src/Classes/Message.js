@@ -22,7 +22,7 @@ export function usersMessages(user, allMessages, fromUser) {
     if (user && allMessages) {
         allMessages.forEach(message => {
             if (message.from.id === user.id || message.to.id === user.id) {
-                result.messages.push(message);
+                if (fromUser&&(message.from.id === fromUser.id || message.to.id === fromUser.id)) result.messages.push(message);
                 if (!message.read && message.to.id === user.id && (!fromUser|| message.from.id === fromUser.id )) result.new++;
                 if (message.createdAt>result.last && message.to.id === user.id && fromUser && message.from.id === fromUser.id ) result.last=message.createdAt;
             }

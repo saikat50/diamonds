@@ -69,8 +69,8 @@ export class Diamond1 {
       && this.color <= filter.colorMax
       && clarityValue(this.clarity) >= clarityValue(filter.clarityMin)
       && clarityValue(this.clarity) <= clarityValue(filter.clarityMax)
-      && this.weight >= filter.weightMin
-      && this.weight <= filter.weightMax) return true;
+      && (this.weight >= filter.weightMin || filter.weightMin==="")
+      && (this.weight <= filter.weightMax || filter.weightMax==="")) return true;
 
     return false;
   }

@@ -5,7 +5,6 @@ import { Diamond1 } from '../Classes/Diamond'
 import diamondsShape from '../data/Shapes.png'
 import ListOfLinks from './ListOfLinks'
 
-
 export default class AddDiamond extends React.Component {
     constructor(props) {
         super(props);
@@ -417,21 +416,7 @@ export default class AddDiamond extends React.Component {
         filter.owner = true;
         this.props.setFilter(filter);
     }
-    clearFilter = () => {
-        let filter = {
-            shape: [],
-            colorMin: "D",
-            colorMax: "YZ",
-            clarityMin: "FL",
-            clarityMax: "I3",
-            weightMin: 0.01,
-            weightMax: 10000,
-            owner: false,
-            clearClarityFilter: true,
-            clearColorFilter: true
-        }
-        this.props.setFilter(filter);
-    }
+  
     render() {
         let pic1, pic2;
         // console.log("render");
@@ -526,7 +511,7 @@ export default class AddDiamond extends React.Component {
                     <Modal.Body><h2>Lab</h2>
                         <Row>
 
-                        <Col lg="2" md="3" sm="4" xs="4">
+                            <Col lg="2" md="3" sm="4" xs="4">
                                 <Container className="certChoose">
                                     <a href="javascript:;">
                                         <h5 className="h5Cert">GIA</h5>
@@ -566,30 +551,30 @@ export default class AddDiamond extends React.Component {
                             <Col lg="2" md="3" sm="4" xs="4">
                                 <Container className="certChoose">
                                     <a href="javascript:;" >
-                                    <h5 className="h5Cert">IGI</h5>
-                                    <Image id="IGI" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="  https://qph.fs.quoracdn.net/main-qimg-54bbfbbb192682043358f75f481f63b5" rounded />
-                                    </a>
-                                    </Container>
-                                </Col>
-                          
-                                <Col lg="2" md="3" sm="4" xs="4">
-                                <Container className="certChoose">
-                                    <a href="javascript:;" >
-                                    <h5 className="h5Cert">AGS</h5>
-                                    <Image id="AGS" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://www.vividventure.com/upload/544.jpg" rounded />
-                                    </a>
-                                    </Container>
-                                </Col>
-                           
-                                <Col lg="2" md="3" sm="4" xs="4">
-                                <Container className="certChoose">
-                                    <a href="javascript:;" >
-                                    <h5 className="h5Cert">NONE</h5>
-                                    <Image id="None" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://www.clipart1001.com/wp-content/uploads/2018/12/Roblox-Clipart-Black-And-Outline.jpg" rounded />
+                                        <h5 className="h5Cert">IGI</h5>
+                                        <Image id="IGI" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="  https://qph.fs.quoracdn.net/main-qimg-54bbfbbb192682043358f75f481f63b5" rounded />
                                     </a>
                                 </Container>
-                                </Col>
-                            
+                            </Col>
+
+                            <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
+                                        <h5 className="h5Cert">AGS</h5>
+                                        <Image id="AGS" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://www.vividventure.com/upload/544.jpg" rounded />
+                                    </a>
+                                </Container>
+                            </Col>
+
+                            <Col lg="2" md="3" sm="4" xs="4">
+                                <Container className="certChoose">
+                                    <a href="javascript:;" >
+                                        <h5 className="h5Cert">NONE</h5>
+                                        <Image id="None" onClick={this.getLab} style={{ width: "70px", border: "1px solid blue" }} src="https://www.clipart1001.com/wp-content/uploads/2018/12/Roblox-Clipart-Black-And-Outline.jpg" rounded />
+                                    </a>
+                                </Container>
+                            </Col>
+
                         </Row>
                         <h3>Certificate Lab selected: {this.state.diamond.lab}</h3>
                         <h2>Certificate Number</h2>
@@ -888,9 +873,6 @@ export default class AddDiamond extends React.Component {
             </Button>
                 <Button variant="info" onClick={this.myListings} className="fullWin">
                     Only My Listings
-            </Button>
-                <Button variant="warning" onClick={this.clearFilter} className="fullWin">
-                    Clear all filters
             </Button>
                 <Modal id="modalAdd" size="xl" show={this.state.modal} onHide={this.handleClose} animation={false}>
                     <Modal.Header closeButton>

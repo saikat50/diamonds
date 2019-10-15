@@ -1,14 +1,13 @@
 import React from 'react'
 import { Modal, Button,InputGroup,FormControl } from 'react-bootstrap'
 
-export default class SendMessageModal extends React.Component {
+export default class SendOfferModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             modal: this.props.show,
             diamond: this.props.diamond,
         }
-        console.log("welcome,welcome")
     }
     handleClose = () => {
         this.setState({
@@ -32,13 +31,13 @@ export default class SendMessageModal extends React.Component {
         this.setState(newState)
     }
     render() {
-       
         const { addMessage, activeUser,ownerName } = this.props;
         const { modal, diamond } = this.state;
-        console.log("diamond:"+diamond);
+        console.log("offerfdgsdfgsdfgsdfg:"+modal);
         let showLotId;
         let showOwnerId;
-        if (diamond) {showOwnerId=diamond.owner.id; showLotId=diamond.lotID} else return false;
+        let showPrice;
+        if (diamond) {showPrice=diamond.pricePerCarat; showOwnerId=diamond.owner.id; showLotId=diamond.lotID} else return false;
         return (
             <Modal show={modal}
                 size="lg"
@@ -47,16 +46,17 @@ export default class SendMessageModal extends React.Component {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Send Message to {this.props.ownerName(showOwnerId)}
+                        Send Offer to {this.props.ownerName(showOwnerId)}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{height:"300px"}}>
                     <h4>Regarding Diamond {showLotId}</h4>
+                    <h4>Asking Price: {showPrice}</h4>
                     <InputGroup className="mb-0">
                         <FormControl
                              ref={(element)=>{this.textInput=element}}
                             as="textarea" rows="10" 
-                            defaultValue = {`Hi ${ownerName(showOwnerId)}, I am contacting you regarding your diamond: ${showOwnerId} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}
+                            defaultValue = {`Hi ${ownerName(showOwnerId)}, I am Offering you on your diamond: ${showOwnerId} ${diamond.shape} ${diamond.color} ${diamond.clarity}, XXXXX Dollars per carat. what do you say?`}
                             aria-label="User"
                             aria-describedby="basic-addon1"
                         />
