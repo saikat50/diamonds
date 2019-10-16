@@ -72,7 +72,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getMessages();
-    setInterval(this.getMessages, 60000);
+    setInterval(this.getMessages, 30000);
     
     let allUsers=[];
     const parseUser = new Parse.User();

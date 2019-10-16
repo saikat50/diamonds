@@ -46,8 +46,8 @@ export default class UserMessages extends React.Component {
             console.log(activeUser.id)
             if (message.from.id === activeUser.id) {
                 showConversation.push(<Row>
-                    <Col xl="6" lg="6" md="6" sm="6" xs="6" ></Col>
-                    <Col style={{display:"flex"}} xl="6" lg="6" md="6" sm="6" xs="6" >
+                    <Col xl="4" lg="4" md="4" sm="4" xs="4" ></Col>
+                    <Col style={{display:"flex"}} xl="8" lg="8" md="8" sm="8" xs="8" >
                         <spam className="from">
                             <p>You:</p>
                             <p>{message.text}</p>
@@ -58,13 +58,13 @@ export default class UserMessages extends React.Component {
             else {
                 showConversation.push(<Row>
 
-                    <Col xl="6" lg="6" md="6" sm="6" xs="6" >
+                    <Col xl="8" lg="8" md="8" sm="8" xs="8" >
                         <spam className="to">
                             <p>{theSender.fname}:</p>
                             <p>{message.text}</p>
                         </spam>
                     </Col>
-                    <Col xl="6" lg="6" md="6" sm="6" xs="6" ></Col>
+                    <Col xl="4" lg="4" md="4" sm="4" xs="4" ></Col>
                 </Row>)
             }
         })
