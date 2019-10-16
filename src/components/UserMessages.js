@@ -5,11 +5,11 @@ import DiamondNavbar from '../components/DiamondNavbar';
 import { usersMessages } from '../Classes/Message'
 import { userDetails } from '../Classes/User'
 
-function fullMinutes(min){
+export function fullMinutes(min){
     if (min>9) return min;
     return "0"+min;
 }
-function parseDateTime(dateTime){
+export function parseDateTime(dateTime){
     let answer=""
  const today=new Date();
  if (dateTime.getFullYear()!=today.getFullYear()||dateTime.getMonth()!=today.getMonth()||dateTime.getDate()!=today.getDate()) 

@@ -122,37 +122,14 @@ h5 ,.margBottom30 {
   width:600px;
   z-index:2;
 }
-/* .expand{
-  margin-left: auto;
-  margin-top:auto;
-} */
-/* .hideThis{
-  display:none;
-}*/
+
 .diamondContent>p{
   margin-bottom: 1px;
   text-align: center;
   color:rgb(39, 11, 116);
   font-weight:bold;
   font-size: 14px;
-}/*
-.posRelativeArrow{
-  position: relative;
-  bottom:0px;
-  right:-98%;
 }
-.light-blue{
-  background-color: rgb(161, 211, 240);
-}
-.bgPink{
-  background-color: rgb(250, 248, 244);
-} */
-/* .disabled{
-  display: none
-} */
-/* body{
-  background-color:#007bff!important;
-} */
 .logo{
   width:100px
 }

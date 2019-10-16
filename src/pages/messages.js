@@ -4,6 +4,7 @@ import HomePageBody from '../components/HomePageBody'
 import DiamondNavbar from '../components/DiamondNavbar';
 import {usersMessages} from '../Classes/Message'
 import { Redirect } from 'react-router-dom'
+import {fullMinutes, parseDateTime} from '../components/UserMessages'
 
 export class Messages extends React.Component {
     constructor(props) {
@@ -51,8 +52,8 @@ export class Messages extends React.Component {
             if (activeUser && activeUser.id!==user.user.id && ( user.user.username.toLowerCase().includes(filter.toLowerCase())||user.user.lname.toLowerCase().includes(filter.toLowerCase())||user.user.fname.toLowerCase().includes(filter.toLowerCase()))){
                 if (user.user.pic)  {pic=user.user.pic["_url"]} else {pic="https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png"}
                 if (user.new) {newMessages=  <Badge pill variant="success">{user.new} </Badge>} else {newMessages=""}
-                if (user.lastMessageRecieved) lastMessageRecieved=(`${user.lastMessageRecieved}`)
-                listUsers.push(<ListGroup.Item>
+                if (user.lastMessageRecieved) lastMessageRecieved=(`${parseDateTime(user.lastMessageRecieved)}`)
+                listUsers.push(<ListGroup.Item style={{width:"450px"}}>
                                 <div className="pointer" style={{border:"1px solid"}} onClick={()=>{ this.redirectToUserMessage(user.user.id)}}>
                                     <Image style={{height:"50px"}} src={pic}>
                                     </Image>
@@ -62,11 +63,12 @@ export class Messages extends React.Component {
             }
         });
         return (
-            <Container>
+            <Container >
                 <DiamondNavbar allMessages={allMessages}  activeUser={activeUser} handleLogout={handleLogout} />
                 <h3>Messages:</h3>
-                <InputGroup onChange={this.filterUsers} className="mb-0">
+                <InputGroup  style={{width:"450px"}} onChange={this.filterUsers} className="mb-0">
                     <FormControl
+                   
                         placeholder="Search user"
                         aria-label="User"
                         aria-describedby="basic-addon1"
