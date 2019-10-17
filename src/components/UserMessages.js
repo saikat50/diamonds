@@ -4,6 +4,7 @@ import HomePageBody from '../components/HomePageBody'
 import DiamondNavbar from '../components/DiamondNavbar';
 import { usersMessages } from '../Classes/Message'
 import { userDetails } from '../Classes/User'
+import deleteImg from '../data/icons8-delete-message-26.png'
 
 export function fullMinutes(min){
     if (min>9) return min;
@@ -50,7 +51,8 @@ export default class UserMessages extends React.Component {
     render() {
         let messageDate;
         let pic;
-        const { activeUser, handleLogout, allUsers, allMessages, addMessage } = this.props;
+        let index=-1;
+        const { activeUser, handleLogout, allUsers, allMessages, addMessage,deleteMessage,markDeleted } = this.props;
         let theSender = userDetails(this.state.id, allUsers);
         console.log(this.state.id);
         console.log("the sender");
@@ -60,6 +62,7 @@ export default class UserMessages extends React.Component {
         let showConversation = [];
         let conversation = usersMessages(activeUser, allMessages, theSender);
         conversation.messages.forEach(message => {
+            index++;
             messageDate=parseDateTime(message.createdAt);
             console.log(message.from);
             console.log(activeUser.id);
@@ -68,19 +71,25 @@ export default class UserMessages extends React.Component {
                     <Col xl="4" lg="4" md="4" sm="4" xs="4" ></Col>
                     <Col style={{display:"flex"}} xl="8" lg="8" md="8" sm="8" xs="8" >
                         <spam className="from">
-                            <p>You:</p>
+                            <div style={{display:"flex"}}>
+                            <p  style={{color:"red"}}>You:</p>
+                            <img onClick={(e)=>{deleteMessage(e.target.id)}} className="deleteMessage" id={message.id} style={{width:"15px",height:"15px",marginLeft:"auto",marginRight:"5px"}} src={deleteImg}></img>
+                            </div>
                             <p>{message.text}</p>
                             <p style={{fontSize:"10px",color:"black"}}>{messageDate}</p>
                         </spam>
                     </Col>
                 </Row>)
             }
-            else {
+            else if(!message.deleted) {
                 showConversation.push(<Row>
 
                     <Col xl="8" lg="8" md="8" sm="8" xs="8" >
                         <spam className="to">
+                        <div style={{display:"flex"}}>
                             <p>{theSender.fname}:</p>
+                            <img onClick={(e)=>{markDeleted(e.target.id)}}  className="deleteMessage"  id={message.id} style={{width:"15px",height:"15px",marginLeft:"auto",marginRight:"5px"}} src={deleteImg}></img>
+                            </div>
                             <p>{message.text}</p>
                             <p style={{fontSize:"10px",color:"black"}}>{messageDate}</p>
                         </spam>

@@ -209,10 +209,10 @@ h5 ,.margBottom30 {
   border:1px solid rgb(63, 80, 228);
 }
 .from{
-  
+  padding:20px;
   margin-top: 5px;
   display: inline-block;
-  border-radius: 50px;
+  border-radius: 30px;
   color:white;
   background-color: rgb(74, 120, 206);
   font-size: 18px;
@@ -220,9 +220,10 @@ h5 ,.margBottom30 {
   padding: 10px 15px;
 }
 .to {
+  padding:20px;
   margin-top: 5px;
   display:inline-block;
-  border-radius: 50px;
+  border-radius: 30px;
   color:white;
   background-color: rgb(89, 185, 89);
   font-size: 18px;
@@ -236,4 +237,7 @@ h5 ,.margBottom30 {
   margin: 0, 40px;
   overflow-y:scroll;
   height:490px;
+}
+.deleteMessage:hover{
+  cursor: pointer;
 }
