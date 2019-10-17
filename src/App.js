@@ -53,14 +53,38 @@ class App extends React.Component {
   }
   getMessages = () => {
     let allMessages = [];
+    const { activeUser } = this.state;
     const parseMessages = Parse.Object.extend('Messages');
     const query1 = new Parse.Query(parseMessages);
     query1.find().then((results) => {
       // You can use the "get" method to get the value of an attribute
       // Ex: response.get("<ATTRIBUTE_NAME>")
       console.log('Messages found', results);
+      let message1;
       results.forEach(message => {
-        allMessages.push(new Message(message))
+        // console.log("message to:");
+        // console.log(message);
+        message1=new Message(message);
+        if (activeUser && message1.to.id === activeUser.id && !message1.recieved) {
+          message1.recieved = true;
+          const Messages = Parse.Object.extend('Messages');
+          const query = new Parse.Query(Messages);
+          // here you put the objectId that you want to update
+          query.get(message1.id).then((object) => {
+            object.set('recieved', true);
+            object.save().then((response) => {
+              // You can use the "get" method to get the value of an attribute
+              // Ex: response.get("<ATTRIBUTE_NAME>")
+
+              console.log('Updated Messages', response);
+            }, (error) => {
+
+              console.error('Error while updating Messages', error);
+            });
+          });
+        }
+        allMessages.push(message1);
+
       });
       // console.log('allmessages');
       // console.log(allMessages);
@@ -122,7 +146,7 @@ class App extends React.Component {
 
   }
   deleteMessage = (id) => {
-    let {allMessages}=this.state;
+    let { allMessages } = this.state;
     const Messages = Parse.Object.extend('Messages');
     const query = new Parse.Query(Messages);
     // here you put the objectId that you want to delete
@@ -130,13 +154,13 @@ class App extends React.Component {
       object.destroy().then((response) => {
 
         console.log('Deleted Messages', response);
-        for (var i=0;i<allMessages.length;i++){
-          if (id===allMessages[i].id){
-            allMessages.splice(i,1);
+        for (var i = 0; i < allMessages.length; i++) {
+          if (id === allMessages[i].id) {
+            allMessages.splice(i, 1);
             break;
           }
         }
-        this.setState({allMessages});
+        this.setState({ allMessages });
       }, (error) => {
 
         console.error('Error while deleting Messages', error);
@@ -168,7 +192,7 @@ class App extends React.Component {
         myNewObject.set('text', text);
         myNewObject.set('read', false);
         myNewObject.set('deleted', false);
-
+        myNewObject.set('recieved', false);
         myNewObject.save().then(
           (result) => {
             console.log('Messages created', result);
@@ -191,8 +215,8 @@ class App extends React.Component {
     });
 
   }
-  markDeleted=(id)=>{
-    let {allMessages}=this.state;
+  markDeleted = (id) => {
+    let { allMessages } = this.state;
     const Messages = Parse.Object.extend('Messages');
     const query = new Parse.Query(Messages);
     // here you put the objectId that you want to update
@@ -203,13 +227,13 @@ class App extends React.Component {
         // Ex: response.get("<ATTRIBUTE_NAME>")
 
         console.log('Updated Messages', response);
-        for (var i=0;i<allMessages.length;i++){
-          if (id===allMessages[i].id){
-            allMessages.splice(i,1);
+        for (var i = 0; i < allMessages.length; i++) {
+          if (id === allMessages[i].id) {
+            allMessages.splice(i, 1);
             break;
           }
         }
-        this.setState({allMessages});
+        this.setState({ allMessages });
       }, (error) => {
 
         console.error('Error while updating Messages', error);

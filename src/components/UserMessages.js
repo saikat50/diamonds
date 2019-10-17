@@ -5,6 +5,8 @@ import DiamondNavbar from '../components/DiamondNavbar';
 import { usersMessages } from '../Classes/Message'
 import { userDetails } from '../Classes/User'
 import deleteImg from '../data/icons8-delete-message-26.png'
+import readMessage from '../data/seen-300x225.webp'
+import recievedMessage from '../data/V-512.png'
 
 export function fullMinutes(min){
     if (min>9) return min;
@@ -76,7 +78,13 @@ export default class UserMessages extends React.Component {
                             <img onClick={(e)=>{deleteMessage(e.target.id)}} className="deleteMessage" id={message.id} style={{width:"15px",height:"15px",marginLeft:"auto",marginRight:"5px"}} src={deleteImg}></img>
                             </div>
                             <p>{message.text}</p>
-                            <p style={{fontSize:"10px",color:"black"}}>{messageDate}</p>
+                            <div style={{display:"flex"}}>
+                            <img style={{width:"15px",height:"15px",marginRight:"auto",marginLeft:"5px"}} src={recievedMessage} hidden=
+                            {(message.read||!message.recieved)}
+                            ></img>
+                            <img style={{width:"15px",height:"15px",marginRight:"auto",marginLeft:"5px"}} src={readMessage} hidden={!message.read}></img>
+                            <p style={{fontSize:"10px",color:"black",marginLeft:"auto"}}>{messageDate}</p>
+                            </div>
                         </spam>
                     </Col>
                 </Row>)
@@ -91,7 +99,7 @@ export default class UserMessages extends React.Component {
                             <img onClick={(e)=>{markDeleted(e.target.id)}}  className="deleteMessage"  id={message.id} style={{width:"15px",height:"15px",marginLeft:"auto",marginRight:"5px"}} src={deleteImg}></img>
                             </div>
                             <p>{message.text}</p>
-                            <p style={{fontSize:"10px",color:"black"}}>{messageDate}</p>
+                            <p style={{fontSize:"10px",color:"black",marginLeft:"auto"}}>{messageDate}</p>
                         </spam>
                     </Col>
                     <Col xl="4" lg="4" md="4" sm="4" xs="4" ></Col>

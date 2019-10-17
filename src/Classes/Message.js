@@ -8,6 +8,7 @@ export class Message {
         this.createdAt = parseMessage.get("createdAt");
         this.read = parseMessage.get("read");
         this.deleted = parseMessage.get("deleted");
+        this.recieved=parseMessage.get("recieved");
     }
 }
 export function usersMessages(user, allMessages, fromUser) {
