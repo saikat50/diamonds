@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonToolbar,Alert } from 'react-bootstrap'
+import { Button, ButtonToolbar, Alert } from 'react-bootstrap'
 import ShowDiamond from '../components/ShowDiamond'
 import SearchDiamondForm from '../components/SearchDiamondForm'
 import SendMessageModal from '../components/SendMessageModal'
@@ -15,36 +15,40 @@ export default class DiamondList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal:false,
-      modalOffer:false,
-      index:"",
-      list: this.props.list
+      modal: false,
+      modalOffer: false,
+      index: "",
+      list: this.props.list,
+      show: false
     }
   }
+  componentDidMount() {
+    setInterval(this.hideAlert, 10000);
+  }
   componentWillReceiveProps(nextProps) {
-    let list=nextProps.list;
-    this.setState({list})
+    let list = nextProps.list;
+    this.setState({ list })
   }
 
   toggle = (e) => {
     this.setState({
-        modal: !this.state.modal,
-        index:e.target.value
+      modal: !this.state.modal,
+      index: e.target.value
     });
-}
-toggleOffer = (e) => {
-  this.setState({
-      modalOffer: !this.state.modalOffer,
-        index:e.target.value
-  });
-}
-handleClose = () => {
+  }
+  toggleOffer = (e) => {
     this.setState({
-        modal: false,
-        modalOffer:false,
+      modalOffer: !this.state.modalOffer,
+      index: e.target.value
+    });
+  }
+  handleClose = () => {
+    this.setState({
+      modal: false,
+      modalOffer: false,
     });
 
-}
+  }
   // CALLS THE FATHER COMPONENT'S FUNCTION DELETEDIAMOND WITH THE INDEX OF THE DIAMOND
   deleteDiamond = (element) => {
     this.props.deleteDiamond(element.target.value)
@@ -55,7 +59,16 @@ handleClose = () => {
     console.log(element.target.value);
     this.props.editDiamond(element.target.value)
   }
-
+  showAlert = () => {
+    let { show } = this.state;
+    show = true;
+    this.setState({ show });
+  }
+  hideAlert = () => {
+    let { show } = this.state;
+    show = false;
+    this.setState({ show });
+  }
   render() {
     // console.log("stateModalOffer");
     // console.log(this.state.modalOffer);
@@ -71,7 +84,11 @@ handleClose = () => {
           result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
             <ButtonToolbar>
               {/* DISPLAY THE USER'S ACTION BUTTONS */}
-              {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button> */}
+              <Button onClick={(e) => {
+                this.props.addToCart(this.state.list[e.target.value].id);
+                this.showAlert();
+              }}
+                value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Add to Cart</Button>
             </ButtonToolbar>
           </ShowDiamond>);
         }
@@ -95,9 +112,13 @@ handleClose = () => {
             result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
               <ButtonToolbar>
                 {/* DISPLAY THE USER'S ACTION BUTTONS */}
-          
-                <Button onClick={this.toggleOffer}  value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
-                {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Purchase</Button> */}
+
+                <Button onClick={this.toggleOffer} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
+                <Button onClick={(e) => {
+                  this.props.addToCart(this.state.list[e.target.value].id);
+                  this.showAlert();
+                }}
+                  value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Add to cart</Button>
                 <Button onClick={this.toggle} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="secondary" >Contact seller</Button>
                 {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="info" >Bid</Button> */}
               </ButtonToolbar>
@@ -108,10 +129,13 @@ handleClose = () => {
 
     return (
       <div>
-        <SearchDiamondForm clearFilter={this.props.clearFilter} filter={this.props.filter} setFilter={this.props.setFilter}/>
+        <Alert key="alert" variant="info" show={this.state.show}>
+          Diamond has been added to your Cart
+        </Alert>
+        <SearchDiamondForm clearFilter={this.props.clearFilter} filter={this.props.filter} setFilter={this.props.setFilter} />
         {result}
-        <SendMessageModal show={this.state.modal} diamond={this.state.list[this.state.index]} activeUser={this.props.activeUser} addMessage={this.props.addMessage} close={this.handleClose} ownerName={this.props.ownerName}/>
-        <SendOfferModal show={this.state.modalOffer} diamond={this.state.list[this.state.index]} activeUser={this.props.activeUser} addMessage={this.props.addMessage} close={this.handleClose} ownerName={this.props.ownerName}/>
+        <SendMessageModal show={this.state.modal} diamond={this.state.list[this.state.index]} activeUser={this.props.activeUser} addMessage={this.props.addMessage} close={this.handleClose} ownerName={this.props.ownerName} />
+        <SendOfferModal show={this.state.modalOffer} diamond={this.state.list[this.state.index]} activeUser={this.props.activeUser} addMessage={this.props.addMessage} close={this.handleClose} ownerName={this.props.ownerName} />
       </div>
     );
   }

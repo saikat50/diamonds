@@ -243,7 +243,7 @@ export class Search extends React.Component {
         {/* <Button variant="warning" onClick={this.clearFilter} className="fullWin">
                     Clear all filters
             </Button>  */}
-        <DiamondList addMessage={this.props.addMessage} clearFilter={this.clearFilter} filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
+        <DiamondList  addToCart={this.props.addToCart}  addMessage={this.props.addMessage} clearFilter={this.clearFilter} filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
       </Container>
     );
   }

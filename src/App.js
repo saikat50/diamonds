@@ -144,7 +144,7 @@ class App extends React.Component {
     }
     else if (activeUser.cart) {
       for (var i = 0; i < activeUser.cart.length; i++) {
-        cart.concat(activeUser.cart[i]);
+        cart.concat([activeUser.cart[i]]);
       }
       const User = new Parse.User();
       const query = new Parse.Query(User);
@@ -310,8 +310,12 @@ class App extends React.Component {
     this.setState({ allMessages });
   }
   addToCart = (diamondId) => {
+    console.log("diamond id to add to cart");
+    console.log(diamondId)
     let { activeUser, cart } = this.state;
-    cart.concat(diamondId);
+    if(!cart) cart=[];
+    cart.push(diamondId);
+    console.log(cart);
     if (activeUser) {
       const User = new Parse.User();
       const query = new Parse.Query(User);
@@ -347,7 +351,7 @@ class App extends React.Component {
         <Route exact path="/home" ><Home allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
         <Route exact path="/messages" ><Messages allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></Messages></Route>
         <Route exact path="/messages/:id" ><UserMessages markDeleted={this.markDeleted} deleteMessage={this.deleteMessage} messageRead={this.messageRead} addMessage={this.addMessage} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></UserMessages></Route>
-        <Route exact path="/search"><Search addMessage={this.addMessage} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
+        <Route exact path="/search"><Search addToCart={this.addToCart} addMessage={this.addMessage} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
         <Route exact path="/login"> <LoginPage allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         <Route exact path="/signup"> <SignupPage allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
       </Switch>
