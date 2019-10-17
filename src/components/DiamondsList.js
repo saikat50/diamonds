@@ -129,7 +129,7 @@ export default class DiamondList extends React.Component {
 
     return (
       <div>
-        <Alert key="alert" variant="info" show={this.state.show}>
+        <Alert id="alertAddToCart" key="alert" variant="info" show={this.state.show}>
           Diamond has been added to your Cart
         </Alert>
         <SearchDiamondForm clearFilter={this.props.clearFilter} filter={this.props.filter} setFilter={this.props.setFilter} />
