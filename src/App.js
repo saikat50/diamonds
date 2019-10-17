@@ -43,7 +43,8 @@ class App extends React.Component {
       // },
       allUsers: [],
       allMessages: [],
-      isLoading: true
+      isLoading: true,
+      cart: []
     }
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -64,7 +65,7 @@ class App extends React.Component {
       results.forEach(message => {
         // console.log("message to:");
         // console.log(message);
-        message1=new Message(message);
+        message1 = new Message(message);
         if (activeUser && message1.to.id === activeUser.id && !message1.recieved) {
           message1.recieved = true;
           const Messages = Parse.Object.extend('Messages');
@@ -116,7 +117,7 @@ class App extends React.Component {
   handleLogout() {
     const User1 = new Parse.User();
     const query = new Parse.Query(User1);
-    const { activeUser } = this.state;
+    const { activeUser, cart } = this.state;
     // Finds the user by its ID
     query.get(activeUser.id).then((user) => {
       // Updates the data we want
@@ -132,12 +133,57 @@ class App extends React.Component {
         console.error('Error while updating user', error);
       });
     });
-    this.setState({ activeUser: null });
+    cart = [];
+    this.setState({ activeUser: null, cart });
   }
 
   handleLogin(activeUser) {
+    let { cart } = this.state;
+    if (cart === []) {
+      cart = activeUser.cart;
+    }
+    else if (activeUser.cart) {
+      for (var i = 0; i < activeUser.cart.length; i++) {
+        cart.concat(activeUser.cart[i]);
+      }
+      const User = new Parse.User();
+      const query = new Parse.Query(User);
 
-    this.setState({ activeUser });
+      // Finds the user by its ID
+      query.get(activeUser.id).then((user) => {
+        // Updates the data we want
+        user.set('cart', cart);
+        // Saves the user with the updated data
+        user.save().then((response) => {
+
+          console.log('Updated user', response);
+        }).catch((error) => {
+
+          console.error('Error while updating user', error);
+        });
+      });
+
+    }
+    else {
+      const User = new Parse.User();
+      const query = new Parse.Query(User);
+
+      // Finds the user by its ID
+      query.get(activeUser.id).then((user) => {
+        // Updates the data we want
+        user.set('cart', cart);
+        // Saves the user with the updated data
+        user.save().then((response) => {
+
+          console.log('Updated user', response);
+        }).catch((error) => {
+
+          console.error('Error while updating user', error);
+        });
+      });
+
+    }
+    this.setState({ activeUser, cart });
   }
   ownerName = (userId) => {
     for (var i = 0; i < this.state.allUsers.length; i++) {
@@ -262,6 +308,30 @@ class App extends React.Component {
       });
     });
     this.setState({ allMessages });
+  }
+  addToCart = (diamondId) => {
+    let { activeUser, cart } = this.state;
+    cart.concat(diamondId);
+    if (activeUser) {
+      const User = new Parse.User();
+      const query = new Parse.Query(User);
+
+      // Finds the user by its ID
+      query.get(activeUser.id).then((user) => {
+        // Updates the data we want
+        user.set('cart', cart);
+        // Saves the user with the updated data
+        user.save().then((response) => {
+
+          console.log('Updated user', response);
+        }).catch((error) => {
+
+          console.error('Error while updating user', error);
+        });
+      });
+      this.setState({ cart });
+    }
+
   }
   render() {
 

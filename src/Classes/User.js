@@ -8,6 +8,7 @@ export default class User {
         this.isLogin = parseUser.get("isLogin");
         this.lastLogout=parseUser.get("lastLogout");
         this.pic=parseUser.get("pic");
+        this.cart=parseUser.get("cart");
     }
 }
 

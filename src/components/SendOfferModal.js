@@ -43,7 +43,7 @@ export default class SendOfferModal extends React.Component {
         if (diamond) {showPrice=diamond.pricePerCarat; showOwnerId=diamond.owner.id; showLotId=diamond.lotID} else return false;
         return (
             <Modal show={modal}
-                size="lg"
+                size="sm"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
