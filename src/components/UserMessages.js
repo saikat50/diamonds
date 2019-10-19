@@ -108,7 +108,7 @@ export default class UserMessages extends React.Component {
         })
         return (
             <Container id="page-container">
-                <DiamondNavbar allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
+                <DiamondNavbar cart={this.props.cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
 
                 <div className="userHeader"><Image style={{ width: "40px" }} src={pic}></Image>{`  ${theSender.fname} ${theSender.lname}`}
                 </div>

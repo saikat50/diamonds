@@ -70,6 +70,7 @@ export default class DiamondList extends React.Component {
     this.setState({ show });
   }
   render() {
+    const {cart}=this.props;
     // console.log("stateModalOffer");
     // console.log(this.state.modalOffer);
     var result = [];
@@ -85,9 +86,10 @@ export default class DiamondList extends React.Component {
             <ButtonToolbar>
               {/* DISPLAY THE USER'S ACTION BUTTONS */}
               <Button onClick={(e) => {
-                this.props.addToCart(this.state.list[e.target.value].id);
-                this.showAlert();
-              }}
+                  if (!cart.includes(this.state.list[e.target.value].id)){
+                  this.props.addToCart(this.state.list[e.target.value].id);
+                  this.showAlert();
+                }}}
                 value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Add to Cart</Button>
             </ButtonToolbar>
           </ShowDiamond>);
@@ -115,9 +117,10 @@ export default class DiamondList extends React.Component {
 
                 <Button onClick={this.toggleOffer} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="primary">Offer</Button>
                 <Button onClick={(e) => {
+                  if (!cart.includes(this.state.list[e.target.value].id)){
                   this.props.addToCart(this.state.list[e.target.value].id);
                   this.showAlert();
-                }}
+                }}}
                   value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Add to cart</Button>
                 <Button onClick={this.toggle} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="secondary" >Contact seller</Button>
                 {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="info" >Bid</Button> */}

@@ -14,7 +14,7 @@ export class Home extends React.Component {
       console.log(allMessages);
       return (
         <Container>
-          <DiamondNavbar  allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
+          <DiamondNavbar cart={this.props.cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
           <HomePageBody />
         </Container>
       );

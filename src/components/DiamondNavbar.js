@@ -3,6 +3,7 @@ import { Navbar, Nav,Badge,Image } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import diamondLogo from '../data/1c7be669e68d05366ad16b7d2b40333b-diamond-gemstone-black-icon-by-vexels.png'
 import {usersMessages} from '../Classes/Message'
+import basket from '../data/flat_seo3-24-512.png'
 
 class DiamondNavbar extends React.Component {
     constructor(props) {
@@ -32,7 +33,8 @@ class DiamondNavbar extends React.Component {
     
 
     render() {
-        const { activeUser,allMessages } = this.props;
+        let itemsInCart;
+        const { activeUser,allMessages,cart } = this.props;
         const { redirectToHome } = this.state;
         // console.log("navbar");
         // console.log(allMessages);
@@ -46,7 +48,7 @@ class DiamondNavbar extends React.Component {
         const newMessages=usersMessages( activeUser,allMessages).new;
         let myBadge="";
         if (newMessages){myBadge=(<Badge pill variant="success">{newMessages}</Badge>)}
-
+        if (cart.length) {itemsInCart=cart.length} else {itemsInCart=""};
         return (
             
             <Navbar bg="light" expand="lg">
@@ -60,6 +62,7 @@ class DiamondNavbar extends React.Component {
                     </Nav>
 
                     <Nav className="ml-auto">
+                    <Navbar.Brand href="#/"><img className="basket" style={{width:"30px"}} src={basket}></img>{itemsInCart}</Navbar.Brand>
                         {signupLink}
                         {loginLink}
                         {logoutLink}

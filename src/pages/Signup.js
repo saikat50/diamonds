@@ -64,7 +64,7 @@ const {image}=this.state;
 
         return (
             <Container>
-                <DiamondNavbar allMessages={this.state.allMessages} activeUser={activeUser} handleLogout={handleLogout} />
+                <DiamondNavbar cart={this.props.cart}  allMessages={this.state.allMessages} activeUser={activeUser} handleLogout={handleLogout} />
                 <div className="login">
                     <h1>SignUp to Diamonds</h1>
                     <p>or <a href="#/login">Allready have an accout? Login here</a></p>

@@ -53,14 +53,20 @@ class App extends React.Component {
 
   }
   getMessages = () => {
+    
     let allMessages = [];
     const { activeUser } = this.state;
     const parseMessages = Parse.Object.extend('Messages');
     const query1 = new Parse.Query(parseMessages);
+    // const query2 = new Parse.Query(parseMessages);
+    if (activeUser){
+    // query1.equalTo("from.id",activeUser.id);
+    // query2.equalTo("to.id",activeUser.id);
+    // const query3=new Parse.Query.or(query1,query2);
     query1.find().then((results) => {
       // You can use the "get" method to get the value of an attribute
       // Ex: response.get("<ATTRIBUTE_NAME>")
-      console.log('Messages found', results);
+      console.log('Messages found****************************************', results);
       let message1;
       results.forEach(message => {
         // console.log("message to:");
@@ -84,20 +90,20 @@ class App extends React.Component {
             });
           });
         }
-        allMessages.push(message1);
+        if (message1.from.id===activeUser.id||message1.to.id===activeUser.id) allMessages.push(message1);
 
       });
-      // console.log('allmessages');
-      // console.log(allMessages);
+      console.log('allmessages');
+      console.log(allMessages);
       this.setState({ allMessages: allMessages, isLoading: false });
     }, (error) => {
       console.error('Error while fetching Messages', error);
     });
-  }
+  }}
 
   componentDidMount() {
-    this.getMessages();
-    setInterval(this.getMessages, 30000);
+    // this.getMessages();
+    setInterval(this.getMessages, 300000);
 
     let allUsers = [];
     const parseUser = new Parse.User();
@@ -117,7 +123,8 @@ class App extends React.Component {
   handleLogout() {
     const User1 = new Parse.User();
     const query = new Parse.Query(User1);
-    const { activeUser, cart } = this.state;
+    const { activeUser } = this.state;
+    let {cart}=this.state;
     // Finds the user by its ID
     query.get(activeUser.id).then((user) => {
       // Updates the data we want
@@ -144,7 +151,7 @@ class App extends React.Component {
     }
     else if (activeUser.cart) {
       for (var i = 0; i < activeUser.cart.length; i++) {
-        cart.concat([activeUser.cart[i]]);
+        cart.push(activeUser.cart[i]);
       }
       const User = new Parse.User();
       const query = new Parse.Query(User);
@@ -184,6 +191,7 @@ class App extends React.Component {
 
     }
     this.setState({ activeUser, cart });
+    this.getMessages();
   }
   ownerName = (userId) => {
     for (var i = 0; i < this.state.allUsers.length; i++) {
@@ -314,6 +322,7 @@ class App extends React.Component {
     console.log(diamondId)
     let { activeUser, cart } = this.state;
     if(!cart) cart=[];
+    if (!cart.includes(diamondId)){
     cart.push(diamondId);
     console.log(cart);
     if (activeUser) {
@@ -333,27 +342,27 @@ class App extends React.Component {
           console.error('Error while updating user', error);
         });
       });
-      this.setState({ cart });
-    }
-
+     
+    }}
+    this.setState({ cart });
   }
   render() {
 
-    const { activeUser, allUsers, isLoading, allMessages } = this.state;
-    if (isLoading) return false;
+    const { activeUser, allUsers, isLoading, allMessages,cart } = this.state;
+    // if (isLoading) return false;
     console.log("finishloading");
     console.log(allMessages);
     return (
 
 
       <Switch>
-        <Route exact path="/" ><Home allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
-        <Route exact path="/home" ><Home allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
-        <Route exact path="/messages" ><Messages allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></Messages></Route>
-        <Route exact path="/messages/:id" ><UserMessages markDeleted={this.markDeleted} deleteMessage={this.deleteMessage} messageRead={this.messageRead} addMessage={this.addMessage} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></UserMessages></Route>
-        <Route exact path="/search"><Search addToCart={this.addToCart} addMessage={this.addMessage} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
-        <Route exact path="/login"> <LoginPage allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
-        <Route exact path="/signup"> <SignupPage allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
+        <Route exact path="/" ><Home cart={cart} allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
+        <Route exact path="/home" ><Home cart={cart} allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
+        <Route exact path="/messages" ><Messages cart={cart} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></Messages></Route>
+        <Route exact path="/messages/:id" ><UserMessages cart={cart} markDeleted={this.markDeleted} deleteMessage={this.deleteMessage} messageRead={this.messageRead} addMessage={this.addMessage} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></UserMessages></Route>
+        <Route exact path="/search"><Search cart={cart} addToCart={this.addToCart} addMessage={this.addMessage} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
+        <Route exact path="/login"> <LoginPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
+        <Route exact path="/signup"> <SignupPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
       </Switch>
 
       // </div>

@@ -64,7 +64,7 @@ export class Messages extends React.Component {
         });
         return (
             <Container >
-                <DiamondNavbar allMessages={allMessages}  activeUser={activeUser} handleLogout={handleLogout} />
+                <DiamondNavbar cart={this.props.cart}  allMessages={allMessages}  activeUser={activeUser} handleLogout={handleLogout} />
                 <h3>Messages:</h3>
                 <InputGroup  style={{width:"450px"}} onChange={this.filterUsers} className="mb-0">
                     <FormControl

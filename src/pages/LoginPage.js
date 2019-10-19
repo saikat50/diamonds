@@ -65,7 +65,7 @@ class LoginPage extends React.Component {
 
         return (
             <Container>
-            <DiamondNavbar  allMessages={this.state.allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
+            <DiamondNavbar cart={this.props.cart}   allMessages={this.state.allMessages} activeUser={activeUser} handleLogout={handleLogout}/>
             <div className="login">
                 <h1>Login to Diamonds</h1>
                 <p>or <a href="#/signup">create an account</a></p>
