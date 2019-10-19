@@ -26,7 +26,25 @@ export function listPrice(shape, color, clarity, weight, priceList) {
   return 0;
 }
 
+function ownerOfDiamond(diamondId) {
 
+  const Diamond = Parse.Object.extend('Diamond');
+  const query = new Parse.Query(Diamond);
+  query.equalTo("objectId", diamondId);
+  query.find().then((results) => {
+    // You can use the "get" method to get the value of an attribute
+    // Ex: response.get("<ATTRIBUTE_NAME>")
+    console.log('Diamond found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', results);
+    results.forEach(diamond => {
+      console.log(diamond.id + " " + diamondId);
+      if (diamond.id === diamondId) { alert(diamond.get("owner").id); return diamond.get("owner").id }
+    })
+  }, (error) => {
+
+    console.error('Error while fetching Diamond', error);
+    return false;
+  });
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -52,54 +70,56 @@ class App extends React.Component {
 
 
   }
+
   getMessages = () => {
-    
+
     let allMessages = [];
     const { activeUser } = this.state;
     const parseMessages = Parse.Object.extend('Messages');
     const query1 = new Parse.Query(parseMessages);
     // const query2 = new Parse.Query(parseMessages);
-    if (activeUser){
-    // query1.equalTo("from.id",activeUser.id);
-    // query2.equalTo("to.id",activeUser.id);
-    // const query3=new Parse.Query.or(query1,query2);
-    query1.find().then((results) => {
-      // You can use the "get" method to get the value of an attribute
-      // Ex: response.get("<ATTRIBUTE_NAME>")
-      console.log('Messages found****************************************', results);
-      let message1;
-      results.forEach(message => {
-        // console.log("message to:");
-        // console.log(message);
-        message1 = new Message(message);
-        if (activeUser && message1.to.id === activeUser.id && !message1.recieved) {
-          message1.recieved = true;
-          const Messages = Parse.Object.extend('Messages');
-          const query = new Parse.Query(Messages);
-          // here you put the objectId that you want to update
-          query.get(message1.id).then((object) => {
-            object.set('recieved', true);
-            object.save().then((response) => {
-              // You can use the "get" method to get the value of an attribute
-              // Ex: response.get("<ATTRIBUTE_NAME>")
+    if (activeUser) {
+      // query1.equalTo("from.id",activeUser.id);
+      // query2.equalTo("to.id",activeUser.id);
+      // const query3=new Parse.Query.or(query1,query2);
+      query1.find().then((results) => {
+        // You can use the "get" method to get the value of an attribute
+        // Ex: response.get("<ATTRIBUTE_NAME>")
+        console.log('Messages found', results);
+        let message1;
+        results.forEach(message => {
+          // console.log("message to:");
+          // console.log(message);
+          message1 = new Message(message);
+          if (activeUser && message1.to.id === activeUser.id && !message1.recieved) {
+            message1.recieved = true;
+            const Messages = Parse.Object.extend('Messages');
+            const query = new Parse.Query(Messages);
+            // here you put the objectId that you want to update
+            query.get(message1.id).then((object) => {
+              object.set('recieved', true);
+              object.save().then((response) => {
+                // You can use the "get" method to get the value of an attribute
+                // Ex: response.get("<ATTRIBUTE_NAME>")
 
-              console.log('Updated Messages', response);
-            }, (error) => {
+                console.log('Updated Messages', response);
+              }, (error) => {
 
-              console.error('Error while updating Messages', error);
+                console.error('Error while updating Messages', error);
+              });
             });
-          });
-        }
-        if (message1.from.id===activeUser.id||message1.to.id===activeUser.id) allMessages.push(message1);
+          }
+          if (message1.from.id === activeUser.id || message1.to.id === activeUser.id) allMessages.push(message1);
 
+        });
+        console.log('allmessages');
+        console.log(allMessages);
+        this.setState({ allMessages: allMessages, isLoading: false });
+      }, (error) => {
+        console.error('Error while fetching Messages', error);
       });
-      console.log('allmessages');
-      console.log(allMessages);
-      this.setState({ allMessages: allMessages, isLoading: false });
-    }, (error) => {
-      console.error('Error while fetching Messages', error);
-    });
-  }}
+    }
+  }
 
   componentDidMount() {
     // this.getMessages();
@@ -124,7 +144,7 @@ class App extends React.Component {
     const User1 = new Parse.User();
     const query = new Parse.Query(User1);
     const { activeUser } = this.state;
-    let {cart}=this.state;
+    let { cart } = this.state;
     // Finds the user by its ID
     query.get(activeUser.id).then((user) => {
       // Updates the data we want
@@ -148,26 +168,48 @@ class App extends React.Component {
     let { cart } = this.state;
     if (cart === []) {
       cart = activeUser.cart;
+      this.setState({ activeUser, cart });
     }
     else if (activeUser.cart) {
-      for (var i = 0; i < activeUser.cart.length; i++) {
-        cart.push(activeUser.cart[i]);
-      }
-      const User = new Parse.User();
-      const query = new Parse.Query(User);
+      const Diamond = Parse.Object.extend('Diamond');
+      const query = new Parse.Query(Diamond);
+      // query.equalTo("objectId", cart[i]);
+      query.find().then((results) => {
+        // You can use the "get" method to get the value of an attribute
+        // Ex: response.get("<ATTRIBUTE_NAME>")
 
-      // Finds the user by its ID
-      query.get(activeUser.id).then((user) => {
-        // Updates the data we want
-        user.set('cart', cart);
-        // Saves the user with the updated data
-        user.save().then((response) => {
+        for (var i = 0; i < cart.length; i++) {
+          if (!activeUser.cart.includes(cart[i])) {
+            let ownerD;
+            for (var j = 0; j < results.length; j++) {
+              if (cart[i] === results[j].id) { ownerD = results[j].get("owner").id; break }
+            }
+            if (ownerD != activeUser.id) { activeUser.cart.push(cart[i]) };
+          }
+        }
+        cart = activeUser.cart;
 
-          console.log('Updated user', response);
-        }).catch((error) => {
+        const User = new Parse.User();
+        const query = new Parse.Query(User);
 
-          console.error('Error while updating user', error);
+        // Finds the user by its ID
+        query.get(activeUser.id).then((user) => {
+          // Updates the data we want
+          user.set('cart', cart);
+          // Saves the user with the updated data
+          user.save().then((response) => {
+
+            console.log('Updated user', response);
+          }).catch((error) => {
+
+            console.error('Error while updating user', error);
+          });
+          this.setState({ activeUser, cart });
         });
+      }, (error) => {
+
+        console.error('Error while fetching Diamond', error);
+
       });
 
     }
@@ -183,6 +225,7 @@ class App extends React.Component {
         user.save().then((response) => {
 
           console.log('Updated user', response);
+          this.setState({ activeUser, cart });
         }).catch((error) => {
 
           console.error('Error while updating user', error);
@@ -190,7 +233,7 @@ class App extends React.Component {
       });
 
     }
-    this.setState({ activeUser, cart });
+
     this.getMessages();
   }
   ownerName = (userId) => {
@@ -321,34 +364,35 @@ class App extends React.Component {
     console.log("diamond id to add to cart");
     console.log(diamondId)
     let { activeUser, cart } = this.state;
-    if(!cart) cart=[];
-    if (!cart.includes(diamondId)){
-    cart.push(diamondId);
-    console.log(cart);
-    if (activeUser) {
-      const User = new Parse.User();
-      const query = new Parse.Query(User);
+    if (!cart) cart = [];
+    if (!cart.includes(diamondId)) {
+      cart.push(diamondId);
+      console.log(cart);
+      if (activeUser) {
+        const User = new Parse.User();
+        const query = new Parse.Query(User);
 
-      // Finds the user by its ID
-      query.get(activeUser.id).then((user) => {
-        // Updates the data we want
-        user.set('cart', cart);
-        // Saves the user with the updated data
-        user.save().then((response) => {
+        // Finds the user by its ID
+        query.get(activeUser.id).then((user) => {
+          // Updates the data we want
+          user.set('cart', cart);
+          // Saves the user with the updated data
+          user.save().then((response) => {
 
-          console.log('Updated user', response);
-        }).catch((error) => {
+            console.log('Updated user', response);
+          }).catch((error) => {
 
-          console.error('Error while updating user', error);
+            console.error('Error while updating user', error);
+          });
         });
-      });
-     
-    }}
+
+      }
+    }
     this.setState({ cart });
   }
   render() {
 
-    const { activeUser, allUsers, isLoading, allMessages,cart } = this.state;
+    const { activeUser, allUsers, isLoading, allMessages, cart } = this.state;
     // if (isLoading) return false;
     console.log("finishloading");
     console.log(allMessages);
