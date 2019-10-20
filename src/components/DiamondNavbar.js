@@ -62,7 +62,7 @@ class DiamondNavbar extends React.Component {
                     </Nav>
 
                     <Nav className="ml-auto">
-                    <Navbar.Brand href="#/"><img className="basket" style={{width:"30px"}} src={basket}></img>{itemsInCart}</Navbar.Brand>
+                    <Navbar.Brand href="#/cart"><img className="basket" style={{width:"30px"}} src={basket}></img>{itemsInCart}</Navbar.Brand>
                         {signupLink}
                         {loginLink}
                         {logoutLink}
