@@ -4,6 +4,7 @@ import { Container,Table } from 'react-bootstrap'
 import DiamondNavbar from '../components/DiamondNavbar';
 import { Diamond1 } from '../Classes/Diamond';
 import Parse from 'parse';
+import deleteFromCart from '../data/delete-1507091-1279000.png'
 // import User from '../Classes/User'
 // import Parse from 'parse';
 
@@ -34,7 +35,7 @@ class ShoppingCart extends React.Component {
             });
         }
         render() {
-            const { activeUser, handleLogout, allMessages, cart } = this.props;
+            const { activeUser, handleLogout, allMessages, cart,ownerName } = this.props;
             const { diamondsInCart } = this.state;
             let index=-1;
             let tableLines=[];
@@ -49,12 +50,12 @@ class ShoppingCart extends React.Component {
                 tableLines.push(           
                  <tr>
                     <td>{index}</td>
-                    <td>{diamond.owner.id}</td>
+                    <td>{ownerName(diamond.owner.id)}</td>
                     <td>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
                     <td>{weight}</td>
                     <td>{price}</td>
                     <td>{lineTotal}</td>
-                    <td>@mdo</td>
+                    <td><img style={{width:"40px"}} src={deleteFromCart}></img></td>
                 </tr>)
             })
 

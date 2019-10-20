@@ -177,7 +177,7 @@ export default class ShowDiamond extends React.Component {
                       <Col className="innerCol" xl="3">
                         <div className="content diamondContent">
                           <h5 className="noMarginBottom">Owner</h5>
-                          <p>{this.props.description.owner.id}</p>
+                          <p>{this.props.ownerName(this.props.description.owner.id)}</p>
                         </div>
                       </Col>
 
