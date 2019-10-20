@@ -394,6 +394,33 @@ class App extends React.Component {
     }
     this.setState({ cart });
   }
+  deleteFromCart=(item)=>{
+    let {cart,activeUser}=this.state;
+    var index = cart.indexOf(item);
+      if (index > -1) {
+        cart.splice(index, 1);
+        if (!activeUser) {
+          this.setState({cart})
+       }
+       else{
+        const User = new Parse.User();
+        const query = new Parse.Query(User);
+        
+        // Finds the user by its ID
+        query.get(activeUser.id).then((user) => {
+          // Updates the data we want
+          user.set('cart', cart);
+          // Saves the user with the updated data
+          user.save().then((response) => {
+            console.log('Updated user', response);
+            this.setState({cart})
+          }).catch((error) => {
+            console.error('Error while updating user', error);
+          });
+        });
+       }
+    }
+  }
   render() {
 
     const { activeUser, allUsers, isLoading, allMessages, cart } = this.state;
@@ -410,7 +437,7 @@ class App extends React.Component {
         <Route exact path="/search"><Search cart={cart} addToCart={this.addToCart} addMessage={this.addMessage} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
         <Route exact path="/login"> <LoginPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         <Route exact path="/signup"> <SignupPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
-        <Route exact path="/cart"><ShoppingCart cart={cart}  allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></ShoppingCart></Route>
+        <Route exact path="/cart"><ShoppingCart deleteFromCart={this.deleteFromCart} cart={cart}  allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></ShoppingCart></Route>
       </Switch>
 
       // </div>

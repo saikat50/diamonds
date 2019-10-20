@@ -4,7 +4,7 @@ import { Container,Table } from 'react-bootstrap'
 import DiamondNavbar from '../components/DiamondNavbar';
 import { Diamond1 } from '../Classes/Diamond';
 import Parse from 'parse';
-import deleteFromCart from '../data/delete-1507091-1279000.png'
+import deleteFromCartIcon from '../data/delete-1507091-1279000.png'
 // import User from '../Classes/User'
 // import Parse from 'parse';
 
@@ -35,11 +35,13 @@ class ShoppingCart extends React.Component {
             });
         }
         render() {
-            const { activeUser, handleLogout, allMessages, cart,ownerName } = this.props;
+            const { activeUser, handleLogout, allMessages, cart,ownerName,deleteFromCart } = this.props;
             const { diamondsInCart } = this.state;
             let index=-1;
             let tableLines=[];
             let weight,price,lineTotal,total;
+            let caratTotal=0;
+            let priceAVG=0;
             total=0;
             diamondsInCart.forEach(diamond=>{
                 index++;
@@ -47,6 +49,8 @@ class ShoppingCart extends React.Component {
                 price=diamond.pricePerCarat;
                 lineTotal=weight*price;
                 total+=lineTotal;
+                caratTotal+=weight;
+                if (caratTotal) priceAVG=total/caratTotal;
                 tableLines.push(           
                  <tr>
                     <td>{index}</td>
@@ -55,9 +59,29 @@ class ShoppingCart extends React.Component {
                     <td>{weight}</td>
                     <td>{price}</td>
                     <td>{lineTotal}</td>
-                    <td><img style={{width:"40px"}} src={deleteFromCart}></img></td>
+                    <td><img className="deleteMessage" 
+                            onClick={()=>{
+                             
+                                    diamondsInCart.splice(index,1);
+                                    this.setState({diamondsInCart});
+                                    deleteFromCart(diamond.id);
+                                    
+                                } }
+                            style={{width:"40px"}} 
+                            src={deleteFromCartIcon}></img></td>
                 </tr>)
+                
             })
+            tableLines.push(           
+                <tr>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td style={{fontWeight:"bold"}}>{caratTotal}</td>
+                   <td>{priceAVG}</td>
+                   <td style={{fontWeight:"bold"}}>{total}</td>
+                   <td></td>
+               </tr>)           
 
             return (
                 <Container>
