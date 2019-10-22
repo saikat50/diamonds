@@ -143,13 +143,13 @@ export default class ShowDiamond extends React.Component {
                     <Col className="innerCol" xl="3">
                       <div className="content diamondContent">
                         <h5 className="noMarginBottom">Disc%</h5>
-                        <p>{Math.floor(this.props.description.discount * 10) / 10 + "%"}</p>
+                        <p>{(Math.floor(this.props.description.discount * 10) / 10).toFixed() + "%"}</p>
                       </div>
                     </Col>
                     <Col className="innerCol" xl="3">
                       <div className="content diamondContent">
                         <h5 className="noMarginBottom">Price$</h5>
-                        <p>{this.props.description.pricePerCarat}</p>
+                        <p style={{fontSize:"11px"}}>{this.props.description.pricePerCarat.toFixed()}</p>
                       </div>
                     </Col>
                   </Row>
@@ -167,7 +167,7 @@ export default class ShowDiamond extends React.Component {
                       <Col className="innerCol" xl="3">
                         <div className="content diamondContent">
                           <h5 className="noMarginBottom">Lot</h5>
-                          <p>{this.props.description.lotID}</p>
+                          <p style={{fontSize:"11px"}}>{this.props.description.lotID}</p>
                         </div>
                       </Col>
 
@@ -177,14 +177,14 @@ export default class ShowDiamond extends React.Component {
                       <Col className="innerCol" xl="3">
                         <div className="content diamondContent">
                           <h5 className="noMarginBottom">Owner</h5>
-                          <p>{this.props.ownerName(this.props.description.owner.id)}</p>
+                          <p style={{fontSize:"11px"}}>{this.props.ownerName(this.props.description.owner.id)}</p>
                         </div>
                       </Col>
 
                       <Col className="innerCol" xl="3">
                         <div className="content diamondContent">
                           <h5 className="noMarginBottom">Cert</h5>
-                          <a target="_blank" href={"http://www.gia.edu/report-check?reportno=" + this.props.description.certificateNumber}><p>{this.props.description.certificateNumber}</p></a>
+                          <a target="_blank" href={"http://www.gia.edu/report-check?reportno=" + this.props.description.certificateNumber}><p style={{fontSize:"11px"}}>{this.props.description.certificateNumber}</p></a>
 
                         </div>
                       </Col>

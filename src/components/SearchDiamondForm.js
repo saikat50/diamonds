@@ -111,7 +111,7 @@ export default class SearchDiamondForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tglAll: "Select",
+      tglAll: "Select all shapes",
       filter:{
         weightMin:"",
         weightMax:"",
@@ -138,12 +138,12 @@ export default class SearchDiamondForm extends React.Component {
     setFilter(filter);
   }
   toggleAll = (e) => {
-    let allShapes = ["BR", "OV", "PS", "MQ", "HS", "PRI", "RAD", "EM", "CU", "BG", "TRI"]
+    let allShapes = ["BR", "OV", "PS", "MQ", "HS", "PRI", "RAD", "EM","AS", "CU", "BG", "TRI"]
     let { filter, setFilter } = this.props;
     let { tglAll } = this.state;
-    if (tglAll === "Select") { filter.shape = allShapes; tglAll = "Clear" }
+    if (tglAll === "Select all shapes") { filter.shape = allShapes; tglAll = "Clear all shapes" }
     else {
-      filter.shape = []; tglAll = "Select"
+      filter.shape = []; tglAll = "Select all shapes"
     }
     this.setState({ tglAll });
     setFilter(filter);
@@ -192,10 +192,8 @@ export default class SearchDiamondForm extends React.Component {
 
   }
   render() {
-    // console.log("filter");
-    // console.log(this.props.filter);
-    // console.log((this.props.filter.shape.includes("OV")));
-    let br, ov, ps, mq, hs, pri, rad, em, cu, bg, tri;
+
+    let br, ov, ps, mq, hs, pri, rad, em, cu, bg, tri, asher;
     if (this.props.filter.shape.includes("BR")) { br = "success" } else { br = "light" };
     if (this.props.filter.shape.includes("OV")) { ov = "success" } else { ov = "light" };
     if (this.props.filter.shape.includes("MQ")) { mq = "success" } else { mq = "light" };
@@ -207,7 +205,8 @@ export default class SearchDiamondForm extends React.Component {
     if (this.props.filter.shape.includes("CU")) { cu = "success" } else { cu = "light" };
     if (this.props.filter.shape.includes("TRI")) { tri = "success" } else { tri = "light" };
     if (this.props.filter.shape.includes("BG")) { bg = "success" } else { bg = "light" };
-    console.log(br);
+    if (this.props.filter.shape.includes("AS")) { asher = "success" } else { asher = "light" };
+   
     var width60 = { width: "60px" };
     return (
       <Form>
@@ -216,8 +215,8 @@ export default class SearchDiamondForm extends React.Component {
         </Button> 
         <h3 style={{marginTop:"10px"}}> Filter</h3>
         <Row>
-          <Col lg="1" md="2" sm="3" xs="4">
-            <button onClick={this.toggleAll} type="button" className={`btn btn-primary`}>{this.state.tglAll}</button>
+          <Col lg="12" md="12" sm="12" xs="12">
+            <button style={{marginBottom:"5px"}} onClick={this.toggleAll} type="button" className={`btn btn-primary`}>{this.state.tglAll}</button>
           </Col>
           <Col lg="1" md="2" sm="3" xs="4">
             <button onClick={this.toggleChoice} type="button" className={`btn btn-${br}`}>BR</button>
@@ -239,6 +238,9 @@ export default class SearchDiamondForm extends React.Component {
           </Col>
           <Col lg="1" md="2" sm="3" xs="4">
             <button onClick={this.toggleChoice} type="button" className={`btn btn-${em}`}>EM</button>
+          </Col>
+          <Col lg="1" md="2" sm="3" xs="4">
+            <button onClick={this.toggleChoice} type="button" className={`btn btn-${asher}`}>AS</button>
           </Col>
           <Col lg="1" md="2" sm="3" xs="4">
             <button onClick={this.toggleChoice} type="button" className={`btn btn-${rad}`}>RAD</button>
