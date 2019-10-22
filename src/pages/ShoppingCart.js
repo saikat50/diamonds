@@ -5,6 +5,8 @@ import DiamondNavbar from '../components/DiamondNavbar';
 import { Diamond1 } from '../Classes/Diamond';
 import Parse from 'parse';
 import deleteFromCartIcon from '../data/delete-1507091-1279000.png'
+import PaymentForm from '../components/PaymentForm'
+
 // import User from '../Classes/User'
 // import Parse from 'parse';
 
@@ -43,6 +45,8 @@ class ShoppingCart extends React.Component {
             let caratTotal=0;
             let priceAVG=0;
             total=0;
+            if (!diamondsInCart.length){tableLines.push(<div><h3>Your cart is empty</h3></div>)}
+            else{
             diamondsInCart.forEach(diamond=>{
                 index++;
                 weight=diamond.weight;
@@ -57,8 +61,8 @@ class ShoppingCart extends React.Component {
                     <td>{ownerName(diamond.owner.id)}</td>
                     <td>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
                     <td>{weight}</td>
-                    <td>{price}</td>
-                    <td>{lineTotal}</td>
+                    <td>{price.toFixed(2)}</td>
+                    <td>{lineTotal.toFixed(2)}</td>
                     <td><img className="deleteMessage" 
                             onClick={()=>{
                              
@@ -77,16 +81,16 @@ class ShoppingCart extends React.Component {
                    <td></td>
                    <td></td>
                    <td></td>
-                   <td style={{fontWeight:"bold"}}>{caratTotal}</td>
-                   <td>{priceAVG}</td>
-                   <td style={{fontWeight:"bold"}}>{total}</td>
+                   <td style={{fontWeight:"bold"}}>{caratTotal.toFixed(2)}</td>
+                   <td>{priceAVG.toFixed(2)}</td>
+                   <td style={{fontWeight:"bold"}}>{total.toFixed(2)}</td>
                    <td></td>
                </tr>)           
-
+            }
             return (
                 <Container>
                     <DiamondNavbar cart={cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
-                    Shopping Cart
+                    <h1>Shopping Cart</h1>
                     <Table striped bordered hover size="sm">
                         <thead>
                             <tr>
@@ -103,6 +107,8 @@ class ShoppingCart extends React.Component {
                             {tableLines}
                         </tbody>
                     </Table>
+
+                    <PaymentForm/>
                 </Container>
             );
         }

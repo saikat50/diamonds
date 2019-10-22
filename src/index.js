@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Parse from 'parse';
+import 'react-credit-cards/es/styles-compiled.css';
 
 
 Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
