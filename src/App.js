@@ -13,6 +13,7 @@ import User from './Classes/User'
 import { Message, usersMessages } from './Classes/Message'
 import UserMessages from '../src/components/UserMessages'
 import ShoppingCart from '../src/pages/ShoppingCart'
+import About from '../src/pages/About'
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
@@ -126,7 +127,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // this.getMessages();
-    setInterval(this.getMessages, 300000000);
+    setInterval(this.getMessages, 3000000000);
 
     let allUsers = [];
     const parseUser = new Parse.User();
@@ -438,6 +439,8 @@ class App extends React.Component {
         <Route exact path="/login"> <LoginPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         <Route exact path="/signup"> <SignupPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
         <Route exact path="/cart"><ShoppingCart deleteFromCart={this.deleteFromCart} cart={cart}  allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></ShoppingCart></Route>
+        <Route exact path="/home" ><Home cart={cart} allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
+        <Route exact path="/about" ><About cart={cart} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></About></Route>
       </Switch>
 
       // </div>

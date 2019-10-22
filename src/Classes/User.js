@@ -13,7 +13,7 @@ export default class User {
 }
 
 
-export function userDetails(id,allUsers){
+export function userDetails(id,allUsers){.0.0.
     for (var i=0;i<allUsers.length;i++){
         if (id===allUsers[i].id) return allUsers[i];
     }
