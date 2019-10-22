@@ -21,9 +21,9 @@ export function listPrice(shape, color, clarity, weight, priceList) {
   if (shape !== "BR" && shape !== "round") { shape = "pear" } else { shape = "round" };
   for (var i = 0; i < priceList.length; i++) { //searches the right price on the pricelist
     if (shape === priceList[i].shape && color === priceList[i].color &&
-      clarity === priceList[i].clarity && weight >= priceList[i].low_size &&
-      weight <= priceList[i].high_size)
-      return priceList[i].caratprice;
+      clarity === priceList[i].clarity && weight >= Number(priceList[i].low_size) &&
+      weight <= Number(priceList[i].high_size))
+      return Number(priceList[i].caratprice);
   }
   return 0;
 }

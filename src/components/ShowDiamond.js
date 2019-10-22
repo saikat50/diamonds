@@ -137,7 +137,7 @@ export default class ShowDiamond extends React.Component {
                     <Col className="innerCol" xl="3">
                       <div className="content diamondContent">
                         <h5 className="noMarginBottom">Rap</h5>
-                        <p>{this.props.description.list}</p>
+                        <p style={{fontSize:"11px"}}>{this.props.description.list}</p>
                       </div>
                     </Col>
                     <Col className="innerCol" xl="3">
