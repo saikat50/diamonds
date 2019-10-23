@@ -52,6 +52,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      parseActive:null,
       activeUser:
         null,
       //   activeUser:  {
@@ -74,19 +75,22 @@ class App extends React.Component {
   }
 
   getMessages = () => {
-
+    const { activeUser,parseActive } = this.state;
+    if (activeUser){
     let allMessages = [];
-    const { activeUser } = this.state;
-    console.log("getmessages start with user:");
-    console.log(activeUser);
+  
+    // console.log("getmessages start with user:");
+    // console.log(activeUser);
     const parseMessages = Parse.Object.extend('Messages');
     const query1 = new Parse.Query(parseMessages);
-    // const query2 = new Parse.Query(parseMessages);
-    if (activeUser) {
+    query1.equalTo('from', parseActive);
+    const query2 = new Parse.Query(parseMessages);
+    query2.equalTo('to', parseActive);
+    const composedQuery = Parse.Query.or(query1, query2);
       // query1.equalTo("from.id",activeUser.id);
       // query2.equalTo("to.id",activeUser.id);
       // const query3=new Parse.Query.or(query1,query2);
-      query1.find().then((results) => {
+      composedQuery.find().then((results) => {
         // You can use the "get" method to get the value of an attribute
         // Ex: response.get("<ATTRIBUTE_NAME>")
         console.log('Messages found', results);
@@ -122,8 +126,8 @@ class App extends React.Component {
       }, (error) => {
         console.error('Error while fetching Messages', error);
       });
-    }
-  }
+    
+  }}
 
   componentDidMount() {
     // this.getMessages();
@@ -201,6 +205,8 @@ class App extends React.Component {
         // Finds the user by its ID
         query.get(activeUser.id).then((user) => {
           // Updates the data we want
+          let {parseActive}=this.state;
+          parseActive=user;
           user.set('cart', cart);
           // Saves the user with the updated data
           user.save().then((response) => {
@@ -210,7 +216,7 @@ class App extends React.Component {
 
             console.error('Error while updating user', error);
           });
-          this.setState({ activeUser, cart });
+          this.setState({ activeUser, cart,parseActive });
           this.getMessages();
         });
       }, (error) => {
