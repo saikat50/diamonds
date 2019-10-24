@@ -14,6 +14,7 @@ import { Message, usersMessages } from './Classes/Message'
 import UserMessages from '../src/components/UserMessages'
 import ShoppingCart from '../src/pages/ShoppingCart'
 import About from '../src/pages/About'
+import $ from "jquery";
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
@@ -52,7 +53,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      parseActive:null,
+      parseActive: null,
       activeUser:
         null,
       //   activeUser:  {
@@ -75,63 +76,65 @@ class App extends React.Component {
   }
 
   getMessages = () => {
-    const { activeUser,parseActive } = this.state;
-    if (activeUser){
-    let allMessages = [];
-  
-    // console.log("getmessages start with user:");
-    // console.log(activeUser);
-    const parseMessages = Parse.Object.extend('Messages');
-    const query1 = new Parse.Query(parseMessages);
-    query1.equalTo('from', parseActive);
-    const query2 = new Parse.Query(parseMessages);
-    query2.equalTo('to', parseActive);
-    const composedQuery = Parse.Query.or(query1, query2);
-      // query1.equalTo("from.id",activeUser.id);
-      // query2.equalTo("to.id",activeUser.id);
-      // const query3=new Parse.Query.or(query1,query2);
-      composedQuery.find().then((results) => {
-        // You can use the "get" method to get the value of an attribute
-        // Ex: response.get("<ATTRIBUTE_NAME>")
-        console.log('Messages found', results);
-        let message1;
-        results.forEach(message => {
-          console.log("message to:");
-          console.log(message);
-          message1 = new Message(message);
-          if (message1.to.id === activeUser.id && !message1.recieved) {
-            message1.recieved = true;
-            const Messages = Parse.Object.extend('Messages');
-            const query = new Parse.Query(Messages);
-            // here you put the objectId that you want to update
-            query.get(message1.id).then((object) => {
-              object.set('recieved', true);
-              object.save().then((response) => {
-                // You can use the "get" method to get the value of an attribute
-                // Ex: response.get("<ATTRIBUTE_NAME>")
+    const { activeUser, parseActive } = this.state;
+    if (activeUser) {
+      let allMessages = [];
 
-                console.log('Updated Messages', response);
-              }, (error) => {
+      const parseMessages = Parse.Object.extend('Messages');
+      const query1 = new Parse.Query(parseMessages);
+      query1.equalTo('from', parseActive);
+      const query2 = new Parse.Query(parseMessages);
+      query2.equalTo('to', parseActive);
+      const composedQuery = Parse.Query.or(query1, query2);
+      composedQuery.count().then((count) => {
+        if (count > 100) composedQuery.skip(count - 100);
+        composedQuery.find().then((results) => {
+          // You can use the "get" method to get the value of an attribute
+          // Ex: response.get("<ATTRIBUTE_NAME>")
+          console.log('Messages found', results);
+          let message1;
+          results.forEach(message => {
+            message1 = new Message(message);
+            if (message1.to.id === activeUser.id && !message1.recieved) {
+              message1.recieved = true;
+              const Messages = Parse.Object.extend('Messages');
+              const query = new Parse.Query(Messages);
+              // here you put the objectId that you want to update
+              query.get(message1.id).then((object) => {
+                object.set('recieved', true);
+                object.save().then((response) => {
+                  // You can use the "get" method to get the value of an attribute
+                  // Ex: response.get("<ATTRIBUTE_NAME>")
 
-                console.error('Error while updating Messages', error);
+                  console.log('Updated Messages', response);
+                }, (error) => {
+
+                  console.error('Error while updating Messages', error);
+                });
               });
-            });
-          }
-          if (message1.from.id === activeUser.id || message1.to.id === activeUser.id) allMessages.push(message1);
+            }
+            allMessages.push(message1);
 
+          });
+          this.setState({ allMessages });
+        }, (error) => {
+          console.error('Error while fetching Messages', error);
         });
-        console.log('********************************allmessages************************');
-        console.log(allMessages);
-        this.setState({ allMessages });
-      }, (error) => {
-        console.error('Error while fetching Messages', error);
-      });
-    
-  }}
+
+      })
+    }
+  }
 
   componentDidMount() {
-    // this.getMessages();
+
     setInterval(this.getMessages, 3000000000);
+    console.log("previous user:");
+    console.log(Parse.User.current());
+    if (Parse.User.current()) { 
+      this.handleLogin(new User(Parse.User.current()));
+      this.setState({ successLogin: true });
+    }
+
 
     let allUsers = [];
     const parseUser = new Parse.User();
@@ -163,6 +166,7 @@ class App extends React.Component {
       // Saves the user with the updated data
       user.save().then((response) => {
         console.log('Updated user logout', response);
+        Parse.User.logOut();
       }).catch((error) => {
 
         console.error('Error while updating user', error);
@@ -173,7 +177,7 @@ class App extends React.Component {
   }
 
   handleLogin(activeUser) {
-    
+
     let { cart } = this.state;
     if (cart === []) {
       cart = activeUser.cart;
@@ -205,8 +209,8 @@ class App extends React.Component {
         // Finds the user by its ID
         query.get(activeUser.id).then((user) => {
           // Updates the data we want
-          let {parseActive}=this.state;
-          parseActive=user;
+          let { parseActive } = this.state;
+          parseActive = user;
           user.set('cart', cart);
           // Saves the user with the updated data
           user.save().then((response) => {
@@ -216,7 +220,7 @@ class App extends React.Component {
 
             console.error('Error while updating user', error);
           });
-          this.setState({ activeUser, cart,parseActive });
+          this.setState({ activeUser, cart, parseActive });
           this.getMessages();
         });
       }, (error) => {
@@ -401,18 +405,18 @@ class App extends React.Component {
     }
     this.setState({ cart });
   }
-  deleteFromCart=(item)=>{
-    let {cart,activeUser}=this.state;
+  deleteFromCart = (item) => {
+    let { cart, activeUser } = this.state;
     var index = cart.indexOf(item);
-      if (index > -1) {
-        cart.splice(index, 1);
-        if (!activeUser) {
-          this.setState({cart})
-       }
-       else{
+    if (index > -1) {
+      cart.splice(index, 1);
+      if (!activeUser) {
+        this.setState({ cart })
+      }
+      else {
         const User = new Parse.User();
         const query = new Parse.Query(User);
-        
+
         // Finds the user by its ID
         query.get(activeUser.id).then((user) => {
           // Updates the data we want
@@ -420,12 +424,12 @@ class App extends React.Component {
           // Saves the user with the updated data
           user.save().then((response) => {
             console.log('Updated user', response);
-            this.setState({cart})
+            this.setState({ cart })
           }).catch((error) => {
             console.error('Error while updating user', error);
           });
         });
-       }
+      }
     }
   }
   render() {
@@ -444,7 +448,7 @@ class App extends React.Component {
         <Route exact path="/search"><Search cart={cart} addToCart={this.addToCart} addMessage={this.addMessage} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></Search></Route>
         <Route exact path="/login"> <LoginPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></LoginPage></Route>
         <Route exact path="/signup"> <SignupPage cart={cart} allMessages={allMessages} handleLogout={this.handleLogout} activeUser={activeUser} users={allUsers} handleLogin={this.handleLogin}></SignupPage></Route>
-        <Route exact path="/cart"><ShoppingCart deleteFromCart={this.deleteFromCart} cart={cart}  allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></ShoppingCart></Route>
+        <Route exact path="/cart"><ShoppingCart deleteFromCart={this.deleteFromCart} cart={cart} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></ShoppingCart></Route>
         <Route exact path="/home" ><Home cart={cart} allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
         <Route exact path="/about" ><About cart={cart} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></About></Route>
       </Switch>

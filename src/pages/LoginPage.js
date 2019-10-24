@@ -34,15 +34,9 @@ class LoginPage extends React.Component {
                 user.set('isLogin', true);
                 user.save().then((response) => {
                 console.log('Updated user', response);
-                Parse.User.logIn(this.emailInput.current.value,this.pwdInput.current.value).then((user) => {
-                    console.log('Logged in user', user);
                     this.props.handleLogin(new User(user));
                     this.setState({successLogin: true});
-                }).catch(error => {
-  
-                    console.error('Error while logging in user', error);
-                    this.setState({invalidLogin: true});
-                })
+
 
             }).catch((error) => {
             console.error('Error while updating user', error);
