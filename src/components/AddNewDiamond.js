@@ -1,9 +1,11 @@
 import React from 'react'
-import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl, Container } from 'react-bootstrap'
+import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl, Container,Nav } from 'react-bootstrap'
 import { listPrice } from '../App'
 import { Diamond1 } from '../Classes/Diamond'
 import diamondsShape from '../data/Shapes.png'
 import ListOfLinks from './ListOfLinks'
+import { Redirect } from 'react-router-dom'
+import excel from '../data/38-383271_excel-logo-png-microsoft-excel-logo-transparent-png.png'
 
 export default class AddDiamond extends React.Component {
     constructor(props) {
@@ -868,10 +870,19 @@ export default class AddDiamond extends React.Component {
                             }
 
         return (
-            <div>
-                <Button variant="success" onClick={this.toggle} className="fullWin">
+            <div style={{position:"relative"}}>
+                {/* <Row>
+                    <Col md="10"> */}
+                <Button  variant="success" onClick={this.toggle} className="fullWin">
                     List New Diamond
             </Button>
+            {/* </Col>
+            <Col md="2"> */}
+            <Nav style={{position:"absolute", left:"-90px",top:"1px"}}>   
+            <Nav.Link href="#/load"><img style={{width:"100px", height:"40px"}} src={excel}></img></Nav.Link>
+            </Nav>
+            {/* </Col>
+            </Row> */}
                 <Button variant="info" onClick={this.myListings} className="fullWin">
                     Only My Listings
             </Button>

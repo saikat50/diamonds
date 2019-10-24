@@ -15,6 +15,7 @@ import UserMessages from '../src/components/UserMessages'
 import ShoppingCart from '../src/pages/ShoppingCart'
 import About from '../src/pages/About'
 import $ from "jquery";
+import LoadExcel  from './pages/Load';
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
@@ -127,7 +128,7 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    setInterval(this.getMessages, 3000000000);
+    // setInterval(this.getMessages, 3000000000);
     console.log("previous user:");
     console.log(Parse.User.current());
     if (Parse.User.current()) { 
@@ -451,6 +452,7 @@ class App extends React.Component {
         <Route exact path="/cart"><ShoppingCart deleteFromCart={this.deleteFromCart} cart={cart} allMessages={allMessages} ownerName={this.ownerName} activeUser={activeUser} handleLogout={this.handleLogout}></ShoppingCart></Route>
         <Route exact path="/home" ><Home cart={cart} allMessages={allMessages} activeUser={activeUser} handleLogout={this.handleLogout}></Home></Route>
         <Route exact path="/about" ><About cart={cart} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></About></Route>
+        <Route exact path="/load" ><LoadExcel cart={cart} allMessages={allMessages} allUsers={allUsers} activeUser={activeUser} handleLogout={this.handleLogout}></LoadExcel></Route>
       </Switch>
 
       // </div>

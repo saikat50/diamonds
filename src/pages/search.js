@@ -6,8 +6,8 @@ import { user, listPrice } from '../App'
 import { Diamond1 } from '../Classes/Diamond'
 import DiamondNavbar from '../components/DiamondNavbar';
 import diamondPic from '../data/l8cb11pkn10.jpg'
-import Parse from 'parse';
-// import diamList  from '../data/diamonds-list.json';
+import Parse from 'parse'; 
+
 import priceList from '../data/prices.json';
 const axios = require('axios').default
 

@@ -77,14 +77,6 @@ export class Diamond1 {
   measurements() { return this.diamMin + "-" + this.diamMax + "*" + this.deptAvg }
   inFilter(filter) {
 
-    // filter: {
-    //   shape: ["BR"],
-    //   colorMin: "D",
-    //   colorMax: "E",
-    //   clarityMin: "FL",
-    //   clarityMax: "VVS1",
-    //   weightMin: 1.02,
-    //   weightMax: 1.3
     if ((filter.shape.includes(this.shape)|| !filter.shape.length)
       && this.color >= filter.colorMin
       && this.color <= filter.colorMax
