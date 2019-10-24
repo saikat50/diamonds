@@ -878,7 +878,7 @@ export default class AddDiamond extends React.Component {
             </Button>
             {/* </Col>
             <Col md="2"> */}
-            <Nav style={{position:"absolute", left:"-90px",top:"1px"}}>   
+            <Nav style={{position:"absolute", left:"-20px",top:"1px"}}>   
             <Nav.Link href="#/load"><img style={{width:"100px", height:"40px"}} src={excel}></img></Nav.Link>
             </Nav>
             {/* </Col>
