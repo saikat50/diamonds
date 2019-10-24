@@ -135,13 +135,13 @@ export default class LoadExcel extends React.Component {
             if (diamond.lotID && diamond.weight && diamond.shape && diamond.color && diamond.clarity && diamond.pricePerCarat) {
                 log1.push(<p key={index} style={{ color: "green" }}>{row} is valid for upload...</p>)
                 this.saveDiamond(diamond);
-                log1.push(<p key={index + 0.5} style={{ color: "green" }}>{row} saved...</p>)
             }
             else {
                 log1.push(<p key={index} style={{ color: "red" }}>{row} is not valid for upload...</p>)
             }
 
         })
+        log1.push(<p key={index + 0.5} style={{ color: "purple" }}>upload process completed</p>)
         this.setState({ log1 });
     }
     render() {
