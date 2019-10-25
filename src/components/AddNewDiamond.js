@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl, Container,Nav } from 'react-bootstrap'
+import { Button, Modal, InputGroup, Image, Form, Row, Col, FormControl, Container, Nav } from 'react-bootstrap'
 import { listPrice } from '../App'
 import { Diamond1 } from '../Classes/Diamond'
 import diamondsShape from '../data/Shapes.png'
@@ -7,9 +7,18 @@ import ListOfLinks from './ListOfLinks'
 import { Redirect } from 'react-router-dom'
 import excel from '../data/38-383271_excel-logo-png-microsoft-excel-logo-transparent-png.png'
 
+
+//this class renders 
+//1. edit/new diamond modal
+//2. new diamond button
+//3. upload from excell icon link
+//4. filter button to show only activeUser listings
+// will render only if activeUser is not null
+
 export default class AddDiamond extends React.Component {
     constructor(props) {
         super(props);
+        //if modal is called for listing a new diamond
         if (this.props.edit === -1 && this.props.activeUser) {
             this.state = {
                 linktoAdd: "",
@@ -56,6 +65,7 @@ export default class AddDiamond extends React.Component {
                 }
             }
         }
+        //if modal is called for editing a diamond
         else if (this.props.activeUser) {
             this.state = {
                 modal: true,
@@ -102,6 +112,7 @@ export default class AddDiamond extends React.Component {
             }
         }
         else {
+            //no activeUser
             this.state = {
                 modal: true,
                 page: 0,
@@ -111,11 +122,8 @@ export default class AddDiamond extends React.Component {
 
         }
     }
-
+    // if modal is called to be open again, need to read new props to decide if to edit or add new
     componentWillReceiveProps(nextProps) {
-        console.log("componentwillrecprops");
-        console.log(nextProps.edit);
-        console.log(nextProps.diamonds[nextProps.edit]);
         let newState;
         if (nextProps.edit === -1 && nextProps.activeUser) {
             newState = {
@@ -169,7 +177,7 @@ export default class AddDiamond extends React.Component {
                 disableSave: true,
                 diamond: nextProps.diamonds[nextProps.edit]
 
-            }     
+            }
         }
         else {
             newState = {
@@ -183,17 +191,22 @@ export default class AddDiamond extends React.Component {
         }
         this.setState(newState)
     }
+
+//toggles modal
     toggle = () => {
         this.setState({
             modal: !this.state.modal
         });
     }
+    //closes modal
     handleClose = () => {
         this.setState({
             modal: false
         });
 
     }
+
+    //detects on which diamond shape the user has clicked
     detectMouse = (event) => {
         let { diamond } = this.state;
         var cx = event.clientX;
@@ -248,6 +261,8 @@ export default class AddDiamond extends React.Component {
         })
     }
 
+    //a few functions to read the input
+
     getCertNum = () => {
         let disableSave = false;
         let { diamond } = this.state;
@@ -271,14 +286,9 @@ export default class AddDiamond extends React.Component {
         let page;
         diamond.lab = element.target.id;
         if (element.target.id === "None") {
-            // page = 5;
             diamond.certificateNumber = ""
         }
-        // else {
-        //     page = 4
-        // };
         this.setState({
-            // page,
             disableSave,
             diamond
         })
@@ -344,24 +354,6 @@ export default class AddDiamond extends React.Component {
 
         this.setState({ disableSave, diamond })
     }
-    saveDiamond = () => {
-        const { diamond } = this.state;
-        const { edit } = this.props;
-        this.props.saveDiamond(diamond, edit)
-
-    }
-    nextPage = () => {
-        let { page } = this.state;
-        page++;
-
-        this.setState({ page })
-    }
-    previousPage = () => {
-        let { page } = this.state;
-        page--;
-
-        this.setState({ page })
-    }
     prepareLink = () => {
         let linktoAdd = this.linkToAddInput.value;
         this.setState({ linktoAdd })
@@ -414,19 +406,39 @@ export default class AddDiamond extends React.Component {
 
         this.setState({ diamond, disableSave });
     }
+
+ //flipping pages in the input modal   
+ nextPage = () => {
+    let { page } = this.state;
+    page++;
+
+    this.setState({ page })
+}
+previousPage = () => {
+    let { page } = this.state;
+    page--;
+
+    this.setState({ page })
+}
+
+//finish with the edit/adding of diamond
+
+    saveDiamond = () => {
+        const { diamond } = this.state;
+        const { edit } = this.props;
+        this.props.saveDiamond(diamond, edit)
+
+    }
+//filtering to the activeuser listings only
     myListings = () => {
         let { filter } = this.props;
         filter.owner = true;
         this.props.setFilter(filter);
     }
-  
+
     render() {
         let pic1, pic2;
-        console.log("render");
-        console.log(this.state.diamond);
-
-        if (!this.props.activeUser|| !this.state.diamond) return false;
-
+        if (!this.props.activeUser || !this.state.diamond) return false;
         if (this.state.diamond.pic1 !== {}) { pic1 = { name: this.state.diamond.pic1.name, url: this.state.diamond.pic1.url, hidden: false } } else pic1 = { name: null, url: null, hidden: true }
         if (this.state.diamond.pic2 !== {}) { pic2 = { name: this.state.diamond.pic2.name, url: this.state.diamond.pic2.url, hidden: false } } else pic2 = { name: null, url: null, hidden: true }
 
@@ -870,19 +882,13 @@ export default class AddDiamond extends React.Component {
                             }
 
         return (
-            <div style={{position:"relative"}}>
-                {/* <Row>
-                    <Col md="10"> */}
-                <Button  variant="success" onClick={this.toggle} className="fullWin">
+            <div style={{ position: "relative" }}>
+                <Button variant="success" onClick={this.toggle} className="fullWin">
                     List New Diamond
             </Button>
-            {/* </Col>
-            <Col md="2"> */}
-            <Nav style={{position:"absolute", left:"-20px",top:"1px"}}>   
-            <Nav.Link href="#/load"><img style={{width:"100px", height:"40px"}} src={excel}></img></Nav.Link>
-            </Nav>
-            {/* </Col>
-            </Row> */}
+                <Nav style={{ position: "absolute", left: "-20px", top: "1px" }}>
+                    <Nav.Link href="#/load"><img style={{ width: "100px", height: "40px" }} src={excel}></img></Nav.Link>
+                </Nav>
                 <Button variant="info" onClick={this.myListings} className="fullWin">
                     Only My Listings
             </Button>
