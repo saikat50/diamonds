@@ -4,18 +4,21 @@ import readXlsxFile from 'read-excel-file'
 import DiamondNavbar from '../components/DiamondNavbar';
 import Parse from 'parse';
 
+
+
+//upload diamonds from excel sheet
 export default class LoadExcel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            excelRows: [],
-            headers: [],
-            header: {},
-            log1: []
+            excelRows: [], //keep the excel data rows
+            headers: [], //keep the excel headers row
+            header: {}, //keep an object with parse diamond keys and an index that represent the column number in the excel
+            log1: []    // keeps the remarks log to show at the end of the upload
         }
 
     }
-
+    // internal function to save a diamond in parse. input : object with one diamond data
     saveDiamond = (diamond) => {
 
         const Diamond = Parse.Object.extend('Diamond');
@@ -52,13 +55,6 @@ export default class LoadExcel extends React.Component {
         myNewObject.set('diamMax', Number(diamond.diamMax));
         myNewObject.set('deptAvg', Number(diamond.deptAvg));
         myNewObject.set('owner', Parse.User.current());
-        //   console.log("pic1 and pic2 before save");
-        //   console.log(diamond.pic1, diamond.pic2);
-        //   console.log(typeof diamond.pic1.file);
-        //   if (diamond.pic1 && diamond.pic1.file) myNewObject.set('pic1', new Parse.File(diamond.pic1.name, diamond.pic1.file));
-        //   if (diamond.pic2 && diamond.pic2.file) myNewObject.set('pic2', new Parse.File(diamond.pic2.name, diamond.pic2.file));
-        console.log("going to save this diamond:");
-        console.log(myNewObject);
         myNewObject.save().then(
             (result) => {
                 console.log('Diamond created', result);
@@ -71,6 +67,8 @@ export default class LoadExcel extends React.Component {
 
     }
 
+    // function to load excel data using libraary 'read-excel-file', and set the state with the headers line and the data lines
+    // if any excel header column match a parse diamond object key, header state i also updated with the column number (example: header={shape: 2,color:4})
     loadExcelFile = (e) => {
         let { excelRows, headers, header, log1 } = this.state;
         excelRows = [];
@@ -82,12 +80,9 @@ export default class LoadExcel extends React.Component {
         readXlsxFile(input.files[0]).then((rows) => {
             // `rows` is an array of rows
             // each row being an array of cells.
-            // console.log("excell rows @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            // console.log(rows);
+
             headers = rows[0];
             excelRows = rows.splice(1, rows.length - 1);
-            // console.log(headers);
-            // console.log(excelRows);
             for (var i = 0; i < headers.length; i++) {
                 if (["shape", "weight", "color", "clarity", "lotID", "cut", "polish", "symmetry",
                     "fluorescence", "fluorescenceColor", "lab", "certificateNumber", "depth", "table",
@@ -98,23 +93,26 @@ export default class LoadExcel extends React.Component {
             this.setState({ excelRows, headers, header, log1 })
         })
     }
+
+    //when a key is picked from a list, add to header (example: header={shape: 2,color:4})
     getValues = (e) => {
         console.log(e.target.id);
         let { header } = this.state;
-
-
         header[e.target.value] = parseInt(e.target.id);
         this.setState({ header });
-        console.log("heADER")
-        console.log(header);
-
     }
+
+    // for each row in the data, builds an object of diamond using the map built in state.header  (example: header={shape: 2,color:4,clarity:1,lotId:5}==> diamond={shape:value in column 2, color:value in column 4.......})
+    // attempts to upload diamonds to parse
+    // 6 keys are must : lotID,weight,shape,color,clarity and pricePerCarat
+    // for now the data is not verified
     upload = () => {
         const { activeUser } = this.props;
         let { header, excelRows, log1 } = this.state;
         const headerKeys = Object.keys(header);
         let index = -1;
         excelRows.forEach(row => {
+            //builds the diamond object with the data from excell data line
             let diamond = {};
             index++;
             for (var i = 0; i < headerKeys.length; i++) {
@@ -130,9 +128,8 @@ export default class LoadExcel extends React.Component {
             }
             diamond.owner = Parse.User.current();
             if (diamond.keepDiscount || diamond.keepDiscount === 0) { diamond.keepDiscount = true } else { diamond.keepDiscount = false };
-            console.log("diamond from excel:");
-            console.log(diamond);
-            
+
+            //checks if there ar the necesary 6 fields
             if (diamond.lotID && diamond.weight && diamond.shape && diamond.color && diamond.clarity && diamond.pricePerCarat) {
                 log1.push(<p key={index} style={{ color: "green" }}>{row} is valid for upload...</p>)
                 this.saveDiamond(diamond);
@@ -142,6 +139,7 @@ export default class LoadExcel extends React.Component {
             }
 
         })
+        //completed the upload
         log1.push(<p key={index + 0.5} style={{ color: "purple" }}>upload process completed</p>)
         this.setState({ log1 });
     }
@@ -159,9 +157,6 @@ export default class LoadExcel extends React.Component {
                 </Jumbotron>
             </Container>
         )
-
-        console.log("log++++++++++++++++++++++++log");
-        console.log(log1);
         let tableLines = [];
         let index = -1;
         headers.forEach(element => {
@@ -173,35 +168,34 @@ export default class LoadExcel extends React.Component {
                     <Form.Group>
                         <Form.Label></Form.Label>
                         <Form.Control id={"0000" + index} onChange={this.getValues} defaultValue={element} as="select">
-
                             <option></option>
-                            <option>shape</option>
-                            <option>weight</option>
-                            <option>color</option>
-                            <option>clarity</option>
-                            <option>lotID</option>
-                            <option>cut</option>
-                            <option>polish</option>
-                            <option>symmetry</option>
-                            <option>fluorescence</option>
-                            <option>fluorescenceColor</option>
-                            <option>lab</option>
                             <option>certificateNumber</option>
-                            <option>depth</option>
-                            <option>table</option>
+                            <option>clarity</option>
+                            <option>color</option>
                             <option>crownAngle</option>
                             <option>crownHeight</option>
+                            <option>culet</option>
+                            <option>cut</option>
+                            <option>depth</option>
+                            <option>diamMax</option>
+                            <option>diamMin</option>
+                            <option>deptAvg</option>
+                            <option>discount</option>
+                            <option>fluorescence</option>
+                            <option>fluorescenceColor</option>
+                            <option>girdle</option>
+                            <option>lab</option>
+                            <option>lotID</option>
+                            <option>lowerHalf</option>
                             <option>pavillionAngle</option>
                             <option>pavillionDepth</option>
-                            <option>starLength</option>
-                            <option>lowerHalf</option>
-                            <option>girdle</option>
-                            <option>culet</option>
-                            <option>discount</option>
+                            <option>polish</option>
                             <option>pricePerCarat</option>
-                            <option>diamMin</option>
-                            <option>diamMax</option>
-                            <option>deptAvg</option>
+                            <option>shape</option>
+                            <option>starLength</option>
+                            <option>symmetry</option>
+                            <option>table</option>
+                            <option>weight</option>
 
                         </Form.Control>
                     </Form.Group></td>

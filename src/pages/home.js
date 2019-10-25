@@ -6,7 +6,7 @@ import DiamondNavbar from '../components/DiamondNavbar';
 export class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+ 
 }
     render() {
       const { activeUser, handleLogout,allMessages } = this.props;
