@@ -132,6 +132,7 @@ export default class LoadExcel extends React.Component {
             if (diamond.keepDiscount || diamond.keepDiscount === 0) { diamond.keepDiscount = true } else { diamond.keepDiscount = false };
             console.log("diamond from excel:");
             console.log(diamond);
+            
             if (diamond.lotID && diamond.weight && diamond.shape && diamond.color && diamond.clarity && diamond.pricePerCarat) {
                 log1.push(<p key={index} style={{ color: "green" }}>{row} is valid for upload...</p>)
                 this.saveDiamond(diamond);
