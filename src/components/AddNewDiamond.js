@@ -435,7 +435,8 @@ previousPage = () => {
         filter.owner = true;
         this.props.setFilter(filter);
     }
-
+    
+//rendering the modal input form
     render() {
         let pic1, pic2;
         if (!this.props.activeUser || !this.state.diamond) return false;
