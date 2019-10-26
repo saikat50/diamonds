@@ -2,6 +2,8 @@ import React from 'react';
 import { InputGroup, FormControl,Jumbotron,Container } from 'react-bootstrap'
 import Cards from 'react-credit-cards';
 
+
+//payment form
 export default class PaymentForm extends React.Component {
     state = {
         cvc: '',

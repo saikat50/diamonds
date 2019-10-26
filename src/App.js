@@ -30,6 +30,7 @@ export function listPrice(shape, color, clarity, weight, priceList) {
   return 0;
 }
 
+//returns the owner of a diamond
 function ownerOfDiamond(diamondId) {
 
   const Diamond = Parse.Object.extend('Diamond');
@@ -38,9 +39,7 @@ function ownerOfDiamond(diamondId) {
   query.find().then((results) => {
     // You can use the "get" method to get the value of an attribute
     // Ex: response.get("<ATTRIBUTE_NAME>")
-    console.log('Diamond found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', results);
     results.forEach(diamond => {
-      console.log(diamond.id + " " + diamondId);
       if (diamond.id === diamondId) { alert(diamond.get("owner").id); return diamond.get("owner").id }
     })
   }, (error) => {
@@ -50,6 +49,8 @@ function ownerOfDiamond(diamondId) {
   });
 }
 
+
+//main component
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -57,13 +58,6 @@ class App extends React.Component {
       parseActive: null,
       activeUser:
         null,
-      //   activeUser:  {
-      //     "id": "duXjSsEtGt",
-      //     "fname": "Boaz",
-      //     "lname": "Pinto",
-      //     "email": "pintob@gmail.com",
-      //     "pwd": "123"
-      // },
       allUsers: [],
       allMessages: [],
       isLoading: true,
@@ -75,19 +69,27 @@ class App extends React.Component {
 
 
   }
-
+//fetch messages related to activeuser from parse
   getMessages = () => {
     const { activeUser, parseActive } = this.state;
     if (activeUser) {
       let allMessages = [];
 
       const parseMessages = Parse.Object.extend('Messages');
+
+      //messages from activeuser
       const query1 = new Parse.Query(parseMessages);
       query1.equalTo('from', parseActive);
+
+      //messages to activeuser
       const query2 = new Parse.Query(parseMessages);
       query2.equalTo('to', parseActive);
+
+      //messages from activeuser or to activeuser
       const composedQuery = Parse.Query.or(query1, query2);
+
       composedQuery.count().then((count) => {
+        //only 100 last messages
         if (count > 100) composedQuery.skip(count - 100);
         composedQuery.find().then((results) => {
           // You can use the "get" method to get the value of an attribute
@@ -96,6 +98,7 @@ class App extends React.Component {
           let message1;
           results.forEach(message => {
             message1 = new Message(message);
+            //setting received to all messages to activeuser that are still marked not recieved
             if (message1.to.id === activeUser.id && !message1.recieved) {
               message1.recieved = true;
               const Messages = Parse.Object.extend('Messages');
@@ -126,17 +129,18 @@ class App extends React.Component {
     }
   }
 
+
   componentDidMount() {
 
+    //set interval for short time will read messages again and agin and will be more live
     // setInterval(this.getMessages, 3000000000);
-    console.log("previous user:");
-    console.log(Parse.User.current());
+
     if (Parse.User.current()) { 
       this.handleLogin(new User(Parse.User.current()));
       this.setState({ successLogin: true });
     }
 
-
+//retrieving all users
     let allUsers = [];
     const parseUser = new Parse.User();
     const query = new Parse.Query(parseUser);
@@ -152,6 +156,8 @@ class App extends React.Component {
     });
 
   }
+
+
   handleLogout() {
     const User1 = new Parse.User();
     const query = new Parse.Query(User1);
@@ -177,14 +183,20 @@ class App extends React.Component {
     this.setState({ activeUser: null, cart });
   }
 
+  //at login retrieving the activeuser cart and merging with the current unregisterd user cart
+  //diamonds in the unregistered user cart that are owned by activeuser will be deleted from cart
   handleLogin(activeUser) {
 
     let { cart } = this.state;
+
+    //if prelogin cart is empty
     if (cart === []) {
       cart = activeUser.cart;
       this.setState({ activeUser, cart });
       this.getMessages();
     }
+
+    //if prelogin cart is not empty and loginuser cart is not empty
     else if (activeUser.cart) {
       const Diamond = Parse.Object.extend('Diamond');
       const query = new Parse.Query(Diamond);
@@ -231,6 +243,7 @@ class App extends React.Component {
       });
 
     }
+     //if prelogin cart is not empty and loginuser cart is empty
     else {
       const User = new Parse.User();
       const query = new Parse.Query(User);
@@ -252,12 +265,15 @@ class App extends React.Component {
       });
     }
   }
+
+  //gets owner id and returns owner name
   ownerName = (userId) => {
     for (var i = 0; i < this.state.allUsers.length; i++) {
       if (this.state.allUsers[i].id == userId) return this.state.allUsers[i].fname + " " + this.state.allUsers[i].lname
     }
 
   }
+  //delete message both sides. happens when the sender is the one that deletes the message
   deleteMessage = (id) => {
     let { allMessages } = this.state;
     const Messages = Parse.Object.extend('Messages');
@@ -280,6 +296,36 @@ class App extends React.Component {
       });
     });
   }
+
+  //marks the message deleted. it will not show only in the recieving side at conversation. happens when
+  //the receiving side initiated the delete
+  markDeleted = (id) => {
+    let { allMessages } = this.state;
+    const Messages = Parse.Object.extend('Messages');
+    const query = new Parse.Query(Messages);
+    // here you put the objectId that you want to update
+    query.get(id).then((object) => {
+      object.set('deleted', true);
+      object.save().then((response) => {
+        // You can use the "get" method to get the value of an attribute
+        // Ex: response.get("<ATTRIBUTE_NAME>")
+
+        console.log('Updated Messages', response);
+        for (var i = 0; i < allMessages.length; i++) {
+          if (id === allMessages[i].id) {
+            allMessages.splice(i, 1);
+            break;
+          }
+        }
+        this.setState({ allMessages });
+      }, (error) => {
+
+        console.error('Error while updating Messages', error);
+      });
+    });
+  }
+
+  //add message
   addMessage = (text, fromID, toID) => {
     console.log(text);
     console.log(fromID);
@@ -328,31 +374,8 @@ class App extends React.Component {
     });
 
   }
-  markDeleted = (id) => {
-    let { allMessages } = this.state;
-    const Messages = Parse.Object.extend('Messages');
-    const query = new Parse.Query(Messages);
-    // here you put the objectId that you want to update
-    query.get(id).then((object) => {
-      object.set('deleted', true);
-      object.save().then((response) => {
-        // You can use the "get" method to get the value of an attribute
-        // Ex: response.get("<ATTRIBUTE_NAME>")
 
-        console.log('Updated Messages', response);
-        for (var i = 0; i < allMessages.length; i++) {
-          if (id === allMessages[i].id) {
-            allMessages.splice(i, 1);
-            break;
-          }
-        }
-        this.setState({ allMessages });
-      }, (error) => {
-
-        console.error('Error while updating Messages', error);
-      });
-    });
-  }
+  //mark all messages in conversation that are still not read as read
   messageRead = (message) => {
     const Messages = Parse.Object.extend('Messages');
     const query = new Parse.Query(Messages);
@@ -376,6 +399,8 @@ class App extends React.Component {
     });
     this.setState({ allMessages });
   }
+
+  //add to cart a diamond
   addToCart = (diamondId) => {
     console.log("diamond id to add to cart");
     console.log(diamondId)
@@ -406,6 +431,8 @@ class App extends React.Component {
     }
     this.setState({ cart });
   }
+
+  //delete from cart
   deleteFromCart = (item) => {
     let { cart, activeUser } = this.state;
     var index = cart.indexOf(item);
@@ -436,8 +463,7 @@ class App extends React.Component {
   render() {
 
     const { activeUser, allUsers, isLoading, allMessages, cart } = this.state;
-    console.log("finishloading");
-    console.log(allMessages);
+
     return (
 
 

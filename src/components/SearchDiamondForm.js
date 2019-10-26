@@ -6,6 +6,8 @@ import {colorValue,clarityValue} from '../Classes/Diamond'
 // import Multiselect from 'react-bootstrap-multiselect'
 // import '../multiselect.css'
 
+
+//returns color value
 function num2color(value) {
   switch (value) {
     case 0:
@@ -63,6 +65,7 @@ function num2color(value) {
       return false;
   }
 }
+//returns clarity value
 function num2clarity(value) {
   switch (value) {
     case 0:
@@ -105,8 +108,8 @@ function num2clarity(value) {
       return false;
   }
 }
-const data = [{ value: 'BR', selected: true }, { value: 'OV', selected: true }, { value: 'PS' }, { value: 'MQ' }, { value: 'HS' }, { value: 'PRI' }, { value: 'RAD' }, { value: 'CU' }, { value: 'EM' }, { value: 'BG' }, { value: 'TRI' }]
-//IN BUILT
+
+//filter
 export default class SearchDiamondForm extends React.Component {
   constructor(props) {
     super(props);
@@ -118,15 +121,10 @@ export default class SearchDiamondForm extends React.Component {
       }
     }
   }
-  handleChange = () => {
 
-  }
+//click on a shape filter wiil toggle selection from/to filter
   toggleChoice = (e) => {
     let { filter, setFilter } = this.props;
-    console.log("togglechoice");
-    console.log(filter);
-    console.log(e.target.innerHTML);
-    console.log(filter.shape.includes(e.target.innerHTML));
     if (!filter.shape.includes(e.target.innerHTML)) { filter.shape.push(e.target.innerHTML) }
     else {
       for (var i = 0; i < filter.shape.length; i++) {
@@ -137,6 +135,8 @@ export default class SearchDiamondForm extends React.Component {
     }
     setFilter(filter);
   }
+
+//toggle all shape to/from filter
   toggleAll = (e) => {
     let allShapes = ["BR", "OV", "PS", "MQ", "HS", "PRI", "RAD", "EM","AS", "CU", "BG", "TRI"]
     let { filter, setFilter } = this.props;
@@ -148,6 +148,8 @@ export default class SearchDiamondForm extends React.Component {
     this.setState({ tglAll });
     setFilter(filter);
   }
+
+  //changing weight minimum filter value
   setMinWeight = (e) => {
 
     let { setFilter } = this.props;
@@ -159,6 +161,8 @@ export default class SearchDiamondForm extends React.Component {
     this.setState({filter});
     setFilter(filter1);
   }
+
+  //changing weight maximum filter value
   setMaxWeight = (e) => {
 
     let { setFilter } = this.props;
@@ -170,18 +174,24 @@ export default class SearchDiamondForm extends React.Component {
     this.setState({filter});
     setFilter(filter1);
   }
+
+  //set color minimum and maximum on change in color slider
   setColorFilter = (value) => {
     let { filter, setFilter } = this.props;
     filter.colorMin = num2color(value[0]);
     filter.colorMax = num2color(value[1]);
     setFilter(filter);
   }
+
+   //set clarity minimum and maximum on change in clarity slider
   setClarityFilter = (value) => {
     let { filter, setFilter } = this.props;
     filter.clarityMin = num2clarity(value[0]);
     filter.clarityMax = num2clarity(value[1]);
     setFilter(filter);
   }
+
+  //clear all filters
   clearTheFilter= ()=>{
     const {clearFilter } = this.props;
     let {filter } = this.state;
@@ -194,6 +204,7 @@ export default class SearchDiamondForm extends React.Component {
   render() {
 
     let br, ov, ps, mq, hs, pri, rad, em, cu, bg, tri, asher;
+    //sets the color of each shape according to its filter value
     if (this.props.filter.shape.includes("BR")) { br = "success" } else { br = "light" };
     if (this.props.filter.shape.includes("OV")) { ov = "success" } else { ov = "light" };
     if (this.props.filter.shape.includes("MQ")) { mq = "success" } else { mq = "light" };
@@ -216,8 +227,10 @@ export default class SearchDiamondForm extends React.Component {
         <h3 style={{marginTop:"10px"}}> Filter</h3>
         <Row>
           <Col lg="12" md="12" sm="12" xs="12">
+            {/* clear all shapes or choose all shapes */}
             <button style={{marginBottom:"5px"}} onClick={this.toggleAll} type="button" className={`btn btn-primary`}>{this.state.tglAll}</button>
           </Col>
+          {/* all shapes buttons */}
           <Col lg="1" md="2" sm="3" xs="4">
             <button onClick={this.toggleChoice} type="button" className={`btn btn-${br}`}>BR</button>
           </Col>
@@ -256,7 +269,7 @@ export default class SearchDiamondForm extends React.Component {
           </Col>
         </Row>
         <Row>
-
+{/* //weight input minimum and maximum */}
           <Form.Group as={Col} xl="3" lg="3" sm="12" controlId="validationCustom05">
             <Form.Label>Weight From</Form.Label>
             <Form.Control onChange={this.setMinWeight} type="number" placeholder="From" value={this.state.filter.weightMin}/>
@@ -268,6 +281,7 @@ export default class SearchDiamondForm extends React.Component {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} xl="9" lg="9" sm="12" controlId="validationCustom05">
+            {/* sliders , one for color and one for clarity */}
             <HorizontalColorSlider setFilter={this.props.setFilter} filter={this.props.filter} name="Color" change={(value) => { this.setColorFilter(value) }} />
             <HorizontalColorSlider setFilter={this.props.setFilter} filter={this.props.filter} name="Clarity" change={(value) => { this.setClarityFilter(value)}} />
           </Form.Group>

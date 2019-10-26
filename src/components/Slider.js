@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 
 
-
+//two sided slider for color and clarity filter
 export default function HorizontalColorSlider(props) {
     
     const useStyles = makeStyles({
@@ -18,6 +18,7 @@ export default function HorizontalColorSlider(props) {
     return `${value}°C`;
   }
   let marks,max;
+  //color slider value marks
   if (props.name==="Color"){
   marks = [
     {
@@ -91,6 +92,7 @@ export default function HorizontalColorSlider(props) {
   ];
   max=16;
 }
+//clarity slider mark values
 else if (props.name==="Clarity"){
     marks = [
         {

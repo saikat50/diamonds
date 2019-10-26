@@ -1,3 +1,4 @@
+//user class
 export default class User {
     constructor(parseUser) {
         this.id = parseUser.id;
