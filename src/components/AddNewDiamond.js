@@ -450,7 +450,7 @@ previousPage = () => {
         if (this.state.diamond.lotID === "" || this.state.diamond.shape === "" || this.state.diamond.weight === "" || this.state.diamond.color === "" || this.state.diamond.clarity === "" || this.state.page === 0) {
             parse.push(
 
-                <Modal.Body>Lot ID
+                <Modal.Body key={this.state.diamond.lotID}>Lot ID
                                 <InputGroup className="mb-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-addon1"></InputGroup.Text>

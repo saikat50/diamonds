@@ -45,7 +45,7 @@ class ShoppingCart extends React.Component {
             let caratTotal=0;
             let priceAVG=0;
             total=0;
-            if (!diamondsInCart.length){tableLines.push(<div><h3>Your cart is empty</h3></div>)}
+            if (!diamondsInCart.length){tableLines.push(<tr key={index}><td><h3>Your cart is empty</h3></td></tr>)}
             else{
             diamondsInCart.forEach(diamond=>{
                 index++;
@@ -56,7 +56,7 @@ class ShoppingCart extends React.Component {
                 caratTotal+=weight;
                 if (caratTotal) priceAVG=total/caratTotal;
                 tableLines.push(           
-                 <tr>
+                 <tr key={index}>
                     <td>{index}</td>
                     <td>{ownerName(diamond.owner.id)}</td>
                     <td>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>

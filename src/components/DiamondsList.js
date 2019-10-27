@@ -82,7 +82,7 @@ export default class DiamondList extends React.Component {
           //IF anonimus 
           //DISPLAY SINGLE DIAMOND
 
-          result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
+          result.push(<ShowDiamond key={i} ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
             <ButtonToolbar>
               {/* DISPLAY THE USER'S ACTION BUTTONS */}
               <Button onClick={(e) => {
@@ -99,7 +99,7 @@ export default class DiamondList extends React.Component {
           if (this.state.list[i].owner.id == this.props.activeUser.id) {
             //IF THE USER IS THE OWNER OF THE DIAMOND
             //DISPLAY SINGLE DIAMOND
-            result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
+            result.push(<ShowDiamond key={i} ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
               <ButtonToolbar>
                 {/* DISPLAY THE OWNER'S ACTION BUTTONS */}
                 <Button onClick={this.editDiamond} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="warning">Edit</Button>
@@ -111,7 +111,7 @@ export default class DiamondList extends React.Component {
           else {
             //IF THE USER IS NOT THE OWNER OF THE DIAMOND
             //DISPLAY SINGLE DIAMOND
-            result.push(<ShowDiamond ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
+            result.push(<ShowDiamond key={i}  ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
               <ButtonToolbar>
                 {/* DISPLAY THE USER'S ACTION BUTTONS */}
 

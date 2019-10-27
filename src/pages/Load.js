@@ -3,7 +3,7 @@ import { Container, Jumbotron, Table, Form, Button } from 'react-bootstrap'
 import readXlsxFile from 'read-excel-file'
 import DiamondNavbar from '../components/DiamondNavbar';
 import Parse from 'parse';
-
+import excelIcon from '../data/38-383271_excel-logo-png-microsoft-excel-logo-transparent-png.png'
 
 
 //upload diamonds from excel sheet
@@ -206,7 +206,10 @@ export default class LoadExcel extends React.Component {
             <Container>
                 <DiamondNavbar cart={this.props.cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
                 <Jumbotron fluid>
-                    <input onChange={this.loadExcelFile} type="file" id="input" />
+                    <div style={{position:"relative"}}>
+                    <input style={{opacity:"0",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} onChange={this.loadExcelFile} type="file" id="input" />
+                    <img style={{pointerEvents:"none",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} src={excelIcon}></img>
+                    </div>
                     <Table  >
                         <thead>
                             <tr>
