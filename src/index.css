@@ -236,7 +236,7 @@ h5 ,.margBottom30 {
 .body {
   margin: 0, 40px;
   overflow-y:scroll;
-  height:490px;
+  height:450px;
 }
 .deleteMessage:hover{
   cursor: pointer;
