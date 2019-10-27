@@ -40,7 +40,7 @@ export default class PaymentForm extends React.Component {
                     name={this.state.name}
                     number={this.state.number}
                 />
-                <div style={{ width: "200px", marginTop: "50px" }} className=" container md-6 sm-12 mr-auto"  >
+                <div style={{ width: "80%", marginTop: "50px" }} className=" container md-6 sm-12 mr-auto"  >
                     <InputGroup className="mb-3 sm-12">
                         <FormControl
                             type="tel"
