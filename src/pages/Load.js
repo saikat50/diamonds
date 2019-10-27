@@ -208,7 +208,7 @@ export default class LoadExcel extends React.Component {
                 <Jumbotron fluid>
                     <div style={{position:"relative"}}>
                     <input style={{opacity:"0",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} onChange={this.loadExcelFile} type="file" id="input" />
-                    <img style={{pointerEvents:"none",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} src={excelIcon}></img>
+                    <img className="excelImage" style={{pointerEvents:"none",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} src={excelIcon}></img>
                     </div>
                     <Table  >
                         <thead>

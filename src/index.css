@@ -249,6 +249,12 @@ h5 ,.margBottom30 {
   bottom:-13px;
   left:0px;
 }
+.excelImage:hover{
+  cursor: pointer;
+}
+
+
+
 
 
 
