@@ -199,7 +199,7 @@ h5 ,.margBottom30 {
 #footer {
   position: absolute;
   width:100%;
-  bottom: 0;
+  bottom: 5;
   padding:10px;
   background-color: rgb(55, 137, 230);
   width: calc(100% - 30px);

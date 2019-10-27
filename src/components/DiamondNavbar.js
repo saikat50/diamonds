@@ -36,10 +36,9 @@ class DiamondNavbar extends React.Component {
         let itemsInCart;
         const { activeUser,allMessages,cart } = this.props;
         const { redirectToHome } = this.state;
-        // console.log("navbar");
-        // console.log(allMessages);
+
         let pic;
-        // if (activeUser) console.log(activeUser.pic);
+
         if (activeUser&&activeUser.pic) { pic = activeUser.pic["_url"] } else { pic = "https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png" }
 
         const signupLink = !activeUser ? <Nav.Link href="#/signup">Signup</Nav.Link> : null;

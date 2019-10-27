@@ -42,9 +42,8 @@ export default class UserMessages extends React.Component {
         let theSender = userDetails(this.state.id, allUsers);
         let conversation = usersMessages(activeUser, allMessages, theSender);
         conversation.messages.forEach(message => {
-            console.log("from "+message.from.id+theSender.id+" is read? "+message.read)
+ 
             if (message.from.id===theSender.id && !message.read){
-                console.log('now should be read message '+message.id)
                 messageRead(message);
             }
         })
@@ -56,9 +55,6 @@ export default class UserMessages extends React.Component {
         let index=-1;
         const { activeUser, handleLogout, allUsers, allMessages, addMessage,deleteMessage,markDeleted } = this.props;
         let theSender = userDetails(this.state.id, allUsers);
-        console.log(this.state.id);
-        console.log("the sender");
-        console.log(theSender);
         
         if (theSender.pic) { pic = theSender.pic["_url"] } else { pic = "https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png" }
         let showConversation = [];
@@ -66,8 +62,6 @@ export default class UserMessages extends React.Component {
         conversation.messages.forEach(message => {
             index++;
             messageDate=parseDateTime(message.createdAt);
-            console.log(message.from);
-            console.log(activeUser.id);
             if (message.from.id === activeUser.id) {
                 showConversation.push(<Row>
                     <Col xl="4" lg="4" md="4" sm="4" xs="4" ></Col>

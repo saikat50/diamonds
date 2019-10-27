@@ -19,7 +19,7 @@ import LoadExcel  from './pages/Load';
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
-  console.log(shape, color, clarity, weight, priceList[0])
+
   if (shape !== "BR" && shape !== "round") { shape = "pear" } else { shape = "round" };
   for (var i = 0; i < priceList.length; i++) { //searches the right price on the pricelist
     if (shape === priceList[i].shape && color === priceList[i].color &&
@@ -327,9 +327,7 @@ class App extends React.Component {
 
   //add message
   addMessage = (text, fromID, toID) => {
-    console.log(text);
-    console.log(fromID);
-    console.log(toID);
+
     let { allMessages } = this.state;
     const User2 = new Parse.User();
     const User1 = new Parse.User();
@@ -402,13 +400,11 @@ class App extends React.Component {
 
   //add to cart a diamond
   addToCart = (diamondId) => {
-    console.log("diamond id to add to cart");
-    console.log(diamondId)
     let { activeUser, cart } = this.state;
     if (!cart) cart = [];
     if (!cart.includes(diamondId)) {
       cart.push(diamondId);
-      console.log(cart);
+   
       if (activeUser) {
         const User = new Parse.User();
         const query = new Parse.Query(User);

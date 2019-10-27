@@ -17,9 +17,6 @@ export function usersMessages(user, allMessages, fromUser) {
         last:"",
         messages: []
     };
-    console.log("messages");
-    console.log(allMessages);
-    console.log(user);
     if (user && allMessages) {
         allMessages.forEach(message => {
             if (message.from.id === user.id || message.to.id === user.id) {

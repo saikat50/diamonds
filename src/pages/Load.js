@@ -96,7 +96,7 @@ export default class LoadExcel extends React.Component {
 
     //when a key is picked from a list, add to header (example: header={shape: 2,color:4})
     getValues = (e) => {
-        console.log(e.target.id);
+
         let { header } = this.state;
         header[e.target.value] = parseInt(e.target.id);
         this.setState({ header });

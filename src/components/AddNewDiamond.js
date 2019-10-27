@@ -192,7 +192,7 @@ export default class AddDiamond extends React.Component {
         this.setState(newState)
     }
 
-//toggles modal
+    //toggles modal
     toggle = () => {
         this.setState({
             modal: !this.state.modal
@@ -386,42 +386,38 @@ export default class AddDiamond extends React.Component {
         disableSave = false;
         let diamondImg = {};
         diamondImg.file = ev.target.files[0];
-        console.log("file");
-        console.log(diamondImg.file)
         if (diamondImg.file) {
             diamondImg.url = URL.createObjectURL(diamondImg.file);
             diamondImg.name = diamondImg.file.name
         } else {
             diamondImg = {};
         }
-        console.log(ev.target.id)
         if (ev.target.id === "formFile1") { diamond.pic1 = diamondImg } else { diamond.pic2 = diamondImg }
         this.setState({ diamond, disableSave });
     }
     deleteImg = (ev) => {
         let { diamond, disableSave } = this.state;
         disableSave = false;
-        console.log(ev.target.id === "deleteBtn1")
         if (ev.target.id === "deleteBtn1") { diamond.pic1 = {} } else { diamond.pic2 = {} }
 
         this.setState({ diamond, disableSave });
     }
 
- //flipping pages in the input modal   
- nextPage = () => {
-    let { page } = this.state;
-    page++;
+    //flipping pages in the input modal   
+    nextPage = () => {
+        let { page } = this.state;
+        page++;
 
-    this.setState({ page })
-}
-previousPage = () => {
-    let { page } = this.state;
-    page--;
+        this.setState({ page })
+    }
+    previousPage = () => {
+        let { page } = this.state;
+        page--;
 
-    this.setState({ page })
-}
+        this.setState({ page })
+    }
 
-//finish with the edit/adding of diamond
+    //finish with the edit/adding of diamond
 
     saveDiamond = () => {
         const { diamond } = this.state;
@@ -429,14 +425,14 @@ previousPage = () => {
         this.props.saveDiamond(diamond, edit)
 
     }
-//filtering to the activeuser listings only
+    //filtering to the activeuser listings only
     myListings = () => {
         let { filter } = this.props;
         filter.owner = true;
         this.props.setFilter(filter);
     }
-    
-//rendering the modal input form
+
+    //rendering the modal input form
     render() {
         let pic1, pic2;
         if (!this.props.activeUser || !this.state.diamond) return false;
@@ -449,74 +445,74 @@ previousPage = () => {
 
         if (this.state.diamond.lotID === "" || this.state.diamond.shape === "" || this.state.diamond.weight === "" || this.state.diamond.color === "" || this.state.diamond.clarity === "" || this.state.page === 0) {
             parse.push(
-
-                <Modal.Body key={this.state.diamond.lotID}>Lot ID
+                <div key={this.state.diamond.lotID}>
+                    <Modal.Body>Lot ID
                                 <InputGroup className="mb-3">
-                        <InputGroup.Prepend>
-                            <InputGroup.Text id="basic-addon1"></InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl onChange={this.getLotId} defaultValue={this.state.diamond.lotID} ref={(element) => { this.textInput = element }}
-                            placeholder="Enter Lot ID"
-                        />
-                    </InputGroup>Choose shape
+                            <InputGroup.Prepend>
+                                <InputGroup.Text id="basic-addon1"></InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl onChange={this.getLotId} defaultValue={this.state.diamond.lotID} ref={(element) => { this.textInput = element }}
+                                placeholder="Enter Lot ID"
+                            />
+                        </InputGroup>Choose shape
                          <Image onClick={this.detectMouse} style={{ width: "100%" }} src={diamondsShape} rounded />
-                    <h3>Shape selected: {this.state.diamond.shape}</h3>
-                    Weight
+                        <h3>Shape selected: {this.state.diamond.shape}</h3>
+                        Weight
                                  <InputGroup className="mb-3">
 
-                        <FormControl onChange={this.getWCC} defaultValue={this.state.diamond.weight} ref={(element) => { this.weightInput = element }}
-                            placeholder="Carat Weight"
-                        />
-                    </InputGroup>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Label>Color</Form.Label>
-                        <Form.Control onChange={this.getWCC} defaultValue={this.state.diamond.color} ref={(element) => { this.colorInput = element }} as="select" >
-                            <option value=""></option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="G">G</option>
-                            <option value="H">H</option>
-                            <option value="I">I</option>
-                            <option value="J">J</option>
-                            <option value="K">K</option>
-                            <option value="L">L</option>
-                            <option value="M">M</option>
-                            <option value="N">N</option>
-                            <option value="OP">OP</option>
-                            <option value="QR">QR</option>
-                            <option value="ST">ST</option>
-                            <option value="UV">UV</option>
-                            <option value="WX">WX</option>
-                            <option value="YZ">YZ</option>
-                            <option value="LIGHT FANCY">F0-LIGHT FANCY</option>
-                            <option value="FANCY">F1-FANCY</option>
-                            <option value="FANCY VIVID">F2-FANCY VIVID</option>
-                            <option value="FANCY INTENCE">F3-FANCY INTENCE</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Label>Clarity</Form.Label>
-                        <Form.Control onChange={this.getWCC} defaultValue={this.state.diamond.clarity} ref={(element) => { this.clarityInput = element }} as="select" >
-                            <option value=""></option>
-                            <option value="FL">FL</option>
-                            <option value="IF">IF</option>
-                            <option value="VVS1">VVS1</option>
-                            <option value="VVS2">VVS2</option>
-                            <option value="VS1">VS1</option>
-                            <option value="VS2">VS2</option>
-                            <option value="SI1">SI1</option>
-                            <option value="SI2">SI2</option>
-                            <option value="SI3">SI3</option>
-                            <option value="I1">I1</option>
-                            <option value="I2">I2</option>
-                            <option value="I3">I3</option>
+                            <FormControl onChange={this.getWCC} defaultValue={this.state.diamond.weight} ref={(element) => { this.weightInput = element }}
+                                placeholder="Carat Weight"
+                            />
+                        </InputGroup>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Label>Color</Form.Label>
+                            <Form.Control onChange={this.getWCC} defaultValue={this.state.diamond.color} ref={(element) => { this.colorInput = element }} as="select" >
+                                <option value=""></option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                                <option value="N">N</option>
+                                <option value="OP">OP</option>
+                                <option value="QR">QR</option>
+                                <option value="ST">ST</option>
+                                <option value="UV">UV</option>
+                                <option value="WX">WX</option>
+                                <option value="YZ">YZ</option>
+                                <option value="LIGHT FANCY">F0-LIGHT FANCY</option>
+                                <option value="FANCY">F1-FANCY</option>
+                                <option value="FANCY VIVID">F2-FANCY VIVID</option>
+                                <option value="FANCY INTENCE">F3-FANCY INTENCE</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Label>Clarity</Form.Label>
+                            <Form.Control onChange={this.getWCC} defaultValue={this.state.diamond.clarity} ref={(element) => { this.clarityInput = element }} as="select" >
+                                <option value=""></option>
+                                <option value="FL">FL</option>
+                                <option value="IF">IF</option>
+                                <option value="VVS1">VVS1</option>
+                                <option value="VVS2">VVS2</option>
+                                <option value="VS1">VS1</option>
+                                <option value="VS2">VS2</option>
+                                <option value="SI1">SI1</option>
+                                <option value="SI2">SI2</option>
+                                <option value="SI3">SI3</option>
+                                <option value="I1">I1</option>
+                                <option value="I2">I2</option>
+                                <option value="I3">I3</option>
 
-                        </Form.Control>
-                    </Form.Group>
+                            </Form.Control>
+                        </Form.Group>
 
-                </Modal.Body>
-
+                    </Modal.Body>
+                </div>
             )
         }
 

@@ -9,7 +9,7 @@ export default class SendMessageModal extends React.Component {
             modal: this.props.show,
             diamond: this.props.diamond,
         }
-        console.log("welcome,welcome")
+    
     }
     handleClose = () => {
         this.setState({

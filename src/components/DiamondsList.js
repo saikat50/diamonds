@@ -55,8 +55,7 @@ export default class DiamondList extends React.Component {
   }
   // CALLS THE FATHER COMPONENT'S FUNCTION EDITDIAMOND WITH THE INDEX OF THE DIAMOND
   editDiamond = (element) => {
-    console.log("EDIT");
-    console.log(element.target.value);
+
     this.props.editDiamond(element.target.value)
   }
   showAlert = () => {
@@ -71,8 +70,7 @@ export default class DiamondList extends React.Component {
   }
   render() {
     const {cart}=this.props;
-    // console.log("stateModalOffer");
-    // console.log(this.state.modalOffer);
+
     var result = [];
     for (var i = 0; i < this.state.list.length; i++) {
       if (this.state.list[i].inFilter(this.props.filter)
@@ -82,7 +80,7 @@ export default class DiamondList extends React.Component {
           //IF anonimus 
           //DISPLAY SINGLE DIAMOND
 
-          result.push(<ShowDiamond key={i} ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
+          result.push( <ShowDiamond  key={i} ownerName={this.props.ownerName} edit={i} description={this.state.list[i]}>
             <ButtonToolbar>
               {/* DISPLAY THE USER'S ACTION BUTTONS */}
               <Button onClick={(e) => {
@@ -92,7 +90,9 @@ export default class DiamondList extends React.Component {
                 }}}
                 value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="success">Add to Cart</Button>
             </ButtonToolbar>
-          </ShowDiamond>);
+          </ShowDiamond>
+          )
+          ;
         }
 
         else
@@ -106,7 +106,8 @@ export default class DiamondList extends React.Component {
                 <Button onClick={this.deleteDiamond} value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="danger">Delete</Button>
                 {/* <Button value={i} style={{ width: "100px", height: "60px", marginLeft: "15px", marginTop: "10px" }} variant="dark" >Add to Auction</Button> */}
               </ButtonToolbar>
-            </ShowDiamond>);
+            </ShowDiamond>)
+            ;
           }
           else {
             //IF THE USER IS NOT THE OWNER OF THE DIAMOND

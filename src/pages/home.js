@@ -10,8 +10,7 @@ export class Home extends React.Component {
 }
     render() {
       const { activeUser, handleLogout,allMessages } = this.props;
-      console.log("home");
-      console.log(allMessages);
+
       return (
         <Container>
           <DiamondNavbar cart={this.props.cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout}/>

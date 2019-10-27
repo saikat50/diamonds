@@ -59,9 +59,7 @@ export class Search extends React.Component {
 
   saveDiamond = (diamond, atEdit) => {
     let { edit, diamondArr } = this.state;
-    console.log("atedit:" + atEdit)
-    console.log("diamond");
-    console.log(diamond);
+
     if (atEdit === -1) {
 
       const Diamond = Parse.Object.extend('Diamond');
@@ -99,18 +97,15 @@ export class Search extends React.Component {
       myNewObject.set('diamMax', Number(diamond.diamMax));
       myNewObject.set('deptAvg', Number(diamond.deptAvg));
       myNewObject.set('owner', Parse.User.current());
-      console.log("pic1 and pic2 before save");
-      console.log(diamond.pic1, diamond.pic2);
-      console.log(typeof diamond.pic1.file);
+
       if (diamond.pic1 && diamond.pic1.file) myNewObject.set('pic1', new Parse.File(diamond.pic1.name, diamond.pic1.file));
       if (diamond.pic2 && diamond.pic2.file) myNewObject.set('pic2', new Parse.File(diamond.pic2.name, diamond.pic2.file));
-      console.log("going to save this diamond:");
-      console.log(myNewObject);
+
       myNewObject.save().then(
         (result) => {
           console.log('Diamond created', result);
           diamondArr = diamondArr.concat([new Diamond1(result)]);
-          console.log(diamondArr);
+    
           edit = -1;
           this.setState({ edit, diamondArr });
         },
@@ -156,8 +151,7 @@ export class Search extends React.Component {
         object.set('diamMax', Number(diamond.diamMax));
         object.set('deptAvg', Number(diamond.deptAvg));
         object.set('owner', Parse.User.current());
-        console.log("the file i want to save");
-        console.log(diamond.pic1);
+  
         if (!diamond.pic1.file) {object.set('pic1',null)}
         else if (!diamond.pic1.file["_name"]){ object.set('pic1', new Parse.File(diamond.pic1.name, diamond.pic1.file)); }
         else  {object.set('pic1', diamond.pic1.file)};
@@ -169,7 +163,6 @@ export class Search extends React.Component {
           // Ex: response.get("<ATTRIBUTE_NAME>")
           console.log('Updated Diamond', response);
          diamondArr.splice(atEdit, 1, new Diamond1(response));
-          console.log(diamondArr);
           edit = -1;
           this.setState({ edit, diamondArr });
         }, (error) => {
@@ -234,15 +227,12 @@ export class Search extends React.Component {
   render() {
     const { activeUser, handleLogout, allMessages } = this.props;
     if (this.state.isLoading) return false;
-    // console.log(this.state.diamondArr[0].pic1)
+ 
     return (
 
       <Container >
         <DiamondNavbar cart={this.props.cart}  allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
         <AddDiamond filter={this.state.filter} setFilter={this.setFilter} activeUser={activeUser} saveDiamond={this.saveDiamond} cancelEdit={this.cancelEdit} addEdit={this.addEdit} prices={this.state.prices} edit={this.state.edit} diamonds={this.state.diamondArr} />
-        {/* <Button variant="warning" onClick={this.clearFilter} className="fullWin">
-                    Clear all filters
-            </Button>  */}
         <DiamondList cart={this.props.cart}   addToCart={this.props.addToCart}  addMessage={this.props.addMessage} clearFilter={this.clearFilter} filter={this.state.filter} setFilter={this.setFilter} ownerName={this.props.ownerName} activeUser={activeUser} deleteDiamond={this.deleteDiamond} editDiamond={this.editDiamond} list={this.state.diamondArr} />
       </Container>
     );
