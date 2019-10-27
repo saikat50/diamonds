@@ -53,7 +53,9 @@ export class Messages extends React.Component {
                 if (user.user.pic)  {pic=user.user.pic["_url"]} else {pic="https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png"}
                 if (user.new) {newMessages=  <Badge pill variant="success">{user.new} </Badge>} else {newMessages=""}
                 if (user.lastMessageRecieved) lastMessageRecieved=(`${parseDateTime(user.lastMessageRecieved)}`)
-                listUsers.push(<ListGroup.Item style={{width:"450px"}}>
+                listUsers.push(<ListGroup.Item 
+                                        // style={{width:"450px"}}
+                                        >
                                 <div className="pointer" style={{border:"1px solid"}} onClick={()=>{ this.redirectToUserMessage(user.user.id)}}>
                                     <Image style={{height:"50px"}} src={pic}>
                                     </Image>
