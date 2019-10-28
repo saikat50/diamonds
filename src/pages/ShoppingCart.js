@@ -45,7 +45,7 @@ class ShoppingCart extends React.Component {
             let caratTotal=0;
             let priceAVG=0;
             total=0;
-            if (!diamondsInCart.length){tableLines.push(<tr key={index}><td><h3>Your cart is empty</h3></td></tr>)}
+            if (!diamondsInCart.length){tableLines.push(<tr key={index}><td style={{width:"100%"}}><h3>Your cart is empty</h3></td></tr>)}
             else{
             diamondsInCart.forEach(diamond=>{
                 index++;
@@ -58,12 +58,12 @@ class ShoppingCart extends React.Component {
                 tableLines.push(           
                  <tr key={index}>
                     {/* <td>{index}</td> */}
-                    <td style={{width:"16%"}}>{ownerName(diamond.owner.id)}</td>
-                    <td style={{width:"16%"}}>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
-                    <td style={{width:"16%"}}>{weight}</td>
-                    <td style={{width:"16%"}}>{price.toFixed(2)}</td>
-                    <td style={{width:"16%"}}>{lineTotal.toFixed(2)}</td>
-                    <td style={{width:"16%"}}><img className="deleteMessage" 
+                    <td style={{width:"15%"}}>{ownerName(diamond.owner.id)}</td>
+                    <td style={{width:"20%"}}>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
+                    <td style={{width:"10%"}}>{weight}</td>
+                    <td style={{width:"20%"}}>{price.toFixed(2)}</td>
+                    <td style={{width:"20%"}}>{lineTotal.toFixed(2)}</td>
+                    <td style={{width:"10%"}}><img className="deleteMessage" 
                             onClick={()=>{
                              
                                     diamondsInCart.splice(index,1);
@@ -71,7 +71,7 @@ class ShoppingCart extends React.Component {
                                     deleteFromCart(diamond.id);
                                     
                                 } }
-                            style={{width:"25%"}} 
+                            style={{width:"50%"}} 
                             src={deleteFromCartIcon}></img></td>
                 </tr>)
                 
@@ -79,12 +79,12 @@ class ShoppingCart extends React.Component {
             tableLines.push(           
                 <tr>
                    {/* <td></td> */}
-                   <td style={{width:"16%"}}></td>
-                   <td style={{width:"16%"}}></td>
-                   <td style={{fontWeight:"bold"}}>{caratTotal.toFixed(2)}</td>
-                   <td style={{width:"16%"}}>{priceAVG.toFixed(2)}</td>
-                   <td style={{fontWeight:"bold",width:"16%"}}>{total.toFixed(2)}</td>
-                   <td style={{width:"16%"}}></td>
+                   <td style={{width:"15%"}}></td>
+                   <td style={{width:"20%"}}></td>
+                   <td style={{fontWeight:"bold",width:"10%"}}>{caratTotal.toFixed(2)}</td>
+                   <td style={{width:"20%"}}>{priceAVG.toFixed(2)}</td>
+                   <td style={{fontWeight:"bold",width:"20%"}}>{total.toFixed(2)}</td>
+                   <td style={{width:"10%"}}></td>
                </tr>)           
             }
             return (
@@ -95,12 +95,12 @@ class ShoppingCart extends React.Component {
                         <thead>
                             <tr>
                                 {/* <th>#</th> */}
-                                <th style={{width:"16%"}}>Owner</th>
-                                <th style={{width:"16%"}}>Description</th>
-                                <th style={{width:"16%"}}>Weight</th>
-                                <th style={{width:"16%"}}>Price</th>
-                                <th style={{width:"16%"}}>Total</th>
-                                <th style={{width:"16%"}}>Delete</th>
+                                <th style={{width:"15%"}}>Owner</th>
+                                <th style={{width:"20%"}}>Description</th>
+                                <th style={{width:"10%"}}>Weight</th>
+                                <th style={{width:"20%"}}>Price</th>
+                                <th style={{width:"20%"}}>Total</th>
+                                <th style={{width:"10%"}}>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
