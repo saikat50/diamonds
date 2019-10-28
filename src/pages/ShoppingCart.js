@@ -57,13 +57,13 @@ class ShoppingCart extends React.Component {
                 if (caratTotal) priceAVG=total/caratTotal;
                 tableLines.push(           
                  <tr key={index}>
-                    <td>{index}</td>
-                    <td>{ownerName(diamond.owner.id)}</td>
-                    <td>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
-                    <td>{weight}</td>
-                    <td>{price.toFixed(2)}</td>
-                    <td>{lineTotal.toFixed(2)}</td>
-                    <td><img className="deleteMessage" 
+                    {/* <td>{index}</td> */}
+                    <td style={{width:"16%"}}>{ownerName(diamond.owner.id)}</td>
+                    <td style={{width:"16%"}}>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
+                    <td style={{width:"16%"}}>{weight}</td>
+                    <td style={{width:"16%"}}>{price.toFixed(2)}</td>
+                    <td style={{width:"16%"}}>{lineTotal.toFixed(2)}</td>
+                    <td style={{width:"16%"}}><img className="deleteMessage" 
                             onClick={()=>{
                              
                                     diamondsInCart.splice(index,1);
@@ -71,20 +71,20 @@ class ShoppingCart extends React.Component {
                                     deleteFromCart(diamond.id);
                                     
                                 } }
-                            style={{width:"40px"}} 
+                            style={{width:"25%"}} 
                             src={deleteFromCartIcon}></img></td>
                 </tr>)
                 
             })
             tableLines.push(           
                 <tr>
-                   <td></td>
-                   <td></td>
-                   <td></td>
+                   {/* <td></td> */}
+                   <td style={{width:"16%"}}></td>
+                   <td style={{width:"16%"}}></td>
                    <td style={{fontWeight:"bold"}}>{caratTotal.toFixed(2)}</td>
-                   <td>{priceAVG.toFixed(2)}</td>
-                   <td style={{fontWeight:"bold"}}>{total.toFixed(2)}</td>
-                   <td></td>
+                   <td style={{width:"16%"}}>{priceAVG.toFixed(2)}</td>
+                   <td style={{fontWeight:"bold",width:"16%"}}>{total.toFixed(2)}</td>
+                   <td style={{width:"16%"}}></td>
                </tr>)           
             }
             return (
@@ -94,13 +94,13 @@ class ShoppingCart extends React.Component {
                     <Table striped bordered hover size="sm">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Owner</th>
-                                <th>Description</th>
-                                <th>Weight</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                                <th>Delete</th>
+                                {/* <th>#</th> */}
+                                <th style={{width:"16%"}}>Owner</th>
+                                <th style={{width:"16%"}}>Description</th>
+                                <th style={{width:"16%"}}>Weight</th>
+                                <th style={{width:"16%"}}>Price</th>
+                                <th style={{width:"16%"}}>Total</th>
+                                <th style={{width:"16%"}}>Delete</th>
                             </tr>
                         </thead>
                         <tbody>

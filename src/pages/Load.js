@@ -211,8 +211,8 @@ export default class LoadExcel extends React.Component {
                 <DiamondNavbar cart={this.props.cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
                 <Jumbotron fluid>
                     <div style={{position:"relative"}}>
-                    <input className="excelImage"  style={{opacity:"0",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} onChange={this.loadExcelFile} type="file" id="input" />
-                    <img  style={{pointerEvents:"none",position:"absolute",top:"-70px",left:"0", width:"200px",height:"100px"}} src={excelIcon}></img>
+                    <input className="excelImage"  style={{opacity:"0",position:"absolute",top:"-65px",left:"0", width:"20%",height:"7vh"}} onChange={this.loadExcelFile} type="file" id="input" />
+                    <img  style={{pointerEvents:"none",position:"absolute",top:"-65px",left:"0", width:"10%",height:"7vh"}} src={excelIcon}></img>
                     </div>
                     <Table  >
                         <thead>
