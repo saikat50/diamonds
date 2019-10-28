@@ -4,7 +4,8 @@ import readXlsxFile from 'read-excel-file'
 import DiamondNavbar from '../components/DiamondNavbar';
 import Parse from 'parse';
 import excelIcon from '../data/38-383271_excel-logo-png-microsoft-excel-logo-transparent-png.png'
-
+import excelTemplet from '../data/Save_Excel_Icon.jpg'
+import zipcelx from 'zipcelx';
 
 //upload diamonds from excel sheet
 export default class LoadExcel extends React.Component {
@@ -147,6 +148,182 @@ export default class LoadExcel extends React.Component {
         log1.push(<p key={index + 0.5} style={{ color: "purple" }}>upload process completed</p>)
         this.setState({ log1 });
     }
+    downloadTemplet=()=>{
+        const config = {
+            filename: 'diamond import templat',
+            sheet: {
+              data: [
+                [{  
+                  value:'certificateNumber',
+                  type: 'string'
+                }, {
+                    value:'clarity',
+                  type: 'string'
+                }, {
+                    value:'color',
+                  type: 'string'
+                }, {
+                    value:'crownAngle',
+                  type: 'string'
+                }, {
+                    value:'crownHeight',
+                  type: 'string'
+                }, {
+                    value:'culet',
+                  type: 'string'
+                }, {
+                    value:'cut',
+                  type: 'string'
+                }, {
+                    value:'depth',
+                  type: 'string'
+                }, {
+                    value:'diamMax',
+                  type: 'string'
+                }, {
+                    value:'diamMin',
+                  type: 'string'
+                }, {
+                    value:'deptAvg',
+                  type: 'string'
+                }, {
+                    value:'discount',
+                  type: 'string'
+                }, {
+                    value:'fluorescence',
+                  type: 'string'
+                }, {
+                    value:'fluorescenceColor',
+                  type: 'string'
+                }, {
+                    value:'girdle',
+                  type: 'string'
+                }, {
+                    value:'lab',
+                  type: 'string'
+                }, {
+                    value:'lotID',
+                  type: 'string'
+                }, {
+                    value:'lowerHalf',
+                  type: 'string'
+                }, {
+                    value:'pavillionAngle',
+                  type: 'string'
+                }, {
+                    value:'pavillionDepth',
+                  type: 'string'
+                }, {
+                    value:'polish',
+                  type: 'string'
+                }, {
+                    value:'pricePerCarat',
+                  type: 'string'
+                }, {
+                    value:'shape',
+                  type: 'string'
+                }, {
+                    value:'starLength',
+                  type: 'string'
+                }, {
+                    value:'symmetry',
+                  type: 'string'
+                }, {
+                    value:'table',
+                  type: 'string'
+                }, {
+                    value:'weight',
+                  type: 'string'
+                }],[
+                {  
+                    value:'',
+                    type: 'string'
+                  }, {
+                      value:'Required',
+                    type: 'string'
+                  }, {
+                      value:'Required',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'Required',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'Required',
+                    type: 'string'
+                  }, {
+                      value:'Required',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'',
+                    type: 'string'
+                  }, {
+                      value:'Required',
+                    type: 'string'
+                  }
+            ]
+              ]
+            }
+          };
+          
+          zipcelx(config);
+    }
     render() {
 
         const { activeUser, handleLogout, allMessages } = this.props;
@@ -210,9 +387,16 @@ export default class LoadExcel extends React.Component {
             <Container>
                 <DiamondNavbar cart={this.props.cart} allMessages={allMessages} activeUser={activeUser} handleLogout={handleLogout} />
                 <Jumbotron fluid>
-                    <div style={{position:"relative"}}>
-                    <input className="excelImage"  style={{opacity:"0",position:"absolute",top:"-65px",left:"0", width:"20%",height:"7vh"}} onChange={this.loadExcelFile} type="file" id="input" />
-                    <img  style={{pointerEvents:"none",position:"absolute",top:"-65px",left:"0", width:"10%",height:"7vh"}} src={excelIcon}></img>
+                    <div style={{position:"relative",display:"inline-block",width:"100%"}}>
+                        <div  onChange={this.loadExcelFile}>
+                    <input className="excelImage"  style={{opacity:"0",position:"absolute",top:"-65px",left:"0", width:"20%",height:"50px"}} type="file" id="input" />
+                    <img  style={{pointerEvents:"none",position:"absolute",top:"-30px",left:"0", width:"18%",height:"50px"}} src={excelIcon}></img>
+                    </div>
+                    <p style={{marginTop:"20px"}}>Upload Excel</p>
+                    <div  onClick={this.downloadTemplet} className="excelImage"  style={{position:"absolute",top:"-30px",right:"0",height:"50px"}}>
+                    <img style={{height:"50px",marginLeft:"90px"}} src={excelTemplet}></img>
+                    <p>Download Template</p>
+                    </div>
                     </div>
                     <Table  >
                         <thead>
