@@ -58,6 +58,7 @@ export class Search extends React.Component {
   }
 
   saveDiamond = (diamond, atEdit) => {
+    console.log(diamond);
     let { edit, diamondArr } = this.state;
 
     if (atEdit === -1) {
@@ -92,7 +93,8 @@ export class Search extends React.Component {
       myNewObject.set('pricePerCarat', Number(diamond.pricePerCarat));
       myNewObject.set('links', diamond.links);
       // myNewObject.set('inclusions',diamond.inclusions);
-      if (diamond.keepDiscount) myNewObject.set('keepDiscount', diamond.keepDiscount);
+      if (diamond.keepDiscount) {myNewObject.set('keepDiscount', true)} else {myNewObject.set('keepDiscount', false)}
+      // myNewObject.set('keepDiscount', diamond.keepDiscount);
       myNewObject.set('diamMin', Number(diamond.diamMin));
       myNewObject.set('diamMax', Number(diamond.diamMax));
       myNewObject.set('deptAvg', Number(diamond.deptAvg));
@@ -146,7 +148,7 @@ export class Search extends React.Component {
         object.set('pricePerCarat', Number(diamond.pricePerCarat));
         object.set('links', diamond.links);
         // object.set('inclusions',diamond.inclusions);
-        object.set('keepDiscount', diamond.keepDiscount);
+        if (diamond.keepDiscount) {object.set('keepDiscount', true)} else {object.set('keepDiscount', false)}
         object.set('diamMin', Number(diamond.diamMin));
         object.set('diamMax', Number(diamond.diamMax));
         object.set('deptAvg', Number(diamond.deptAvg));

@@ -100,7 +100,7 @@ export default class AddDiamond extends React.Component {
                     pricePerCarat: this.props.diamonds[this.props.edit].pricePerCarat,
                     links: this.props.diamonds[this.props.edit].links,
                     inclusions: this.props.diamonds[this.props.edit].inclusions,
-                    keepDiscount: this.props.diamonds[this.props.edit].keepDiscount,
+                    keepDiscount: (this.props.diamonds[this.props.edit].keepDiscount===true),
                     diamMin: this.props.diamonds[this.props.edit].diamMin,
                     diamMax: this.props.diamonds[this.props.edit].diamMax,
                     deptAvg: this.props.diamonds[this.props.edit].deptAvg,

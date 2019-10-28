@@ -23,6 +23,7 @@ export default class LoadExcel extends React.Component {
 
         const Diamond = Parse.Object.extend('Diamond');
         const myNewObject = new Diamond();
+
         myNewObject.set('lotID', diamond.lotID);
         myNewObject.set('shape', diamond.shape);
         myNewObject.set('weight', Number(diamond.weight));
@@ -45,12 +46,15 @@ export default class LoadExcel extends React.Component {
         myNewObject.set('lowerHalf', Number(diamond.lowerHalf));
         myNewObject.set('girdle', diamond.girdle);
         myNewObject.set('culet', diamond.culet);
+        if (!diamond.list&&diamond.list!=0) diamond.list=0;
         myNewObject.set('list', Number(diamond.list));
+        if (!diamond.list&&diamond.discount!="0") diamond.discount=null;
         myNewObject.set('discount', Number(diamond.discount));
         myNewObject.set('pricePerCarat', Number(diamond.pricePerCarat));
         myNewObject.set('links', diamond.links);
         // myNewObject.set('inclusions',diamond.inclusions);
-        if (diamond.keepDiscount) myNewObject.set('keepDiscount', diamond.keepDiscount);
+        if (diamond.keepDiscount==="true"||diamond.discount!=null) {diamond.keepDiscount=true} else {diamond.keepDiscount=false};
+        myNewObject.set('keepDiscount', diamond.keepDiscount);
         myNewObject.set('diamMin', Number(diamond.diamMin));
         myNewObject.set('diamMax', Number(diamond.diamMax));
         myNewObject.set('deptAvg', Number(diamond.deptAvg));
