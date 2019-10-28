@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/diamonds/static/css/main.f175762f.chunk.css",
-    "main.js": "/diamonds/static/js/main.86c45557.chunk.js",
-    "main.js.map": "/diamonds/static/js/main.86c45557.chunk.js.map",
+    "main.js": "/diamonds/static/js/main.521b5065.chunk.js",
+    "main.js.map": "/diamonds/static/js/main.521b5065.chunk.js.map",
     "runtime-main.js": "/diamonds/static/js/runtime-main.3792c101.js",
     "runtime-main.js.map": "/diamonds/static/js/runtime-main.3792c101.js.map",
     "static/css/2.fcd61327.chunk.css": "/diamonds/static/css/2.fcd61327.chunk.css",
     "static/js/2.a4451e97.chunk.js": "/diamonds/static/js/2.a4451e97.chunk.js",
     "static/js/2.a4451e97.chunk.js.map": "/diamonds/static/js/2.a4451e97.chunk.js.map",
     "index.html": "/diamonds/index.html",
-    "precache-manifest.9d8f7d2047de33db21fb0e7514ef7102.js": "/diamonds/precache-manifest.9d8f7d2047de33db21fb0e7514ef7102.js",
+    "precache-manifest.69f9deede052f053227fdaec130ebd08.js": "/diamonds/precache-manifest.69f9deede052f053227fdaec130ebd08.js",
     "service-worker.js": "/diamonds/service-worker.js",
     "static/css/2.fcd61327.chunk.css.map": "/diamonds/static/css/2.fcd61327.chunk.css.map",
     "static/css/main.f175762f.chunk.css.map": "/diamonds/static/css/main.f175762f.chunk.css.map",
@@ -28,6 +28,6 @@
     "static/css/2.fcd61327.chunk.css",
     "static/js/2.a4451e97.chunk.js",
     "static/css/main.f175762f.chunk.css",
-    "static/js/main.86c45557.chunk.js"
+    "static/js/main.521b5065.chunk.js"
   ]
 }
