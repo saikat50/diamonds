@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "92633ab032869e649f0f198564da84e1",
+    "revision": "8ca5f3a2fbf468a815e6702fbf2c7dc9",
     "url": "/diamonds/index.html"
   },
   {
-    "revision": "c70d41702f567ed4cd76",
-    "url": "/diamonds/static/css/2.fcd61327.chunk.css"
+    "revision": "177c3dd75cfd04c6ea61",
+    "url": "/diamonds/static/css/2.60687596.chunk.css"
   },
   {
-    "revision": "c5ff92f96767a810b43e",
+    "revision": "21356eb59d7ecef9303c",
     "url": "/diamonds/static/css/main.f175762f.chunk.css"
   },
   {
-    "revision": "c70d41702f567ed4cd76",
-    "url": "/diamonds/static/js/2.a4451e97.chunk.js"
+    "revision": "177c3dd75cfd04c6ea61",
+    "url": "/diamonds/static/js/2.4d6cfe00.chunk.js"
   },
   {
-    "revision": "c5ff92f96767a810b43e",
-    "url": "/diamonds/static/js/main.521b5065.chunk.js"
+    "revision": "21356eb59d7ecef9303c",
+    "url": "/diamonds/static/js/main.3ac94d24.chunk.js"
   },
   {
     "revision": "4ea2da3113a5c18a25f6",
@@ -30,6 +30,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "bfb7fd2050d56d8bb4eba1b7aa3512cf",
     "url": "/diamonds/static/media/38-383271_excel-logo-png-microsoft-excel-logo-transparent-png.bfb7fd20.png"
+  },
+  {
+    "revision": "32ea14a0b50e4f2b4f1c4d7e9ef09dd1",
+    "url": "/diamonds/static/media/Save_Excel_Icon.32ea14a0.jpg"
   },
   {
     "revision": "871ee0846adab9c434878ccbf2e25f58",
