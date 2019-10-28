@@ -59,11 +59,11 @@ class ShoppingCart extends React.Component {
                  <tr key={index}>
                     {/* <td>{index}</td> */}
                     <td style={{width:"15%"}}>{ownerName(diamond.owner.id)}</td>
-                    <td style={{width:"20%"}}>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
+                    <td style={{width:"15%"}}>{`${diamond.lotID} ${diamond.shape} ${diamond.color} ${diamond.clarity}`}</td>
                     <td style={{width:"10%"}}>{weight}</td>
-                    <td style={{width:"20%"}}>{price.toFixed(2)}</td>
-                    <td style={{width:"20%"}}>{lineTotal.toFixed(2)}</td>
-                    <td style={{width:"10%"}}><img className="deleteMessage" 
+                    <td style={{width:"15%"}}>{price.toFixed(2)}</td>
+                    <td style={{width:"15%"}}>{lineTotal.toFixed(2)}</td>
+                    <td style={{width:"20%"}}><img className="deleteMessage" 
                             onClick={()=>{
                              
                                     diamondsInCart.splice(index,1);
@@ -71,7 +71,7 @@ class ShoppingCart extends React.Component {
                                     deleteFromCart(diamond.id);
                                     
                                 } }
-                            style={{width:"50%"}} 
+                            style={{width:"30px"}} 
                             src={deleteFromCartIcon}></img></td>
                 </tr>)
                 
@@ -80,11 +80,11 @@ class ShoppingCart extends React.Component {
                 <tr>
                    {/* <td></td> */}
                    <td style={{width:"15%"}}></td>
-                   <td style={{width:"20%"}}></td>
+                   <td style={{width:"15%"}}></td>
                    <td style={{fontWeight:"bold",width:"10%"}}>{caratTotal.toFixed(2)}</td>
-                   <td style={{width:"20%"}}>{priceAVG.toFixed(2)}</td>
-                   <td style={{fontWeight:"bold",width:"20%"}}>{total.toFixed(2)}</td>
-                   <td style={{width:"10%"}}></td>
+                   <td style={{width:"15%"}}>{priceAVG.toFixed(2)}</td>
+                   <td style={{fontWeight:"bold",width:"15%"}}>{total.toFixed(2)}</td>
+                   <td style={{width:"20%"}}></td>
                </tr>)           
             }
             return (
@@ -96,11 +96,11 @@ class ShoppingCart extends React.Component {
                             <tr>
                                 {/* <th>#</th> */}
                                 <th style={{width:"15%"}}>Owner</th>
-                                <th style={{width:"20%"}}>Description</th>
+                                <th style={{width:"15%"}}>Desc</th>
                                 <th style={{width:"10%"}}>Weight</th>
-                                <th style={{width:"20%"}}>Price</th>
-                                <th style={{width:"20%"}}>Total</th>
-                                <th style={{width:"10%"}}>Delete</th>
+                                <th style={{width:"15%"}}>Price</th>
+                                <th style={{width:"15%"}}>Total</th>
+                                <th style={{width:"20%"}}>Del</th>
                             </tr>
                         </thead>
                         <tbody>
