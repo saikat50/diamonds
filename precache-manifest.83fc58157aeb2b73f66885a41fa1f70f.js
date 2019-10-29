@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fd22aacaa90688ce04bfbdebee0a7e46",
+    "revision": "5844613cf3d1c8d859d7b62597491a76",
     "url": "/diamonds/index.html"
   },
   {
-    "revision": "177c3dd75cfd04c6ea61",
+    "revision": "067dad614b27c61f923f",
     "url": "/diamonds/static/css/2.60687596.chunk.css"
   },
   {
-    "revision": "77a66a663bd8473f371a",
+    "revision": "e5354f558174fa9e01ff",
     "url": "/diamonds/static/css/main.f175762f.chunk.css"
   },
   {
-    "revision": "177c3dd75cfd04c6ea61",
-    "url": "/diamonds/static/js/2.4d6cfe00.chunk.js"
+    "revision": "067dad614b27c61f923f",
+    "url": "/diamonds/static/js/2.c6c8115b.chunk.js"
   },
   {
-    "revision": "77a66a663bd8473f371a",
-    "url": "/diamonds/static/js/main.b45dfc84.chunk.js"
+    "revision": "e5354f558174fa9e01ff",
+    "url": "/diamonds/static/js/main.4403dd66.chunk.js"
   },
   {
     "revision": "4ea2da3113a5c18a25f6",
