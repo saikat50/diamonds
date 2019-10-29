@@ -54,8 +54,7 @@ export default class LoadExcel extends React.Component {
         myNewObject.set('pricePerCarat', Number(diamond.pricePerCarat));
         myNewObject.set('links', diamond.links);
         // myNewObject.set('inclusions',diamond.inclusions);
-        if (diamond.keepDiscount==="true"||diamond.discount!=null) {diamond.keepDiscount=true} else {diamond.keepDiscount=false};
-        myNewObject.set('keepDiscount', diamond.keepDiscount);
+        myNewObject.set('keepDiscount', false);
         myNewObject.set('diamMin', Number(diamond.diamMin));
         myNewObject.set('diamMax', Number(diamond.diamMax));
         myNewObject.set('deptAvg', Number(diamond.deptAvg));
