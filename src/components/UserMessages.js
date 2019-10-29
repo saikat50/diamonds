@@ -35,7 +35,9 @@ export default class UserMessages extends React.Component {
         }
     
     }
-
+componentDidUpdate(){
+    this.conv.scrollTop = this.conv.scrollHeight;
+}
     componentDidMount(){
         this.conv.scrollTop = this.conv.scrollHeight;
         const { activeUser, allMessages,messageRead,allUsers } = this.props;
@@ -56,7 +58,7 @@ export default class UserMessages extends React.Component {
         const { activeUser, handleLogout, allUsers, allMessages, addMessage,deleteMessage,markDeleted } = this.props;
         let theSender = userDetails(this.state.id, allUsers);
         
-        if (theSender.pic) { pic = theSender.pic["_url"] } else { pic = "https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png" }
+        if (theSender.pic) { pic = theSender.pic["_url"] } else { pic = "https://scontent.ftlv6-1.fna.fbcdn.net/v/t31.0-1/c379.0.1290.1290a/10506738_10150004552801856_220367501106153455_o.jpg?_nc_cat=1&cachebreaker=sd&_nc_oc=AQmDPuqAMC36xNBFYpWyGbruJPR0Bwnz_z8drIOP6ckngglLREPuhsA77Q9ZymgFONs&_nc_ht=scontent.ftlv6-1.fna&oh=de23631b35970c121e8f864db29fb977&oe=5E4D3749" }
         let showConversation = [];
         let conversation = usersMessages(activeUser, allMessages, theSender);
         conversation.messages.forEach(message => {

@@ -100,7 +100,7 @@ export default class AddDiamond extends React.Component {
                     pricePerCarat: this.props.diamonds[this.props.edit].pricePerCarat,
                     links: this.props.diamonds[this.props.edit].links,
                     inclusions: this.props.diamonds[this.props.edit].inclusions,
-                    keepDiscount: (this.props.diamonds[this.props.edit].keepDiscount===true),
+                    keepDiscount: (this.props.diamonds[this.props.edit].keepDiscount === true),
                     diamMin: this.props.diamonds[this.props.edit].diamMin,
                     diamMax: this.props.diamonds[this.props.edit].diamMax,
                     deptAvg: this.props.diamonds[this.props.edit].deptAvg,
@@ -272,13 +272,9 @@ export default class AddDiamond extends React.Component {
     getLotId = () => {
         let disableSave = false;
         let { diamond } = this.state;
-        diamond.lotID = this.textInput.value
-
-        this.setState({
-
-            disableSave,
-            diamond
-        })
+        diamond.lotID = this.textInput.value;
+        this.textInput.focus();
+        this.setState({ disableSave, diamond });
     }
     getLab = (element) => {
         let disableSave = false;
@@ -298,14 +294,13 @@ export default class AddDiamond extends React.Component {
         let { diamond } = this.state;
 
         if (Number(this.weightInput.value) > 0) {
-            this.state.diamond.weight = Number(this.weightInput.value)
+            diamond.weight = Number(this.weightInput.value)
         }
-        diamond.color = this.colorInput.value
-        diamond.clarity = this.clarityInput.value
+        diamond.color = this.colorInput.value;
+        diamond.clarity = this.clarityInput.value;
 
-
-        if (this.state.diamond.shape && this.state.diamond.color && this.state.diamond.clarity && this.state.diamond.weight) {
-            diamond.list = listPrice(this.state.diamond.shape, this.state.diamond.color, this.state.diamond.clarity, this.state.diamond.weight, this.props.prices)
+        if (diamond.shape && diamond.color && diamond.clarity && diamond.weight) {
+            diamond.list = listPrice(diamond.shape, diamond.color, diamond.clarity, diamond.weight, this.props.prices.response.body.price);
         }
         else diamond.list = 0;
 
@@ -448,9 +443,6 @@ export default class AddDiamond extends React.Component {
                 <div key={this.state.diamond.lotID}>
                     <Modal.Body>Lot ID
                                 <InputGroup className="mb-3">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="basic-addon1"></InputGroup.Text>
-                            </InputGroup.Prepend>
                             <FormControl onChange={this.getLotId} defaultValue={this.state.diamond.lotID} ref={(element) => { this.textInput = element }}
                                 placeholder="Enter Lot ID"
                             />

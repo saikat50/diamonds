@@ -16,11 +16,12 @@ import ShoppingCart from '../src/pages/ShoppingCart'
 import About from '../src/pages/About'
 import $ from "jquery";
 import LoadExcel  from './pages/Load';
+// import rapList from '../src/data/prices.json';
 
 // input: 4c's of diamond and a pricelist. output : list price of the diamond
 export function listPrice(shape, color, clarity, weight, priceList) {
-
-  if (shape !== "BR" && shape !== "round") { shape = "pear" } else { shape = "round" };
+// priceList=rapList;
+  if (shape != "BR" && shape != "round") { shape = "pear" } else { shape = "round" };
   for (var i = 0; i < priceList.length; i++) { //searches the right price on the pricelist
     if (shape === priceList[i].shape && color === priceList[i].color &&
       clarity === priceList[i].clarity && weight >= Number(priceList[i].low_size) &&

@@ -50,7 +50,7 @@ export class Messages extends React.Component {
         allUsersSorted.forEach(user => {
             let lastMessageRecieved="";
             if (activeUser && activeUser.id!==user.user.id && ( user.user.username.toLowerCase().includes(filter.toLowerCase())||user.user.lname.toLowerCase().includes(filter.toLowerCase())||user.user.fname.toLowerCase().includes(filter.toLowerCase()))){
-                if (user.user.pic)  {pic=user.user.pic["_url"]} else {pic="https://aussiegossip.com.au/wp-content/uploads/2015/11/anonymous-logo-transparent-wallpaper-4.png"}
+                if (user.user.pic)  {pic=user.user.pic["_url"]} else {pic="https://scontent.ftlv6-1.fna.fbcdn.net/v/t31.0-1/c379.0.1290.1290a/10506738_10150004552801856_220367501106153455_o.jpg?_nc_cat=1&cachebreaker=sd&_nc_oc=AQmDPuqAMC36xNBFYpWyGbruJPR0Bwnz_z8drIOP6ckngglLREPuhsA77Q9ZymgFONs&_nc_ht=scontent.ftlv6-1.fna&oh=de23631b35970c121e8f864db29fb977&oe=5E4D3749"}
                 if (user.new) {newMessages=  <Badge pill variant="success">{user.new} </Badge>} else {newMessages=""}
                 if (user.lastMessageRecieved) lastMessageRecieved=(`${parseDateTime(user.lastMessageRecieved)}`)
                 listUsers.push(<ListGroup.Item key={user.user.id}
