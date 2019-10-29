@@ -125,10 +125,10 @@ export default class LoadExcel extends React.Component {
                     diamond[headerKeys[i]] = Number(row[header[headerKeys[i]]])
                 }
                 else if (["lotID", "fluorescence", "fluorescenceColor", "culet"].includes(headerKeys[i])) {
-                    diamond[headerKeys[i]] = row[header[headerKeys[i]]]
+                    diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString()
                 }
                 else {
-                    diamond[headerKeys[i]] = row[header[headerKeys[i]]];
+                    diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString();
                 }
             }
             diamond.owner = Parse.User.current();
