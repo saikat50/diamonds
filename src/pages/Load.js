@@ -128,7 +128,7 @@ export default class LoadExcel extends React.Component {
                     diamond[headerKeys[i]] = row[header[headerKeys[i]]]
                 }
                 else {
-                    diamond[headerKeys[i]] = row[header[headerKeys[i]].toUpperCase()];
+                    diamond[headerKeys[i]] = row[header[headerKeys[i]]];
                 }
             }
             diamond.owner = Parse.User.current();
