@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8ca5f3a2fbf468a815e6702fbf2c7dc9",
+    "revision": "087ac554d574f10125ecda6d8031b449",
     "url": "/diamonds/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/diamonds/static/css/2.60687596.chunk.css"
   },
   {
-    "revision": "21356eb59d7ecef9303c",
+    "revision": "f0d356dd3e68afdebdf1",
     "url": "/diamonds/static/css/main.f175762f.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/diamonds/static/js/2.4d6cfe00.chunk.js"
   },
   {
-    "revision": "21356eb59d7ecef9303c",
-    "url": "/diamonds/static/js/main.3ac94d24.chunk.js"
+    "revision": "f0d356dd3e68afdebdf1",
+    "url": "/diamonds/static/js/main.2d4edaa0.chunk.js"
   },
   {
     "revision": "4ea2da3113a5c18a25f6",
