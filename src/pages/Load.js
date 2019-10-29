@@ -125,9 +125,11 @@ export default class LoadExcel extends React.Component {
                     diamond[headerKeys[i]] = Number(row[header[headerKeys[i]]])
                 }
                 else if (["lotID", "fluorescence", "fluorescenceColor", "culet"].includes(headerKeys[i])) {
+                    if (row[header[headerKeys[i]]])
                     diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString()
                 }
                 else {
+                    if (row[header[headerKeys[i]]])
                     diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString();
                 }
             }
