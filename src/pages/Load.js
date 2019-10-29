@@ -124,22 +124,15 @@ export default class LoadExcel extends React.Component {
                 if (["weight", "dept", "table", "crownAngle", "crownHeight", "pavillionAngle", "pavillionDept", "starLength", "lowerHalf", "discount", "pricePerCarat", "deptAvg", "diamMin", "diamMax"].includes(headerKeys[i])) {
                     diamond[headerKeys[i]] = Number(row[header[headerKeys[i]]])
                 }
-                else if (["lotID", "fluorescence", "fluorescenceColor", "culet"].includes(headerKeys[i])) {
-                    if (row[header[headerKeys[i]]]){
-                        console.log(row[header[headerKeys[i]]]);
-                    diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString()
-                    }
-                }
-                else {
-                    if (row[header[headerKeys[i]]]){
-                        if (row[header[headerKeys[i]]]){
-                            console.log(row[header[headerKeys[i]]]);
-                        diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString()
-                        }
+                // else if (["lotID", "fluorescence", "fluorescenceColor", "culet"].includes(headerKeys[i])) {
+                //     diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString()
+                // }
+                else if (row[header[headerKeys[i]]]) {
+                    diamond[headerKeys[i]] = row[header[headerKeys[i]]].toString();
                 }
             }
             diamond.owner = Parse.User.current();
-            if (diamond.keepDiscount || diamond.keepDiscount === 0) { diamond.keepDiscount = true } else { diamond.keepDiscount = false };
+            if (diamond.keepDiscount || diamond.keepDiscount === "0" || diamond.discount) { diamond.keepDiscount = true } else { diamond.keepDiscount = false };
 
             //checks if there ar the necesary 6 fields
             if (diamond.lotID && diamond.weight && diamond.shape && diamond.color && diamond.clarity && diamond.pricePerCarat) {
