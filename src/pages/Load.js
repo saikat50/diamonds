@@ -389,7 +389,7 @@ export default class LoadExcel extends React.Component {
                 <Jumbotron fluid>
                     <div style={{position:"relative",display:"inline-block",width:"100%"}}>
                         <div  onChange={this.loadExcelFile}>
-                    <input className="excelImage"  style={{opacity:"0",position:"absolute",top:"-65px",left:"0", width:"20%",height:"50px"}} type="file" id="input" />
+                    <input className="excelImage"  style={{opacity:"0",position:"absolute",top:"-65px",left:"0", width:"30%",height:"80px"}} type="file" id="input" />
                     <img  style={{pointerEvents:"none",position:"absolute",top:"-30px",left:"0", width:"18%",height:"50px"}} src={excelIcon}></img>
                     </div>
                     <p style={{marginTop:"20px"}}>Upload Excel</p>

@@ -3,7 +3,7 @@ import { Container, Jumbotron, ListGroup } from 'react-bootstrap'
 import messagearrived from '../data/V-512.png'
 import messageread from '../data/seen-300x225.webp'
 import cartIcon from '../data/flat_seo3-24-512.png'
-
+import excelTemplet from '../data/Save_Excel_Icon.jpg'
 import DiamondNavbar from '../components/DiamondNavbar';
 
 export default class About extends React.Component {
@@ -37,7 +37,7 @@ export default class About extends React.Component {
                             <ListGroup.Item>filter - filter the list of diamonds by min weight and max weight</ListGroup.Item>
                             <ListGroup.Item>filter - filter the list by shapes buttons, mutiple selectio, clear all and select all</ListGroup.Item>
                             <ListGroup.Item>filter - double sided range input for color and clarity</ListGroup.Item>
-                            <ListGroup.Item>Upload from excel</ListGroup.Item>
+                            <ListGroup.Item>Upload from excel <img style={{width:"30px"}} src={excelTemplet}></img></ListGroup.Item>
                             <ListGroup.Item>Mapping excel headers with parse object keys</ListGroup.Item>
                             <ListGroup.Item variant="warning">Messages</ListGroup.Item>
                             <ListGroup.Item>List of members, sorted by new messages and by last message date</ListGroup.Item>
